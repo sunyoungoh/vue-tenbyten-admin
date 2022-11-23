@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { getOrders, getOrderHistory } from '@/api/index';
+import { getOrders, getOrderHistory } from '@/api/order';
 
 export default {
   data() {
@@ -55,11 +55,11 @@ export default {
         try {
           if (this.$store.state.clickedBtn == 'new-orders') {
             console.log('신규 주문 목록을 조회합니다.');
-            response = await getOrders(this.apiKey, this.brandId);
+            response = await getOrders(this.brandId);
           }
           if (this.$store.state.clickedBtn == 'ready') {
             console.log('배송 준비 중 목록을 조회합니다.');
-            response = await getOrderHistory(this.apiKey, this.brandId);
+            response = await getOrderHistory(this.brandId);
           }
           this.$store.commit('setOrderList', response.data.outPutValue);
         } catch (error) {

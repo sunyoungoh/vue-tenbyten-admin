@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { postOrder } from '@/api/index';
+import { postOrder } from '@/api/order';
 export default {
   props: {
     item: {
@@ -58,7 +58,6 @@ export default {
     async postOrder() {
       try {
         await postOrder(
-          this.$store.state.apiKey,
           this.item['OrderSerial'],
           this.item['details'][0]['DetailIdx'],
         );
