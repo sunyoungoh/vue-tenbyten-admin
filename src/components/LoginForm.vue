@@ -39,31 +39,40 @@ export default {
     };
   },
   methods: {
-    async getOrdersData(clickedBtn) {
+    inputEmptyCheck() {
       !this.apiKey
         ? (this.apiKeyError = 'apiKey를 입력해주세요.')
         : (this.apiKeyError = '');
       !this.brandId
         ? (this.brandIdError = 'brandId를 입력해주세요.')
         : (this.brandIdError = '');
-
+    },
+    async getOrdersData(clickedBtn) {
+      this.inputEmptyCheck();
       if (this.apiKey !== '' && this.brandId !== '') {
         this.$store.commit('setApiKey', this.apiKey);
         this.$store.commit('setBrandId', this.brandId);
         this.$store.commit('setClickedBtn', clickedBtn);
-        let response = [];
         try {
+          let response = [];
           if (this.$store.state.clickedBtn == 'new-orders') {
-            console.log('신규 주문 목록을 조회합니다.');
             response = await getOrders(this.brandId);
           }
           if (this.$store.state.clickedBtn == 'ready') {
-            console.log('배송 준비 중 목록을 조회합니다.');
             response = await getOrderHistory(this.brandId);
           }
-          this.$store.commit('setOrderList', response.data.outPutValue);
+          if (response.data.totalCount !== 0) {
+            this.$store.commit('setOrderList', response.data.outPutValue);
+          } else {
+            let resultMsg = '';
+            clickedBtn == 'new-orders'
+              ? (resultMsg = '신규 주문이 없습니다.')
+              : (resultMsg = '배송 준비 중인 주문이 없습니다.');
+            this.$store.commit('setResultMsg', resultMsg);
+          }
         } catch (error) {
           this.$store.commit('clearOrderList');
+          this.$store.commit('setResultMsg', '에러가 발생했습니다.');
           console.log(error);
         }
       }

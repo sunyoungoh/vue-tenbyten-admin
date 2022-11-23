@@ -14,7 +14,7 @@
       </tr>
       <OrderItem v-for="(item, i) in orderList" :key="i" :item="item" />
     </table>
-    <p>{{ resultMsg }}</p>
+    <p>{{ this.$store.state.resultMsg }}</p>
   </div>
 </template>
 
@@ -29,18 +29,6 @@ export default {
     return {
       orderList: this.$store.state.orderList,
     };
-  },
-  computed: {
-    resultMsg() {
-      let message = '';
-      if (this.orderList == '') {
-        if (this.$store.state.clickedBtn == 'new-orders')
-          message = '신규 주문이 없습니다.';
-        if (this.$store.state.clickedBtn == 'ready')
-          message = '배송 준비 중인 주문이 없습니다.';
-      }
-      return message;
-    },
   },
 };
 </script>

@@ -11,6 +11,7 @@ export default new Vuex.Store({
     brandId: '',
     clickedBtn: '',
     orderList: [],
+    resultMsg: '',
   },
   mutations: {
     setApiKey(state, apiKey) {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     clearOrderList(state) {
       state.orderList = [];
+    },
+    setResultMsg(state, msg) {
+      state.resultMsg = msg;
     },
   },
   actions: {},
