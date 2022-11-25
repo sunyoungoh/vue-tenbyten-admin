@@ -1,31 +1,38 @@
-import { instanceAuth } from './index';
+import { instance, instanceAuth } from './index';
+import store from '@/store/index';
 
-function getOrders(brandId) {
-  return instanceAuth.get('/v2/orders', {
+const getOrders = () => {
+  return instanceAuth.get('/api/v2/orders', {
     params: {
-      brandId: brandId,
+      brandId: store.state.brandId,
       startdate: getThreedaysAgo(),
       enddate: getToday(),
     },
   });
-}
-function getOrderHistory(brandId) {
-  return instanceAuth.get('/v2/orders/orderhistory', {
+};
+
+const getOrderHistory = () => {
+  return instanceAuth.get('/api/v2/orders/orderhistory', {
     params: {
-      brandId: brandId,
+      brandId: store.state.brandId,
       startdate: getThreedaysAgo(),
       enddate: getToday(),
     },
   });
-}
-function postOrder(OrderSerial, DetailIdx) {
+};
+
+const sendMail = (itemId, itemOptionName, toEmail) => {
+  return instance.get(`/mail/send/${itemId}/${itemOptionName}/${toEmail}`);
+};
+
+const postOrder = (OrderSerial, DetailIdx) => {
   return instanceAuth.post('/v2/orders/orderconfirm', {
     orderSerial: OrderSerial,
     detailIdx: DetailIdx,
-    songjangDiv: '97',
+    songjangDiv: '97', // 문자/이메일 발송 코드
     songjangNo: '0',
   });
-}
+};
 
 const getThreedaysAgo = () => {
   let date = new Date();
@@ -44,4 +51,4 @@ const getToday = () => {
   return year + '-' + month + '-' + day;
 };
 
-export { getOrders, getOrderHistory, postOrder };
+export { getOrders, getOrderHistory, sendMail, postOrder };

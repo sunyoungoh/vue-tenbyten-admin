@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { setInterceptors } from '@/api/interceptors';
 
-// 액시오스 초기화 함수
+function createInstance() {
+  return axios.create({
+    withCredentials: true,
+  });
+}
+
 function createInstanceWithAuth() {
   const instance = axios.create({
     withCredentials: true,
@@ -9,4 +14,5 @@ function createInstanceWithAuth() {
   return setInterceptors(instance);
 }
 
+export const instance = createInstance();
 export const instanceAuth = createInstanceWithAuth();

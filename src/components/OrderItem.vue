@@ -1,9 +1,7 @@
 <template>
   <tr>
-    <!-- <td>{{ item['OrderSerial'] }}</td> -->
-    <!-- <td>{{ item['details'][0]['DetailIdx'] }}</td> -->
-    <!-- <td>{{ item['UserId'] }}</td> -->
     <td>{{ orderDate }}</td>
+    <td>{{ item['UserId'] }}</td>
     <td>{{ item['ordererName'] }}</td>
     <td>{{ itemName }}</td>
     <td>{{ itemOptionName }}</td>
@@ -21,7 +19,7 @@
 </template>
 
 <script>
-import { postOrder } from '@/api/order';
+import { sendMail, postOrder } from '@/api/order';
 export default {
   props: {
     item: {
@@ -47,24 +45,41 @@ export default {
       );
     },
     itemOptionName() {
+      let str = this.item['details'][0]['itemOptionName'];
       let endIndex = this.item['details'][0]['itemOptionName'].indexOf('꼭');
-      return this.item['details'][0]['itemOptionName'].substring(
-        0,
-        endIndex - 1,
-      );
+      if (endIndex !== -1) {
+        return this.item['details'][0]['itemOptionName'].substring(
+          0,
+          endIndex - 1,
+        );
+      } else {
+        return str;
+      }
     },
   },
   methods: {
     async postOrder() {
       try {
-        await postOrder(
-          this.item['OrderSerial'],
-          this.item['details'][0]['DetailIdx'],
+        const sendResult = await sendMail(
+          this.item['details'][0]['itemId'],
+          this.itemOptionName,
+          this.item['details'][0]['RequireMemo'],
         );
-        this.postResult = 'complete';
+        if (sendResult.status == 200) {
+          try {
+            await postOrder(
+              this.item['OrderSerial'],
+              this.item['details'][0]['DetailIdx'],
+            );
+            this.postResult = 'complete';
+          } catch (error) {
+            console.log(error.response.data.message);
+            this.postResult = 'fail';
+          }
+        }
       } catch (error) {
-        console.log(error.response.data.message);
-        this.postResult = 'fail';
+        console.log(error);
+        if (error.response.status == 400) this.postResult = 'fail';
       }
     },
   },

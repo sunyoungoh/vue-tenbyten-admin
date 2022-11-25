@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { getOrders, getOrderHistory } from '@/api/order';
-
 export default {
   data() {
     return {
@@ -35,7 +33,6 @@ export default {
       brandId: this.$store.state.brandId,
       apiKeyError: '',
       brandIdError: '',
-      resultMsg: '',
     };
   },
   methods: {
@@ -53,28 +50,7 @@ export default {
         this.$store.commit('setApiKey', this.apiKey);
         this.$store.commit('setBrandId', this.brandId);
         this.$store.commit('setClickedBtn', clickedBtn);
-        try {
-          let response = [];
-          if (this.$store.state.clickedBtn == 'new-orders') {
-            response = await getOrders(this.brandId);
-          }
-          if (this.$store.state.clickedBtn == 'ready') {
-            response = await getOrderHistory(this.brandId);
-          }
-          if (response.data.totalCount !== 0) {
-            this.$store.commit('setOrderList', response.data.outPutValue);
-          } else {
-            let resultMsg = '';
-            clickedBtn == 'new-orders'
-              ? (resultMsg = '신규 주문이 없습니다.')
-              : (resultMsg = '배송 준비 중인 주문이 없습니다.');
-            this.$store.commit('setResultMsg', resultMsg);
-          }
-        } catch (error) {
-          this.$store.commit('clearOrderList');
-          this.$store.commit('setResultMsg', '에러가 발생했습니다.');
-          console.log(error);
-        }
+        await this.$store.dispatch('getOrdersData');
       }
     },
   },

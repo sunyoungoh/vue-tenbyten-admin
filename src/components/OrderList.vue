@@ -4,8 +4,8 @@
       <tr>
         <!-- <th>주문번호</th> -->
         <!-- <th>주문상세번호</th> -->
-        <!-- <th>주문자ID</th> -->
         <th>주문일</th>
+        <th>주문자ID</th>
         <th>주문자</th>
         <th>상품명</th>
         <th>옵션</th>
@@ -25,10 +25,10 @@ export default {
   components: {
     OrderItem,
   },
-  data() {
-    return {
-      orderList: this.$store.state.orderList,
-    };
+  computed: {
+    orderList() {
+      return this.$store.state.orderList;
+    },
   },
 };
 </script>
