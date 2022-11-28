@@ -114,7 +114,8 @@ button {
 .btn-outline {
   background-color: #fff;
   color: #222222;
-  outline: 1px solid #222222;
+  outline: none;
+  box-shadow: 0 0 0 1px #222222;
 }
 
 .btns_post button {

@@ -21,12 +21,12 @@ const getOrderHistory = () => {
   });
 };
 
-const sendMail = (itemId, itemOptionName, toEmail) => {
-  return instance.get(`/mail/send/${itemId}/${itemOptionName}/${toEmail}`);
+const sendMail = mailData => {
+  return instance.post('/mail', mailData);
 };
 
 const postOrder = (OrderSerial, DetailIdx) => {
-  return instanceAuth.post('/v2/orders/orderconfirm', {
+  return instanceAuth.post('/api/v2/orders/orderconfirm', {
     orderSerial: OrderSerial,
     detailIdx: DetailIdx,
     songjangDiv: '97', // 문자/이메일 발송 코드
