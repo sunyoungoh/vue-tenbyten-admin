@@ -6,6 +6,7 @@ const order = {
     orderList: [],
     resultStatusCode: '',
     titleInfo: [],
+    loading: false,
   },
   getters: {
     orderListCount(state) {
@@ -37,18 +38,20 @@ const order = {
     clearResultStatusCode(state) {
       state.resultStatusCode == '';
     },
+    setLoading(state, value) {
+      state.loading = value;
+    },
   },
   actions: {
-    async getOrdersData({ commit, state, dispatch }) {
+    async getOrdersData({ state, commit, dispatch }) {
       commit('clearResultStatusCode');
       commit('clearOrderList');
       let response = [];
+      commit('setLoading', true);
       if (state.clickedBtn == 'new-orders') {
         response = await getOrders();
-        console.log('orders');
       } else if (state.clickedBtn == 'ready') {
         response = await getOrderHistory();
-        console.log('ready');
       }
       if (response.data.code == 'SUCCESS') {
         commit('setResultStatusCode', 200);
@@ -61,6 +64,7 @@ const order = {
         commit('setResultStatusCode', response.status);
       }
       dispatch('fetchTitleInfo');
+      commit('setLoading', false);
     },
     fetchTitleInfo({ commit, state, getters }) {
       commit('clearTitleInfo');

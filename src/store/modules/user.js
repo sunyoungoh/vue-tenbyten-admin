@@ -35,9 +35,8 @@ const user = {
       commit('clearBrandNameKor');
       commit('clearResultStatusCode', null, { root: true });
       commit('clearOrderList', null, { root: true });
-
+      commit('setLoading', true, { root: true });
       let { data } = await getBrandInfo();
-      console.log(data);
       if (data.code == 'SUCCESS') {
         if (brandId == data.outPutValue[0].brandid) {
           commit('setBrandNameKor', data.outPutValue[0].BrandNameKor);
@@ -55,6 +54,7 @@ const user = {
           { root: true },
         );
       }
+      commit('setLoading', false, { root: true });
     },
     logout({ commit }) {
       commit('login', false);
