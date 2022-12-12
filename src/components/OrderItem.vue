@@ -78,15 +78,14 @@ export default {
   },
   methods: {
     async postOrder() {
-      try {
-        await dispatchOrder(
-          this.item['OrderSerial'],
-          this.item['details'][0]['DetailIdx'],
-        );
+      const { data } = await dispatchOrder(
+        this.item['OrderSerial'],
+        this.item['details'][0]['DetailIdx'],
+      );
+      if (data.code == 'SUCCESS') {
         this.loading = false;
         this.postResult = 'complete';
-      } catch (error) {
-        console.log(error);
+      } else {
         this.postResult = 'fail';
       }
     },

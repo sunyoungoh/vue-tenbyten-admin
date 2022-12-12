@@ -34,7 +34,7 @@ const dispatchOrder = (OrderSerial, DetailIdx) => {
       songjangDiv: '97', // 문자/이메일 발송 코드
       songjangNo: '0',
     },
-    headers,
+    { headers },
   );
 };
 
