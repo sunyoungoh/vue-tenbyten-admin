@@ -96,10 +96,12 @@ export default {
       if (this.validateEmail) {
         try {
           sendResult = await sendMail({
-            items: {
-              itemId: this.item['details'][0]['itemId'],
-              itemOptionName: this.itemOptionName,
-            },
+            items: [
+              {
+                itemId: this.item['details'][0]['itemId'],
+                itemOptionName: this.itemOptionName,
+              },
+            ],
             toEmail: this.item['details'][0]['RequireMemo'],
           });
           console.log('메일 전송 완료');
