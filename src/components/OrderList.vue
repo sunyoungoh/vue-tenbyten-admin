@@ -1,20 +1,26 @@
 <template>
   <div class="order-list-container">
-    <table v-if="orderList.length !== 0">
-      <tr>
-        <!-- <th>주문번호</th> -->
-        <!-- <th>주문상세번호</th> -->
-        <th>주문일</th>
-        <th>주문자ID</th>
-        <th>주문자</th>
-        <th>상품명</th>
-        <th>옵션</th>
-        <th>주문메모</th>
-        <th v-if="this.$store.state.clickedBtn == 'ready'">발송상태</th>
-      </tr>
-      <OrderItem v-for="(item, i) in orderList" :key="i" :item="item" />
-    </table>
-    <p>{{ this.$store.state.resultMsg }}</p>
+    <h1 v-if="titleInfo" :class="titleInfo.css">
+      {{ titleInfo.msg }}
+    </h1>
+    <div class="table-container" id="no-more-tables">
+      <table v-if="orderListCount !== 0">
+        <thead>
+          <tr>
+            <th>주문일</th>
+            <th>주문자ID</th>
+            <th class="orderer-name">주문자</th>
+            <th class="item-name">상품명</th>
+            <th class="item-option">옵션</th>
+            <th>주문메모</th>
+            <th v-if="clickedBtn == 'ready'">발송상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <OrderItem v-for="(item, i) in orderList" :key="i" :item="item" />
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -27,7 +33,16 @@ export default {
   },
   computed: {
     orderList() {
-      return this.$store.state.orderList;
+      return this.$store.state.order.orderList;
+    },
+    orderListCount() {
+      return this.$store.getters.orderListCount;
+    },
+    clickedBtn() {
+      return this.$store.state.order.clickedBtn;
+    },
+    titleInfo() {
+      return this.$store.state.order.titleInfo;
     },
   },
 };

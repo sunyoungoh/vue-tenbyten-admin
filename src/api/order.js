@@ -1,54 +1,41 @@
-import { instance, instanceAuth } from './index';
+import { instance } from './index';
 import store from '@/store/index';
+import { getThreedaysAgo, getToday } from '@/utils/getDays';
+
+const headers = { Authorization: `bearer ${store.state.user.apiKey}` };
+const params = {
+  brandId: store.state.user.brandId,
+  startdate: getThreedaysAgo(),
+  enddate: getToday(),
+};
+
+const getBrandInfo = () => {
+  return instance.get('/tenbyten/brandinfo', { headers });
+};
 
 const getOrders = () => {
-  return instanceAuth.get('/api/v2/orders', {
-    params: {
-      brandId: store.state.brandId,
-      startdate: getThreedaysAgo(),
-      enddate: getToday(),
-    },
-  });
+  return instance.get('/tenbyten/orders', { headers, params });
 };
 
 const getOrderHistory = () => {
-  return instanceAuth.get('/api/v2/orders/orderhistory', {
-    params: {
-      brandId: store.state.brandId,
-      startdate: getThreedaysAgo(),
-      enddate: getToday(),
-    },
-  });
+  return instance.get('/tenbyten/orders/orderhistory', { headers, params });
 };
 
 const sendMail = mailData => {
   return instance.post('/mail', mailData);
 };
 
-const postOrder = (OrderSerial, DetailIdx) => {
-  return instanceAuth.post('/api/v2/orders/orderconfirm', {
-    orderSerial: OrderSerial,
-    detailIdx: DetailIdx,
-    songjangDiv: '97', // 문자/이메일 발송 코드
-    songjangNo: '0',
-  });
+const dispatchOrder = (OrderSerial, DetailIdx) => {
+  return instance.post(
+    '/tenbyten/orders/orderconfirm',
+    {
+      orderSerial: OrderSerial,
+      detailIdx: DetailIdx,
+      songjangDiv: '97', // 문자/이메일 발송 코드
+      songjangNo: '0',
+    },
+    headers,
+  );
 };
 
-const getThreedaysAgo = () => {
-  let date = new Date();
-  let year = date.getFullYear();
-  let month = ('0' + (1 + date.getMonth())).slice(-2);
-  let day = ('0' + date.getDate()).slice(-2) - 3;
-
-  return year + '-' + month + '-' + day;
-};
-const getToday = () => {
-  let date = new Date();
-  let year = date.getFullYear();
-  let month = ('0' + (1 + date.getMonth())).slice(-2);
-  let day = ('0' + date.getDate()).slice(-2);
-
-  return year + '-' + month + '-' + day;
-};
-
-export { getOrders, getOrderHistory, sendMail, postOrder };
+export { getBrandInfo, getOrders, getOrderHistory, sendMail, dispatchOrder };
