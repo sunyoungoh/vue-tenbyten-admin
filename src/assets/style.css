@@ -199,7 +199,6 @@ button:disabled {
   outline: none;
   box-shadow: 0 0 0 1px #222222;
 }
-
 .btns_post button {
   width: 80px;
   height: 40px;
@@ -207,16 +206,18 @@ button:disabled {
   padding: 0.3rem 1rem;
   transition: all 0.25s;
   font-weight: normal;
+}
+.btn_post-default,
+.btn_post-complete,
+.btn_post-fail {
+  cursor: default;
   color: #fff;
 }
-
 .btn_post-complete {
   background-color: #19a259;
-  cursor: default;
 }
 .btn_post-fail {
   background-color: #e53d3d;
-  cursor: default;
 }
 .btn_post-loading {
   background-color: #e2e2e2;

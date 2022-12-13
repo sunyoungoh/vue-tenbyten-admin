@@ -13,20 +13,26 @@
       class="btns_post"
       v-if="this.$store.state.order.clickedBtn == 'ready'"
     >
-      <button
-        @click="sendMailAndPostOrder"
-        v-if="postResult == 'none' && loading == false"
-      >
-        {{ btnText }}
-      </button>
-      <button v-if="loading == true" class="btn_post-loading">발송 중..</button>
+      <button v-if="!validateEmail" class="btn_post-direct">직접발송</button>
       <template v-else>
-        <button v-if="postResult == 'complete'" class="btn_post-complete">
-          발송완료
+        <button
+          @click="sendMailAndPostOrder"
+          v-if="postResult == 'none' && loading == false"
+          class="btn_post-default"
+        >
+          발송하기
         </button>
-        <button v-else-if="postResult == 'fail'" class="btn_post-fail">
-          전송실패
+        <button v-if="loading == true" class="btn_post-loading">
+          발송 중..
         </button>
+        <template v-else>
+          <button v-if="postResult == 'complete'" class="btn_post-complete">
+            발송완료
+          </button>
+          <button v-else-if="postResult == 'fail'" class="btn_post-fail">
+            발송실패
+          </button>
+        </template>
       </template>
     </td>
   </tr>
@@ -48,9 +54,6 @@ export default {
     };
   },
   computed: {
-    btnText() {
-      return this.validateEmail ? '발송하기' : '송장등록';
-    },
     validateEmail() {
       const reg = /.+@.+\..+/;
       return reg.test(this.item['details'][0]['RequireMemo']);
@@ -95,6 +98,7 @@ export default {
       if (this.validateEmail) {
         try {
           sendResult = await sendMail({
+            store: '텐바이텐/영로그',
             items: [
               {
                 itemId: this.item['details'][0]['itemId'],
@@ -134,7 +138,7 @@ export default {
         case 5033565:
           return '31DAYS 플래너';
         case 5033562:
-          return '3년 5년 일기';
+          return '3년 5년 다이어리';
         case 5033564:
           return '세로형 인덱스 노트';
         case 5033563:
