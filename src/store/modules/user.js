@@ -18,8 +18,6 @@ const user = {
       state.brandId = '';
       state.brandNameKor = '';
     },
-    // setBrandId(state, brandId) {},
-    // setBrandNameKor(state, brandNameKor) {},
     setIsLogin(state, login) {
       state.isLogin = login;
     },

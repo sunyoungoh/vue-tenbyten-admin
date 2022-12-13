@@ -80,6 +80,7 @@ td {
   word-break: keep-all;
 }
 .logo {
+  height: 70px;
   margin: 0 auto;
   justify-content: center;
 }
@@ -188,24 +189,6 @@ button:disabled {
   display: inline-flex;
   justify-content: space-between;
 }
-.btns_order_test {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
-  width: 300px;
-  margin: 0.5rem auto 0;
-  justify-content: center;
-}
-.btns_order_test button {
-  font-size: var(--font-12);
-  height: 30px;
-  width: 50px;
-  margin-bottom: 0.5rem;
-  background-color: #fff;
-  color: #222222;
-  outline: none;
-  box-shadow: 0 0 0 1px #222222;
-}
 .btn-new-orders {
   margin-right: 1rem;
   box-shadow: 0 0 0 1px #222222;
@@ -301,6 +284,9 @@ button:disabled {
   h2,
   .logo {
     width: 100%;
+  }
+  .logo {
+    height: 60px;
   }
   .login-container,
   .order-list-container {

@@ -48,11 +48,13 @@ const order = {
       commit('clearResultStatusCode');
       commit('clearOrderList');
       let response = [];
+
       if (state.clickedBtn == 'new-orders') {
         response = await getOrders();
       } else if (state.clickedBtn == 'ready') {
         response = await getOrderHistory();
       }
+      console.log(response.data.outPutValue);
       if (response.data.code == 'SUCCESS') {
         commit('setResultStatusCode', 200);
         if (response.data.totalCount !== 0) {
