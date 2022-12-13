@@ -26,9 +26,10 @@
           <label for="apiKey">apiKey</label>
           <input
             id="apiKey"
-            type="password"
-            @click="resetError($event)"
             v-model="apiKey"
+            type="password"
+            clearable
+            @click="resetError($event)"
           />
         </div>
         <div>
@@ -37,12 +38,23 @@
       </div>
     </div>
     <div class="btns_order">
-      <button @click="getOrdersData('new-orders')" class="btn-new-orders">
-        신규 주문 조회
+      <button
+        v-if="!isLogin"
+        :disabled="loading"
+        @click="login"
+        class="btn-login"
+      >
+        <span v-if="!loading">로그인</span>
+        <span v-else class="spinner"></span>
       </button>
-      <button @click="getOrdersData('ready')" class="btn-outline">
-        배송 준비 중 조회
-      </button>
+      <template v-else>
+        <button @click="getOrdersData('new-orders')" class="btn-new-orders">
+          신규 주문 조회
+        </button>
+        <button @click="getOrdersData('ready')" class="btn-outline">
+          배송 준비 중 조회
+        </button>
+      </template>
     </div>
   </div>
 </template>
@@ -55,6 +67,7 @@ export default {
       apiKey: this.$store.state.user.apiKey,
       apiKeyError: '',
       brandIdError: '',
+      loading: false,
     };
   },
   computed: {
@@ -81,17 +94,21 @@ export default {
         ? (this.apiKeyError = 'apiKey를 입력해주세요.')
         : (this.apiKeyError = '');
     },
-    async getOrdersData(clickedBtn) {
+    async login() {
       this.inputEmptyCheck();
-      this.$store.commit('setApiKey', this.apiKey);
-      this.$store.commit('setBrandId', this.brandId);
       if (this.apiKey !== '' && this.brandId !== '') {
-        if (!this.isLogin)
-          await this.$store.dispatch('getBrandInfo', this.brandId);
-        if (this.statusCode !== 401) {
-          this.$store.commit('setClickedBtn', clickedBtn);
-          await this.$store.dispatch('getOrdersData');
-        }
+        this.loading = true;
+        await this.$store.dispatch('login', {
+          brandId: this.brandId,
+          apiKey: this.apiKey,
+        });
+      }
+      this.loading = false;
+    },
+    async getOrdersData(clickedBtn) {
+      if (this.isLogin) {
+        this.$store.commit('setClickedBtn', clickedBtn);
+        await this.$store.dispatch('getOrdersData');
       }
     },
     logout() {
@@ -103,4 +120,23 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.spinner {
+  position: relative;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border-width: 2px;
+  border-color: #5e5e5e;
+  border-top-color: #ffffff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

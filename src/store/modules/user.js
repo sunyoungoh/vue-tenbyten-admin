@@ -8,42 +8,38 @@ const user = {
     isLogin: false,
   },
   mutations: {
-    setApiKey(state, apiKey) {
-      state.apiKey = apiKey;
+    setUserData(state, userData) {
+      state.apiKey = userData.apiKey;
+      state.brandId = userData.brandId;
+      state.brandNameKor = userData.brandNameKor;
     },
-    clearApiKey(state) {
+    clearUserData(state) {
       state.apiKey = '';
-    },
-    setBrandId(state, brandId) {
-      state.brandId = brandId;
-    },
-    clearBrandId(state) {
       state.brandId = '';
-    },
-    setBrandNameKor(state, brandNameKor) {
-      state.brandNameKor = brandNameKor;
-    },
-    clearBrandNameKor(state) {
       state.brandNameKor = '';
     },
-    login(state, login) {
+    // setBrandId(state, brandId) {},
+    // setBrandNameKor(state, brandNameKor) {},
+    setIsLogin(state, login) {
       state.isLogin = login;
     },
   },
   actions: {
-    async getBrandInfo({ commit }, brandId) {
-      commit('clearBrandNameKor');
+    async login({ commit }, loginData) {
+      commit('setTitleInfo', {}, { root: true });
+      commit('clearUserData');
       commit('clearResultStatusCode', null, { root: true });
       commit('clearOrderList', null, { root: true });
-      commit('setLoading', true, { root: true });
-      let { data } = await getBrandInfo();
-      if (data.code == 'SUCCESS') {
-        if (brandId == data.outPutValue[0].brandid) {
-          commit('setBrandNameKor', data.outPutValue[0].BrandNameKor);
-          commit('setResultStatusCode', 200, { root: true });
-          commit('login', true);
-        }
-      } else if (data.status == 401) {
+      let { data } = await getBrandInfo(loginData.apiKey);
+      if (loginData.brandId == data.brandid) {
+        commit('setResultStatusCode', 200, { root: true });
+        commit('setUserData', {
+          apiKey: loginData.apiKey,
+          brandId: loginData.brandId,
+          brandNameKor: data.BrandNameKor,
+        });
+        commit('setIsLogin', true);
+      } else {
         commit('setResultStatusCode', 401, { root: true });
         commit(
           'setTitleInfo',
@@ -54,13 +50,10 @@ const user = {
           { root: true },
         );
       }
-      commit('setLoading', false, { root: true });
     },
     logout({ commit }) {
-      commit('login', false);
-      commit('clearApiKey');
-      commit('clearBrandId');
-      commit('clearBrandNameKor');
+      commit('setIsLogin', false);
+      commit('clearUserData');
       commit('clearResultStatusCode', null, { root: true });
       commit('clearOrderList', null, { root: true });
       commit('clearTitleInfo', null, { root: true });

@@ -1,7 +1,7 @@
 <template>
-  <div class="overlay">
-    <div class="overlay__inner">
-      <div class="overlay__content">
+  <div class="loading">
+    <div class="loading__inner">
+      <div class="loading__content">
         <span class="spinner"></span>
       </div>
     </div>
@@ -13,17 +13,14 @@ export default {};
 </script>
 
 <style scoped>
-.overlay {
-  left: 0;
-  top: 0;
+.loading {
   width: 100%;
-  height: 100%;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.74);
+  height: 230px;
+  position: relative;
   z-index: 999;
 }
 
-.overlay__inner {
+.loading__inner {
   left: 0;
   top: 0;
   width: 100%;
@@ -31,7 +28,7 @@ export default {};
   position: absolute;
 }
 
-.overlay__content {
+.loading__content {
   left: 50%;
   position: absolute;
   top: 50%;
@@ -39,12 +36,12 @@ export default {};
 }
 
 .spinner {
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   display: inline-block;
   border-width: 3px;
-  border-color: rgba(255, 255, 255, 0.15);
-  border-top-color: #fff;
+  border-color: #ebebeb;
+  border-top-color: #212121;
   animation: spin 1s infinite linear;
   border-radius: 100%;
   border-style: solid;

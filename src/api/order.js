@@ -9,8 +9,10 @@ const params = {
   enddate: getToday(),
 };
 
-const getBrandInfo = () => {
-  return instance.get('/tenbyten/brandinfo', { headers });
+const getBrandInfo = apiKey => {
+  return instance.get('/tenbyten/brandinfo', {
+    headers: { Authorization: `bearer ${apiKey}` },
+  });
 };
 
 const getOrders = () => {

@@ -121,9 +121,6 @@ h2 {
   cursor: pointer;
   text-decoration: underline;
 }
-.key {
-  color: #fff;
-}
 .input-item {
   margin: 0 auto;
   padding-bottom: 0.75rem;
@@ -169,7 +166,10 @@ button {
   font-size: 1rem;
   border-radius: 0.2rem;
 }
-
+button:disabled {
+  cursor: default;
+  pointer-events: all !important;
+}
 .welcome {
   height: 120px;
   margin: 0 auto;

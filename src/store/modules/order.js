@@ -44,10 +44,10 @@ const order = {
   },
   actions: {
     async getOrdersData({ state, commit, dispatch }) {
+      commit('setLoading', true);
       commit('clearResultStatusCode');
       commit('clearOrderList');
       let response = [];
-      commit('setLoading', true);
       if (state.clickedBtn == 'new-orders') {
         response = await getOrders();
       } else if (state.clickedBtn == 'ready') {
