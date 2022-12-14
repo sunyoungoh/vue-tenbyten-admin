@@ -8,8 +8,10 @@
         <thead>
           <tr>
             <th>주문일</th>
-            <th>주문자ID</th>
-            <th class="orderer-name">주문자</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>휴대폰</th>
+            <th>이메일</th>
             <th class="item-name">상품명</th>
             <th class="item-option">옵션</th>
             <th>주문메모</th>
@@ -26,7 +28,6 @@
 
 <script>
 import OrderItem from '@/components/OrderItem.vue';
-
 export default {
   components: {
     OrderItem,

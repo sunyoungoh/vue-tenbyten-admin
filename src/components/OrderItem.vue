@@ -1,8 +1,10 @@
 <template>
   <tr>
     <td data-title="주문일" class="order-date">{{ orderDate }}</td>
-    <td data-title="주문자ID">{{ item['UserId'] | emptyValue }}</td>
-    <td data-title="주문자" class="orderer-name">{{ item['ordererName'] }}</td>
+    <td data-title="아이디">{{ item['UserId'] | emptyValue }}</td>
+    <td data-title="이름">{{ item.ordererName }}</td>
+    <td data-title="휴대폰">{{ item.ordererCellPhone }}</td>
+    <td data-title="이메일">{{ item.ordererEmail }}</td>
     <td data-title="상품명" class="item-name">
       {{ this.item['details'][0]['itemId'] | itemName }}
     </td>
@@ -13,8 +15,7 @@
       class="btns_post"
       v-if="this.$store.state.order.clickedBtn == 'ready'"
     >
-      <button v-if="!validateEmail" class="btn_post-direct">직접발송</button>
-      <template v-else>
+      <template>
         <button
           @click="sendMailAndPostOrder"
           v-if="postResult == 'none' && loading == false"
@@ -78,6 +79,21 @@ export default {
     itemRequireMemo() {
       return this.item['details'][0]['RequireMemo'].trim();
     },
+    mailData() {
+      let email = this.validateEmail
+        ? this.item['details'][0]['RequireMemo']
+        : this.item.ordererEmail;
+      return {
+        store: '텐바이텐/영로그',
+        items: [
+          {
+            itemId: this.item['details'][0]['itemId'],
+            itemOptionName: this.itemOptionName,
+          },
+        ],
+        toEmail: email,
+      };
+    },
   },
   methods: {
     async postOrder() {
@@ -95,28 +111,15 @@ export default {
     async sendMailAndPostOrder() {
       let sendResult = {};
       this.loading = true;
-      if (this.validateEmail) {
-        try {
-          sendResult = await sendMail({
-            store: '텐바이텐/영로그',
-            items: [
-              {
-                itemId: this.item['details'][0]['itemId'],
-                itemOptionName: this.itemOptionName,
-              },
-            ],
-            toEmail: this.item['details'][0]['RequireMemo'],
-          });
-          console.log('메일 전송 완료');
-        } catch (error) {
-          console.log(error);
-          this.loading = false;
-          if (error.response.status == 400) this.postResult = 'fail';
-        }
-        if (sendResult?.status == 200) {
-          this.postOrder();
-        }
-      } else {
+      try {
+        sendResult = await sendMail(this.mailData);
+        console.log('메일 전송 완료');
+      } catch (error) {
+        console.log(error);
+        this.loading = false;
+        if (error.response.status == 400) this.postResult = 'fail';
+      }
+      if (sendResult?.status == 200) {
         this.postOrder();
       }
     },
