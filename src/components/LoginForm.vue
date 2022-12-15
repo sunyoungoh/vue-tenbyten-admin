@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <div class="logout" v-if="isLogin" @click="logout">로그아웃</div>
+    <!-- <div class="logout" v-if="isLogin" @click="logout">로그아웃</div> -->
     <div class="welcome" v-if="isLogin">
       ❤️ <b> {{ brandNameKor }}</b
       >님 환영합니다! ❤️
@@ -47,14 +47,6 @@
         <span v-if="!loading">로그인</span>
         <span v-else class="spinner"></span>
       </button>
-      <template v-else>
-        <button @click="getOrdersData('new-orders')" class="btn-new-orders">
-          신규 주문 조회
-        </button>
-        <button @click="getOrdersData('ready')" class="btn-outline">
-          배송 준비 중 조회
-        </button>
-      </template>
     </div>
   </div>
 </template>
@@ -104,12 +96,6 @@ export default {
         });
       }
       this.loading = false;
-    },
-    async getOrdersData(clickedBtn) {
-      if (this.isLogin) {
-        this.$store.commit('setClickedBtn', clickedBtn);
-        await this.$store.dispatch('getOrdersData');
-      }
     },
     logout() {
       this.brandId = '';
