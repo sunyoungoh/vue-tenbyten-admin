@@ -29,7 +29,7 @@ h1 {
 .sales-title {
   position: relative;
   bottom: 4px;
-  align-items: baseline;
+  align-items: center;
   font-size: var(--font-22);
   justify-content: center;
 }
@@ -59,20 +59,16 @@ li {
 }
 header {
   height: 60px;
+  display: flex;
+  justify-content: center;
 }
 header .logo {
-  font-size: 1.25rem;
-  letter-spacing: 0.03rem;
-  font-family: 'Righteous', cursive;
-  /* font-family: 'Montserrat', sans-serif; */
-  /* font-weight: 600; */
-  text-align: center;
-  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  margin: auto 0;
+}
+.logo img {
+  width: 165px;
 }
 #app {
   height: calc(100vh - 100px);
@@ -94,7 +90,8 @@ header .logo {
   cursor: pointer;
 }
 .nav-list a {
-  margin: 0 0.5rem;
+  width: max-content;
+  margin: 0 0.7rem;
   padding: 0 0.5rem;
   height: 46px;
   line-height: 46px;
@@ -148,9 +145,7 @@ td {
   margin: 0 auto;
   justify-content: center;
 } */
-.logo img {
-  width: 150px;
-}
+
 .login-container {
   margin: 0 auto;
 }
@@ -178,8 +173,8 @@ h2 {
 }
 .logout {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 13px;
+  right: 20px;
   font-size: var(--font-20);
   cursor: pointer;
   text-decoration: underline;
