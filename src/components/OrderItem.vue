@@ -8,13 +8,11 @@
     <td data-title="상품명" class="item-name">
       {{ this.item['details'][0]['itemId'] | itemName }}
     </td>
-    <td data-title="옵션" class="item-option">{{ itemOptionName }}</td>
+    <td data-title="옵션" class="item-option">
+      {{ itemOptionName | emptyValue }}
+    </td>
     <td data-title="주문메모">{{ itemRequireMemo | emptyValue }}</td>
-    <td
-      data-title="발송상태"
-      class="btns_post"
-      v-if="this.$store.state.order.clickedBtn == 'ready'"
-    >
+    <td data-title="발송상태" class="btns_post" v-if="$route.path == '/ready'">
       <template>
         <button
           @click="sendMailAndPostOrder"
@@ -94,13 +92,27 @@ export default {
         toEmail: email,
       };
     },
+    dispatchData() {
+      return {
+        orderSerial: this.item['OrderSerial'],
+        detailIdx: this.item['details'][0]['DetailIdx'],
+        details: {
+          ordererId: this.item['UserId'],
+          ordererName: this.item.ordererName,
+          toEmail: this.mailData.toEmail,
+          itemId: this.item['details'][0]['itemId'],
+          itemOption: this.itemOptionName,
+          requireMemo: this.itemRequireMemo,
+          ordererPhone: this.item.ordererCellPhone,
+          ordererEmail: this.item.ordererEmail,
+          orderDate: this.item['orderDate'],
+        },
+      };
+    },
   },
   methods: {
     async postOrder() {
-      const { data } = await dispatchOrder(
-        this.item['OrderSerial'],
-        this.item['details'][0]['DetailIdx'],
-      );
+      const { data } = await dispatchOrder(this.dispatchData);
       if (data.code == 'SUCCESS') {
         this.loading = false;
         this.postResult = 'complete';

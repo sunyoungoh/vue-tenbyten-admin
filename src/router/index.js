@@ -7,22 +7,27 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/views/HomePage.vue'),
   },
   {
     path: '/order',
     name: 'Order',
-    component: () => import('@/views/Order.vue'),
+    component: () => import('@/views/OrderPage.vue'),
   },
   {
     path: '/ready',
     name: 'Ready',
-    component: () => import('@/views/Ready.vue'),
+    component: () => import('@/views/ReadyPage.vue'),
+  },
+  {
+    path: '/delivery',
+    name: 'Delivery',
+    component: () => import('@/views/DeliveryPage.vue'),
   },
   {
     path: '/sales',
     name: 'Sales',
-    component: () => import('@/views/Sales.vue'),
+    component: () => import('@/views/SalesPage.vue'),
   },
 ];
 

@@ -1,28 +1,23 @@
 <template>
-  <div class="order-list-container">
-    <h1 v-if="titleInfo" :class="titleInfo.css">
-      {{ titleInfo.msg }}
-    </h1>
-    <div class="table-container" id="no-more-tables">
-      <table v-if="orderListCount !== 0">
-        <thead>
-          <tr>
-            <th>주문일</th>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>휴대폰</th>
-            <th>이메일</th>
-            <th class="item-name">상품명</th>
-            <th class="item-option">옵션</th>
-            <th>주문메모</th>
-            <th v-if="clickedBtn == 'ready'">발송상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          <OrderItem v-for="(item, i) in orderList" :key="i" :item="item" />
-        </tbody>
-      </table>
-    </div>
+  <div class="table-container" id="no-more-tables">
+    <table>
+      <thead>
+        <tr>
+          <th>주문일</th>
+          <th>아이디</th>
+          <th>이름</th>
+          <th>휴대폰</th>
+          <th>이메일</th>
+          <th class="item-name">상품명</th>
+          <th class="item-option">옵션</th>
+          <th>주문메모</th>
+          <th v-if="$route.path == '/ready'">발송상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <OrderItem v-for="(item, i) in items" :key="i" :item="item" />
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -32,18 +27,9 @@ export default {
   components: {
     OrderItem,
   },
-  computed: {
-    orderList() {
-      return this.$store.state.order.orderList;
-    },
-    orderListCount() {
-      return this.$store.getters.orderListCount;
-    },
-    clickedBtn() {
-      return this.$store.state.order.clickedBtn;
-    },
-    titleInfo() {
-      return this.$store.state.order.titleInfo;
+  props: {
+    items: {
+      type: Array,
     },
   },
 };

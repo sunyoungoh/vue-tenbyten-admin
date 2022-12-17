@@ -8,7 +8,7 @@ const getBrandInfo = apiKey => {
   });
 };
 
-const getOrders = () => {
+const getNewOrders = () => {
   return instanceAuth.get('/tenbyten/orders', {
     params: {
       brandId: store.state.user.brandId,
@@ -18,8 +18,8 @@ const getOrders = () => {
   });
 };
 
-const getOrderHistory = () => {
-  return instanceAuth.get('/tenbyten/orders/orderhistory', {
+const getReadyOrders = () => {
+  return instanceAuth.get('/tenbyten/orders/ready', {
     params: {
       brandId: store.state.user.brandId,
       startdate: getThreedaysAgo(),
@@ -28,16 +28,22 @@ const getOrderHistory = () => {
   });
 };
 
-const dispatchOrder = (OrderSerial, DetailIdx) => {
-  return instanceAuth.post('/tenbyten/orders/orderconfirm', {
-    orderSerial: OrderSerial,
-    detailIdx: DetailIdx,
-    songjangDiv: '97', // 문자/이메일 발송 코드
-    songjangNo: '0',
-  });
+const getDispatchOrderHistory = () => {
+  return instanceAuth.get('/tenbyten/orders/orderconfirm');
+};
+
+const dispatchOrder = dispatchData => {
+  return instanceAuth.post('/tenbyten/orders/orderconfirm', dispatchData);
 };
 
 const sendMail = mailData => {
   return instance.post('/mail', mailData);
 };
-export { getBrandInfo, getOrders, getOrderHistory, sendMail, dispatchOrder };
+export {
+  getBrandInfo,
+  getNewOrders,
+  getReadyOrders,
+  getDispatchOrderHistory,
+  sendMail,
+  dispatchOrder,
+};

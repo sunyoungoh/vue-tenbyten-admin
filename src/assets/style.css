@@ -27,6 +27,7 @@ h1 {
   text-align: center;
 }
 .sales-title {
+  margin-bottom: 0;
   position: relative;
   bottom: 4px;
   align-items: center;
@@ -34,6 +35,7 @@ h1 {
   justify-content: center;
 }
 .sales-title i {
+  cursor: pointer;
   font-size: var(--font-24);
   margin: 1rem;
 }
@@ -75,7 +77,7 @@ header .logo {
 }
 #main {
   height: auto;
-  min-height: calc(100vh - 3rem - 100px);
+  min-height: calc(100vh - 2rem - 107px - 100px);
 }
 .nav-list {
   display: flex;
@@ -91,11 +93,11 @@ header .logo {
 }
 .nav-list a {
   width: max-content;
-  margin: 0 0.7rem;
+  margin: 0 1rem;
   padding: 0 0.5rem;
   height: 46px;
   line-height: 46px;
-  color: #212121;
+  color: #222222;
   text-decoration: none;
   justify-content: center;
   font-size: var(--font-15);
@@ -111,7 +113,17 @@ header .logo {
   z-index: 999;
   content: '';
   width: 100%;
-  border-bottom: 2px solid #212121;
+  border-bottom: 2px solid #222222;
+}
+.section-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filter {
+  position: absolute;
+  right: 20px;
+  font-size: var(--font-20);
 }
 footer {
   width: 100%;
@@ -133,19 +145,23 @@ td {
 th,
 td {
   height: 40px;
-  padding: 1rem 0.5rem;
+  padding: 1rem 0.7rem;
   word-break: break-all;
 }
 .order-date,
 .item-name {
   word-break: keep-all;
 }
-/* .logo {
-  height: 70px;
-  margin: 0 auto;
-  justify-content: center;
-} */
-
+.btn-angle {
+  display: inline;
+  position: relative;
+  top: 2px;
+  cursor: pointer;
+  font-size: var(--font-20);
+}
+.filter-tab {
+  background: #f8f8fa;
+}
 .login-container {
   margin: 0 auto;
 }
@@ -256,6 +272,16 @@ button:disabled {
   outline: none;
   box-shadow: 0 0 0 1px #222222;
 }
+.search-wrap {
+  padding-bottom: 2rem;
+}
+.input-search {
+  font-size: var(--font-14);
+  border: 1px solid#e3e3e3;
+  background-color: #f8f8fa;
+  border-radius: 0.2rem;
+}
+.btn-search,
 .btns_post button {
   width: 80px;
   height: 40px;
@@ -264,7 +290,10 @@ button:disabled {
   transition: all 0.25s;
   font-weight: normal;
 }
-.btn_post-default,
+.btn-search {
+  margin-left: 0.75rem;
+  height: 44px;
+}
 .btn_post-complete,
 .btn_post-fail {
   cursor: default;
@@ -323,9 +352,12 @@ button:disabled {
     height: calc(100vh - 70px);
   }
   #main {
-    min-height: calc(100vh - 3rem - 70px);
+    min-height: calc(100vh - 2rem - 107px - 70px);
   }
 
+  .nav-list a {
+    margin: 0 0.25rem;
+  }
   footer {
     height: 70px;
     line-height: 70px;

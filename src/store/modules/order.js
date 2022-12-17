@@ -1,4 +1,4 @@
-import { getOrders, getOrderHistory } from '@/api/order';
+import { getNewOrders, getReadyOrders } from '@/api/order';
 
 const order = {
   state: {
@@ -50,9 +50,9 @@ const order = {
       let response = [];
 
       if (state.clickedBtn == 'new-orders') {
-        response = await getOrders();
+        response = await getNewOrders();
       } else if (state.clickedBtn == 'ready') {
-        response = await getOrderHistory();
+        response = await getReadyOrders();
       }
       console.log(response.data.outPutValue);
       if (response.data.code == 'SUCCESS') {
