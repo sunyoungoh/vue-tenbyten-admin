@@ -1,15 +1,17 @@
 <template>
   <section>
     <LoadingSpinner v-if="loading" />
-    <h1 class="sales-title">
-      <i class="uil uil-angle-left-b"></i>
-      <span> {{ nowMonth }}</span>
-      <i class="uil uil-angle-right-b"></i>
-    </h1>
-    <div class="order-list-container">
-      <h1 :class="title.css">{{ title.text }}</h1>
-      <OrderHistoryList v-if="orderListCount > 0" :items="orderList" />
-    </div>
+    <template v-else>
+      <h1 class="sales-title">
+        <i class="uil uil-angle-left-b"></i>
+        <span> {{ nowMonth }}</span>
+        <i class="uil uil-angle-right-b"></i>
+      </h1>
+      <div class="order-list-container">
+        <h1 :class="title.css">{{ title.text }}</h1>
+        <OrderHistoryList v-if="orderListCount > 0" :items="orderList" />
+      </div>
+    </template>
   </section>
 </template>
 
@@ -25,6 +27,7 @@ export default {
   },
   async mounted() {
     const { data } = await getDispatchOrderHistory();
+    this.loading = false;
     this.orderList = data;
     this.title =
       this.orderListCount > 0
@@ -39,14 +42,12 @@ export default {
   },
   data() {
     return {
+      loading: true,
       orderList: [],
       title: [],
     };
   },
   computed: {
-    loading() {
-      return this.$store.state.order.loading;
-    },
     orderListCount() {
       return this.orderList.length;
     },

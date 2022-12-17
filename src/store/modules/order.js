@@ -48,7 +48,6 @@ const order = {
       commit('clearResultStatusCode');
       commit('clearOrderList');
       let response = [];
-
       if (state.clickedBtn == 'new-orders') {
         response = await getNewOrders();
       } else if (state.clickedBtn == 'ready') {

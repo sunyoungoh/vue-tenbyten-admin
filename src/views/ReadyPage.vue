@@ -20,6 +20,7 @@ export default {
   },
   async mounted() {
     const { data } = await getReadyOrders();
+    this.loading = false;
     this.orderList = data.outPutValue;
     this.title =
       this.orderListCount > 0
@@ -34,14 +35,12 @@ export default {
   },
   data() {
     return {
+      loading: true,
       orderList: [],
       title: [],
     };
   },
   computed: {
-    loading() {
-      return this.$store.state.order.loading;
-    },
     orderListCount() {
       return this.orderList.length;
     },
