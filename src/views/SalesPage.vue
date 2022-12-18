@@ -1,15 +1,16 @@
 <template>
   <section>
-    <h1 class="sales-title">
-      <i class="uil uil-angle-left-b"></i>
-      <span> 2022.11</span>
-      <i class="uil uil-angle-right-b"></i>
-    </h1>
+    <TitleMonth @fetch-data="fetchData" />
   </section>
 </template>
 
 <script>
-export default {};
+import TitleMonth from '@/components/TitleMonth.vue';
+export default {
+  components: {
+    TitleMonth,
+  },
+};
 </script>
 
 <style></style>

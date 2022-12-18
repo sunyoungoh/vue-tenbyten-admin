@@ -1,7 +1,12 @@
 <template>
   <section class="home">
-    <LoginForm />
-    <BarChart class="chart" :options="options" :chartData="chartData" />
+    <LoginForm v-if="!isLogin" />
+    <BarChart
+      v-if="isLogin"
+      class="chart"
+      :options="options"
+      :chartData="chartData"
+    />
   </section>
 </template>
 

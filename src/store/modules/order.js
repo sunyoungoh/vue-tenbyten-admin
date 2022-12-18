@@ -2,6 +2,8 @@ import { getNewOrders, getReadyOrders } from '@/api/order';
 
 const order = {
   state: {
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
     clickedBtn: '',
     orderList: [],
     resultStatusCode: '',
@@ -14,6 +16,28 @@ const order = {
     },
   },
   mutations: {
+    initDate(state) {
+      state.month = new Date().getMonth();
+      state.year = new Date().getFullYear();
+    },
+    setMonth(state, month) {
+      state.month = month;
+    },
+    prevMonth(state) {
+      state.month -= 1;
+    },
+    nextMonth(state) {
+      state.month += 1;
+    },
+    setYear(state, year) {
+      state.year = year;
+    },
+    prevYear(state) {
+      state.year -= 1;
+    },
+    nextYear(state) {
+      state.year += 1;
+    },
     setTitleInfo(state, titleInfo) {
       state.titleInfo = titleInfo;
     },

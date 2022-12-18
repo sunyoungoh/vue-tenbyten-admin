@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo"><img src="@/assets/logo.png" alt="logo" /></div>
-    <div class="logout" v-if="isLogin" @click="logout">
+    <div class="logout" @click="logout">
       <i class="uil uil-sign-out-alt"></i>
     </div>
   </header>

@@ -2,57 +2,116 @@
   <section>
     <LoadingSpinner v-if="loading" />
     <template v-else>
-      <h1 class="sales-title">
-        <i class="uil uil-angle-left-b"></i>
-        <span> {{ nowMonth }}</span>
-        <i class="uil uil-angle-right-b"></i>
-      </h1>
+      <TitleMonth @fetch-data="fetchData" />
       <div class="order-list-container">
-        <h1 :class="title.css">{{ title.text }}</h1>
-        <OrderHistoryList v-if="orderListCount > 0" :items="orderList" />
+        <div>
+          <h1 :class="title.css">{{ title.text }}</h1>
+        </div>
+        <div class="input-wrap search-wrap">
+          <i class="uil uil-search search-icon"></i>
+          <input
+            type="text"
+            class="input-search"
+            v-model="searchInput"
+            placeholder="이름을 입력하세요"
+            @keyup.enter="searchList"
+          />
+          <button class="btn-search" @click="searchList">검색하기</button>
+        </div>
+        <DeliveryList v-if="orderListCount > 0" :items="orderList" />
       </div>
     </template>
   </section>
 </template>
 
 <script>
-import OrderHistoryList from '@/components/OrderHistoryList.vue';
+import TitleMonth from '@/components/TitleMonth.vue';
+import DeliveryList from '@/components/DeliveryList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { getDispatchOrderHistory } from '@/api/order';
 
 export default {
   components: {
-    OrderHistoryList,
+    TitleMonth,
+    DeliveryList,
     LoadingSpinner,
   },
   async mounted() {
     const { data } = await getDispatchOrderHistory();
     this.loading = false;
-    this.orderList = data;
-    this.title =
-      this.orderListCount > 0
-        ? {
-            text: `메일 발송이 완료된 주문은 ${this.orderListCount}건입니다! 💌`,
-            css: 'highlighter highlighter__yellow',
-          }
-        : {
-            text: `메일 발송이 완료된 주문이 없습니다 🥲 `,
-            css: 'highlighter highlighter__grey',
-          };
+    this.originOrderList = data;
+    this.fetchData();
   },
   data() {
     return {
       loading: true,
+      originOrderList: [],
       orderList: [],
       title: [],
+      searchInput: '',
     };
   },
   computed: {
+    month() {
+      return this.$store.state.order.month;
+    },
+    year() {
+      return this.$store.state.order.year;
+    },
     orderListCount() {
       return this.orderList.length;
     },
-    nowMonth() {
-      return `${new Date().getFullYear()}.${new Date().getMonth() + 1}`;
+    todayMonth() {
+      return new Date().getMonth();
+    },
+    showMonth() {
+      let month;
+      this.month == new Date().getMonth()
+        ? (month = '이번달')
+        : this.month == new Date().getMonth() - 1
+        ? (month = '지난달')
+        : (month = `${this.month + 1}월`);
+      return month;
+    },
+  },
+  watch: {
+    orderList() {
+      this.orderListCount > 0
+        ? (this.title.css = 'highlighter highlighter__yellow')
+        : (this.title.css = 'highlighter highlighter__grey');
+    },
+  },
+  methods: {
+    fetchData() {
+      this.fetchOrderList();
+      this.fetchTitle();
+    },
+    fetchOrderList() {
+      this.orderList = this.originOrderList.filter(
+        item =>
+          new Date(item.orderDate).getMonth() == this.month &&
+          new Date(item.orderDate).getFullYear() == this.year,
+      );
+    },
+    fetchTitle() {
+      this.title.text =
+        this.orderListCount > 0
+          ? `${this.showMonth}엔 ${this.orderListCount}건의 메일을 전송했습니다! 💌`
+          : `${this.showMonth}엔 전송한 메일이 없습니다 🥲 `;
+    },
+    searchList() {
+      this.fetchOrderList();
+      this.orderList = this.orderList.filter(item =>
+        item.ordererName.includes(this.searchInput),
+      );
+      if (this.searchInput) {
+        this.title.text =
+          this.orderListCount > 0
+            ? `${this.searchInput}님에게 ${this.orderList.length}건의 메일을 전송했습니다! 💌`
+            : `${this.searchInput}님에게 전송한 메일이 없습니다. 🥲`;
+      } else {
+        this.fetchTitle();
+      }
     },
   },
 };

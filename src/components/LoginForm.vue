@@ -36,17 +36,17 @@
           <p class="error">{{ apiKeyError }}</p>
         </div>
       </div>
-    </div>
-    <div class="btns_order">
-      <button
-        v-if="!isLogin"
-        :disabled="loading"
-        @click="login"
-        class="btn-login"
-      >
-        <span v-if="!loading">로그인</span>
-        <span v-else class="spinner"></span>
-      </button>
+      <div class="btns_order">
+        <button
+          v-if="!isLogin"
+          :disabled="loading"
+          @click="login"
+          class="btn-login"
+        >
+          <span v-if="!loading">로그인</span>
+          <span v-else class="spinner"></span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
