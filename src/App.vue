@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppHeader />
-    <AppNav />
+    <AppHeader v-if="isLogin" />
+    <AppNav v-if="isLogin" />
     <router-view id="main" />
     <footer>© 2022 SunYoungOh. All right reserved.</footer>
   </div>
@@ -15,6 +15,11 @@ export default {
   components: {
     AppHeader,
     AppNav,
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.user.isLogin;
+    },
   },
 };
 </script>

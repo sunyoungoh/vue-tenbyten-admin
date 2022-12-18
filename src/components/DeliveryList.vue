@@ -52,7 +52,7 @@ export default {
         { key: 'createdAt', value: '발송일' },
         { key: 'ordererId', value: '아이디' },
         { key: 'ordererName', value: '이름' },
-        { key: 'toEmail', value: ' 받은 이메일' },
+        { key: 'toEmail', value: ' 수신 이메일' },
         { key: 'itemId', value: '상품명' },
         { key: 'itemOption', value: '옵션' },
         { key: 'requireMemo', value: '주문메모' },
