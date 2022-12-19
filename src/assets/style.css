@@ -459,6 +459,11 @@ button:disabled {
 .highlighter__red::before {
   background: #ffecec;
 }
+.table-container.sales table {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 630px;
+}
 
 @media screen and (max-width: 769px) {
   .table-container {
@@ -486,9 +491,8 @@ button:disabled {
     text-align: center;
     height: 100px;
   }
-
   .sales-item .item-name {
-    width: 120px;
+    width: 110px;
     font-size: var(--font-12);
   }
   .sales-item .item-name:first-of-type {
@@ -509,7 +513,7 @@ button:disabled {
   }
 
   .nav-list a {
-    margin: 0 0.25rem;
+    margin: 0 0.5rem;
   }
   footer {
     height: 70px;
@@ -562,6 +566,15 @@ button:disabled {
   }
   tr {
     border-bottom: none;
+  }
+  .table-container.sales tr {
+    border-bottom: 1px solid #ddd;
+  }
+  .table-container.sales th {
+    padding: 0.25rem;
+  }
+  .table-container.sales th.count {
+    min-width: 70px;
   }
   .btns_order {
     width: 100%;
@@ -656,7 +669,7 @@ button:disabled {
     padding-top: 1.5rem;
   }
   .nav-list a {
-    margin: 0 0.1rem;
+    margin: 0 0.2rem;
   }
   .order-list-container {
     padding: 0 0.75rem;

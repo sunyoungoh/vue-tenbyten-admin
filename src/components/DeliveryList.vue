@@ -87,13 +87,13 @@ export default {
   methods: {
     sortList(title) {
       this.clickField = title;
-      this.orderBy == 'desc' ? (this.orderBy = 'asc') : (this.orderBy = 'desc');
+      this.orderBy = this.orderBy == 'desc' ? 'asc' : 'desc';
       this.orderList =
         title == 'orderDate' || title == 'createdAt'
-          ? (this.orderList = sortDate(this.orderList, title, this.orderBy))
+          ? sortDate(this.orderList, title, this.orderBy)
           : title == 'itemId'
-          ? (this.orderList = sortItemId(this.orderList, title, this.orderBy))
-          : (this.orderList = sortStr(this.orderList, title, this.orderBy));
+          ? sortItemId(this.orderList, title, this.orderBy)
+          : sortStr(this.orderList, title, this.orderBy);
     },
   },
 };
