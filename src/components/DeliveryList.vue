@@ -46,6 +46,9 @@ export default {
     month: {
       type: Number,
     },
+    search: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -61,12 +64,14 @@ export default {
       ],
       orderBy: 'desc',
       clickField: '',
-      searchInput: '',
     };
   },
   watch: {
     month() {
       this.clickField = '';
+    },
+    search(val) {
+      this.clickField = val ? 'ordererName' : '';
     },
   },
   computed: {
@@ -82,9 +87,7 @@ export default {
   methods: {
     sortList(title) {
       this.clickField = title;
-
       this.orderBy == 'desc' ? (this.orderBy = 'asc') : (this.orderBy = 'desc');
-
       this.orderList =
         title == 'orderDate' || title == 'createdAt'
           ? (this.orderList = sortDate(this.orderList, title, this.orderBy))

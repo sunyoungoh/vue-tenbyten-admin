@@ -22,6 +22,7 @@
           v-if="orderListCount > 0"
           :items="orderList"
           :month="month"
+          :search="search"
         />
       </div>
     </template>
@@ -53,6 +54,7 @@ export default {
       orderList: [],
       title: [],
       searchInput: '',
+      search: false,
     };
   },
   computed: {
@@ -109,11 +111,13 @@ export default {
         item.ordererName.includes(this.searchInput),
       );
       if (this.searchInput) {
+        this.search = true;
         this.title.text =
           this.orderListCount > 0
             ? `${this.searchInput}님께 ${this.orderList.length}건의 메일을 전송했습니다! 💌`
             : `${this.searchInput}님께 전송한 메일이 없습니다. 🥲`;
       } else {
+        this.search = false;
         this.fetchTitle();
       }
     },

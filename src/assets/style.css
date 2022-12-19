@@ -318,11 +318,13 @@ button:disabled {
   transition: all 0.25s;
   font-weight: normal;
 }
+.btn-send-all {
+  margin-top: 1.5rem;
+}
 .btn-search {
   margin-left: 0.75rem;
   height: 42px;
 }
-
 .search-icon {
   position: absolute;
   left: 0px;
