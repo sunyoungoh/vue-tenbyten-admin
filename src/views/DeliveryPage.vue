@@ -111,8 +111,8 @@ export default {
       if (this.searchInput) {
         this.title.text =
           this.orderListCount > 0
-            ? `${this.searchInput}님에게 ${this.orderList.length}건의 메일을 전송했습니다! 💌`
-            : `${this.searchInput}님에게 전송한 메일이 없습니다. 🥲`;
+            ? `${this.searchInput}님께 ${this.orderList.length}건의 메일을 전송했습니다! 💌`
+            : `${this.searchInput}님께 전송한 메일이 없습니다. 🥲`;
       } else {
         this.fetchTitle();
       }

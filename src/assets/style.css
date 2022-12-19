@@ -409,7 +409,6 @@ button:disabled {
     min-width: 350px;
   }
   h2,
-  .login-container,
   .order-list-container {
     padding: 0 1.25rem;
   }
@@ -541,8 +540,18 @@ button:disabled {
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 375px) {
+  section {
+    padding-top: 1.5rem;
+  }
+  .nav-list a {
+    margin: 0 0.1rem;
+  }
   .order-list-container {
     padding: 0 0.75rem;
+  }
+  h1,
+  h2 {
+    font-size: 1.125rem;
   }
 }
