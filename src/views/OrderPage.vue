@@ -3,7 +3,7 @@
     <LoadingSpinner v-if="loading" />
     <div class="order-list-container">
       <h1 :class="title.css">{{ title.text }}</h1>
-      <OrderList v-if="orderList > 0" :items="orderList" />
+      <OrderList v-if="orderListCount > 0" :items="orderList" />
     </div>
   </section>
 </template>

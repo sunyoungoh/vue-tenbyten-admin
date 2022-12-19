@@ -115,7 +115,7 @@ export default {
           requireMemo: this.itemRequireMemo,
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
-          orderDate: this.item['orderDate'],
+          orderDate: new Date(this.item['orderDate']),
         },
       };
     },

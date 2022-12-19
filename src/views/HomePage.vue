@@ -1,5 +1,9 @@
 <template>
   <section class="home">
+    <div class="welcome" v-if="isLogin">
+      ❤️ <b> {{ brandNameKor }}</b
+      >님 환영합니다! ❤️
+    </div>
     <LoginForm v-if="!isLogin" />
     <BarChart
       v-if="isLogin"
@@ -17,6 +21,14 @@ export default {
   components: {
     LoginForm,
     BarChart,
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.user.isLogin;
+    },
+    brandNameKor() {
+      return this.$store.state.user.brandNameKor;
+    },
   },
   data() {
     return {

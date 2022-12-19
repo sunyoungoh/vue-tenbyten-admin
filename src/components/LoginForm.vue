@@ -1,11 +1,6 @@
 <template>
   <div class="login-container">
-    <!-- <div class="logout" v-if="isLogin" @click="logout">로그아웃</div> -->
-    <div class="welcome" v-if="isLogin">
-      ❤️ <b> {{ brandNameKor }}</b
-      >님 환영합니다! ❤️
-    </div>
-    <div v-else class="login-form">
+    <div class="login-form">
       <div class="input-item">
         <div class="input-wrap">
           <label for="brandId">brandId</label>
@@ -37,12 +32,7 @@
         </div>
       </div>
       <div class="btns_order">
-        <button
-          v-if="!isLogin"
-          :disabled="loading"
-          @click="login"
-          class="btn-login"
-        >
+        <button :disabled="loading" @click="login" class="btn-login">
           <span v-if="!loading">로그인</span>
           <span v-else class="spinner"></span>
         </button>

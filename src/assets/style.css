@@ -178,7 +178,7 @@ td {
 .filter-tab {
   background: #f8f8fa;
 }
-.login-container {
+/* .login-container {
   left: 0;
   top: 0;
   width: 100%;
@@ -190,7 +190,7 @@ td {
   left: 50%;
   top: 40%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .table-container {
   padding: 2rem;
