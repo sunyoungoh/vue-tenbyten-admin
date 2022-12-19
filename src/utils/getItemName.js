@@ -1,4 +1,7 @@
 export const getItemName = itemId => {
+  if (typeof itemId == 'string') {
+    itemId = Number(itemId);
+  }
   switch (itemId) {
     case 5033569:
       return '2023 심플 플래너';
