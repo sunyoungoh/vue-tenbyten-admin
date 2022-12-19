@@ -278,9 +278,7 @@ td {
 .table-container {
   padding: 2rem;
 }
-
 .table-container table {
-  /* width: 100%; */
   margin: 0 auto;
   font-size: var(--font-14);
   border-collapse: collapse;
@@ -460,7 +458,6 @@ button:disabled {
   background: #ffecec;
 }
 .table-container.sales table {
-  margin-top: 1rem;
   width: 100%;
   max-width: 630px;
 }
@@ -482,6 +479,10 @@ button:disabled {
   }
   .top3-sales {
     gap: 0.7rem;
+  }
+  .table-container.sales table {
+    font-size: var(--font-13);
+    margin-top: 0.5rem;
   }
   .sales-item {
     position: relative;
@@ -568,13 +569,17 @@ button:disabled {
     border-bottom: none;
   }
   .table-container.sales tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
   }
   .table-container.sales th {
     padding: 0.25rem;
   }
-  .table-container.sales th.count {
-    min-width: 70px;
+  .table-container.sales tbody tr td:first-of-type {
+    max-width: 290px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    letter-spacing: -0.02rem;
   }
   .btns_order {
     width: 100%;
@@ -677,5 +682,11 @@ button:disabled {
   h1,
   h2 {
     font-size: 1.125rem;
+  }
+  .table-container.sales table {
+    margin-top: 0.75rem;
+  }
+  .sales-item .item-name {
+    width: 100px;
   }
 }
