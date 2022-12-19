@@ -4,7 +4,6 @@
       <thead>
         <tr>
           <th
-            class="order-date"
             v-for="(title, i) in itemTitles"
             :key="i"
             :class="clickField == title.key ? 'filter-tab' : ''"
@@ -15,7 +14,7 @@
               v-if="title.key !== 'itemOption'"
               @click="sortList(title.key)"
             >
-              <i class="uil uil-angle-down" v-if="sortState == 'desc'"></i>
+              <i class="uil uil-angle-down" v-if="orderBy == 'desc'"></i>
               <i class="uil uil-angle-up" v-else></i>
             </div>
           </th>
@@ -44,6 +43,9 @@ export default {
     items: {
       type: Array,
     },
+    month: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -61,6 +63,11 @@ export default {
       clickField: '',
       searchInput: '',
     };
+  },
+  watch: {
+    month() {
+      this.clickField = '';
+    },
   },
   computed: {
     orderList: {

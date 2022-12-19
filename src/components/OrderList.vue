@@ -1,5 +1,8 @@
 <template>
   <div class="table-container" id="no-more-tables">
+    <button class="btn-send-all" @click="clickSendAll">
+      모두 메일 발송하기
+    </button>
     <table>
       <thead>
         <tr>
@@ -15,7 +18,12 @@
         </tr>
       </thead>
       <tbody>
-        <OrderItem v-for="(item, i) in items" :key="i" :item="item" />
+        <OrderItem
+          v-for="(item, i) in items"
+          :key="i"
+          :item="item"
+          :send-all="sendAll"
+        />
       </tbody>
     </table>
   </div>
@@ -30,6 +38,17 @@ export default {
   props: {
     items: {
       type: Array,
+    },
+  },
+  data() {
+    return {
+      sendAll: false,
+    };
+  },
+  methods: {
+    clickSendAll() {
+      console.log('sendAll');
+      this.sendAll = true;
     },
   },
 };

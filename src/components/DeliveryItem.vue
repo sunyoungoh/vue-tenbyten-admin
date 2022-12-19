@@ -13,10 +13,6 @@
       <span v-else-if="title.key == 'itemId'">
         {{ item[title.key] | itemName }}
       </span>
-      <template v-else-if="title.key == 'requireMemo'">
-        <span v-if="item.requireMemo"> O </span>
-        <span v-else> X </span>
-      </template>
       <span v-else>
         {{ item[title.key] | emptyValue }}
       </span>

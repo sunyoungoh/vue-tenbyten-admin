@@ -18,7 +18,11 @@
           />
           <button class="btn-search" @click="searchList">검색하기</button>
         </div>
-        <DeliveryList v-if="orderListCount > 0" :items="orderList" />
+        <DeliveryList
+          v-if="orderListCount > 0"
+          :items="orderList"
+          :month="month"
+        />
       </div>
     </template>
   </section>
@@ -64,7 +68,7 @@ export default {
     todayMonth() {
       return new Date().getMonth();
     },
-    showMonth() {
+    monthText() {
       let month;
       this.month == new Date().getMonth()
         ? (month = '이번달')
@@ -96,8 +100,8 @@ export default {
     fetchTitle() {
       this.title.text =
         this.orderListCount > 0
-          ? `${this.showMonth}엔 ${this.orderListCount}건의 메일을 전송했습니다! 💌`
-          : `${this.showMonth}엔 전송한 메일이 없습니다 🥲 `;
+          ? `${this.monthText}엔 ${this.orderListCount}건의 메일을 전송했습니다! 💌`
+          : `${this.monthText}엔 전송한 메일이 없습니다 🥲 `;
     },
     searchList() {
       this.fetchOrderList();

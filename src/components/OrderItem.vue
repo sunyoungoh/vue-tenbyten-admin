@@ -45,12 +45,22 @@ export default {
     item: {
       type: Object,
     },
+    sendAll: {
+      type: Boolean,
+    },
   },
   data() {
     return {
       postResult: 'none',
       loading: false,
     };
+  },
+  watch: {
+    sendAll(val) {
+      if (val == true) {
+        this.sendMailAndPostOrder();
+      }
+    },
   },
   computed: {
     validateEmail() {

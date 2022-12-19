@@ -5,6 +5,7 @@
 :root {
   --font-10: 0.625rem;
   --font-12: 0.75rem;
+  --font-13: 0.813rem;
   --font-14: 0.875rem;
   --font-15: 0.938rem;
   --font-16: 1rem;
@@ -159,6 +160,8 @@ th,
 td {
   height: 40px;
   padding: 1rem 0.7rem;
+}
+td {
   word-break: break-all;
 }
 .order-date,
@@ -305,6 +308,7 @@ button:disabled {
   border-radius: 0.2rem;
   padding-left: 2.2rem;
 }
+.btn-send-all,
 .btn-search,
 .btns_post button {
   width: 80px;
@@ -371,6 +375,9 @@ button:disabled {
 }
 
 @media screen and (max-width: 769px) {
+  .table-container {
+    padding: 1rem;
+  }
   tr,
   th,
   td {
@@ -466,6 +473,7 @@ button:disabled {
 
   .highlighter {
     padding: 0 0.75rem;
+    letter-spacing: -0.03rem;
   }
   .highlighter::before {
     height: 15px;
@@ -530,5 +538,11 @@ button:disabled {
 	*/
   #no-more-tables td:before {
     content: attr(data-title);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .order-list-container {
+    padding: 0 0.75rem;
   }
 }
