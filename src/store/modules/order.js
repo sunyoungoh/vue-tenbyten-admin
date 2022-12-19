@@ -1,4 +1,8 @@
-import { getNewOrders, getReadyOrders } from '@/api/order';
+import {
+  getNewOrders,
+  getReadyOrders,
+  getDispatchOrderHistory,
+} from '@/api/order';
 
 const order = {
   state: {
@@ -6,16 +10,26 @@ const order = {
     year: new Date().getFullYear(),
     clickedBtn: '',
     orderList: [],
-    resultStatusCode: '',
-    titleInfo: [],
     loading: false,
   },
   getters: {
     orderListCount(state) {
       return state.orderList.length;
     },
+    getOrderList(state) {
+      return state.orderList.filter(
+        item =>
+          new Date(item.orderDate).getMonth() == state.month &&
+          new Date(item.orderDate).getFullYear() == state.year,
+      );
+    },
   },
   mutations: {
+    searchOrderList(getters, searchInput) {
+      return getters.getOrderList.filter(item =>
+        item.ordererName.includes(searchInput),
+      );
+    },
     initDate(state) {
       state.month = new Date().getMonth();
       state.year = new Date().getFullYear();
@@ -67,6 +81,12 @@ const order = {
     },
   },
   actions: {
+    async fetchOrderList({ commit }) {
+      commit('setLoading', true);
+      const { data } = await getDispatchOrderHistory();
+      commit('setOrderList', data);
+      commit('setLoading', false);
+    },
     async getOrdersData({ state, commit, dispatch }) {
       commit('setLoading', true);
       commit('clearResultStatusCode');

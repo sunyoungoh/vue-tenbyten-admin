@@ -18,6 +18,9 @@
 import LoginForm from '@/components/LoginForm.vue';
 import BarChart from '@/utils/BarChart';
 export default {
+  async mounted() {
+    this.$store.dispatch('fetchOrderList');
+  },
   components: {
     LoginForm,
     BarChart,
@@ -66,7 +69,7 @@ export default {
             data: [
               // 100000, 600000, 1100000, 700000,
               // 800000, 200000,
-              380000, 740000, 504000, 900000, 1800000, 1200000, 1200000,
+              100, 60, 20, 30, 40, 50, 60,
             ],
           },
         ],
@@ -74,6 +77,7 @@ export default {
       options: {
         responsive: true,
         legend: false,
+        maintainAspectRatio: false,
         scales: {
           xAxes: [
             {
@@ -119,9 +123,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.chart {
-  margin: 0 auto;
-  width: 400px;
-}
-</style>
+<style scoped></style>

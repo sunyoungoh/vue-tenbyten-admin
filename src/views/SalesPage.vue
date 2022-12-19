@@ -2,13 +2,15 @@
   <section>
     <LoadingSpinner v-if="loading" />
     <template v-else>
-      <TitleMonth @fetch-data="fetchData" />
+      <TitleMonth />
       <div class="sales-list-container">
         <div>
-          <h1 :class="title.css">{{ title.text }}</h1>
+          <h1 :class="highlighter">{{ title }}</h1>
         </div>
-        <TopSales :top-one="topOne" :top-two="topTwo" :top-three="topThree" />
-        <SalesList v-if="orderListCount > 0" :items="orderList" />
+        <template v-if="orderListCount > 0">
+          <TopSales :top-one="topOne" :top-two="topTwo" :top-three="topThree" />
+          <SalesList :items="orderList" />
+        </template>
       </div>
     </template>
   </section>
@@ -19,7 +21,6 @@ import TitleMonth from '@/components/TitleMonth.vue';
 import TopSales from '@/components/TopSales.vue';
 import SalesList from '@/components/SalesList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import { getDispatchOrderHistory } from '@/api/order';
 import { comma } from '@/utils/filters';
 
 export default {
@@ -30,24 +31,21 @@ export default {
     LoadingSpinner,
   },
   async mounted() {
-    const { data } = await getDispatchOrderHistory();
-    this.loading = false;
-    this.originOrderList = data;
-    this.fetchData();
-    this.fetchTopSales();
+    if (this.orderList !== '') {
+      await this.$store.dispatch('fetchOrderList');
+    }
   },
   data() {
     return {
-      loading: true,
-      originOrderList: [],
-      orderList: [],
-      title: [],
       topOne: {},
       topTwo: {},
       topThree: {},
     };
   },
   computed: {
+    loading() {
+      return this.$store.state.order.loading;
+    },
     month() {
       return this.$store.state.order.month;
     },
@@ -63,9 +61,6 @@ export default {
         .reduce((prev, curr) => prev + curr);
       return amount;
     },
-    todayMonth() {
-      return new Date().getMonth();
-    },
     monthText() {
       let month;
       this.month == new Date().getMonth()
@@ -75,33 +70,26 @@ export default {
         : (month = `${this.month + 1}월`);
       return month;
     },
+    orderList() {
+      return this.$store.getters.getOrderList;
+    },
+    highlighter() {
+      return this.orderList.length > 0
+        ? 'highlighter highlighter__yellow'
+        : 'highlighter highlighter__grey';
+    },
+    title() {
+      return this.orderListCount > 0
+        ? `${this.monthText} 매출은 ${comma(this.orderAmount)}원입니다! 💰`
+        : `${this.monthText} 매출은 0원입니다. 🥲 `;
+    },
   },
   watch: {
     orderList() {
-      this.orderListCount > 0
-        ? (this.title.css = 'highlighter highlighter__yellow')
-        : (this.title.css = 'highlighter highlighter__grey');
+      this.fetchTopSales();
     },
   },
   methods: {
-    fetchData() {
-      this.fetchOrderList();
-      this.fetchTitle();
-    },
-    fetchOrderList() {
-      this.orderList = this.originOrderList.filter(
-        item =>
-          new Date(item.orderDate).getMonth() == this.month &&
-          new Date(item.orderDate).getFullYear() == this.year,
-      );
-      this.fetchTopSales();
-    },
-    fetchTitle() {
-      this.title.text =
-        this.orderListCount > 0
-          ? `${this.monthText} 매출은 ${comma(this.orderAmount)}원입니다! 💰`
-          : `${this.monthText} 매출은 0원입니다. 🥲 `;
-    },
     fetchTopSales() {
       let itemIdArr = this.orderList.map(item => item.itemId);
       let countById = {};

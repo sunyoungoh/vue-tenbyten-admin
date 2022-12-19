@@ -463,6 +463,9 @@ button:disabled {
 }
 
 @media screen and (max-width: 769px) {
+  section {
+    padding-top: 1rem;
+  }
   .table-container {
     padding: 1rem;
   }

@@ -5,7 +5,7 @@
       <TitleMonth @fetch-data="fetchData" />
       <div class="order-list-container">
         <div>
-          <h1 :class="title.css">{{ title.text }}</h1>
+          <h1 :class="highlighter">{{ title }}</h1>
         </div>
         <div class="input-wrap search-wrap">
           <i class="uil uil-search search-icon"></i>
@@ -33,7 +33,6 @@
 import TitleMonth from '@/components/TitleMonth.vue';
 import DeliveryList from '@/components/DeliveryList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import { getDispatchOrderHistory } from '@/api/order';
 
 export default {
   components: {
@@ -42,22 +41,23 @@ export default {
     LoadingSpinner,
   },
   async mounted() {
-    const { data } = await getDispatchOrderHistory();
-    this.loading = false;
-    this.originOrderList = data;
+    if (this.orderList !== '') {
+      await this.$store.dispatch('fetchOrderList');
+    }
     this.fetchData();
   },
   data() {
     return {
-      loading: true,
-      originOrderList: [],
-      orderList: [],
-      title: [],
       searchInput: '',
       search: false,
+      title: '',
+      orderList: [],
     };
   },
   computed: {
+    loading() {
+      return this.$store.state.order.loading;
+    },
     month() {
       return this.$store.state.order.month;
     },
@@ -66,9 +66,6 @@ export default {
     },
     orderListCount() {
       return this.orderList.length;
-    },
-    todayMonth() {
-      return new Date().getMonth();
     },
     monthText() {
       let month;
@@ -79,12 +76,13 @@ export default {
         : (month = `${this.month + 1}월`);
       return month;
     },
-  },
-  watch: {
-    orderList() {
-      this.orderListCount > 0
-        ? (this.title.css = 'highlighter highlighter__yellow')
-        : (this.title.css = 'highlighter highlighter__grey');
+    originOrderList() {
+      return this.$store.getters.getOrderList;
+    },
+    highlighter() {
+      return this.orderList.length > 0
+        ? 'highlighter highlighter__yellow'
+        : 'highlighter highlighter__grey';
     },
   },
   methods: {
@@ -93,14 +91,10 @@ export default {
       this.fetchTitle();
     },
     fetchOrderList() {
-      this.orderList = this.originOrderList.filter(
-        item =>
-          new Date(item.orderDate).getMonth() == this.month &&
-          new Date(item.orderDate).getFullYear() == this.year,
-      );
+      this.orderList = this.originOrderList;
     },
     fetchTitle() {
-      this.title.text =
+      this.title =
         this.orderListCount > 0
           ? `${this.monthText}엔 ${this.orderListCount}건의 메일을 전송했습니다! 💌`
           : `${this.monthText}엔 전송한 메일이 없습니다 🥲 `;
@@ -112,7 +106,7 @@ export default {
       );
       if (this.searchInput) {
         this.search = true;
-        this.title.text =
+        this.title =
           this.orderListCount > 0
             ? `${this.searchInput}님께 ${this.orderList.length}건의 메일을 전송했습니다! 💌`
             : `${this.searchInput}님께 전송한 메일이 없습니다. 🥲`;
