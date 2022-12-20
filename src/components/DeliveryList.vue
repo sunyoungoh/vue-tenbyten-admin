@@ -2,23 +2,12 @@
   <div class="table-container" id="no-more-tables">
     <table>
       <thead>
-        <tr>
-          <th
-            v-for="(title, i) in itemTitles"
-            :key="i"
-            :class="clickField == title.key ? 'filter-tab' : ''"
-          >
-            {{ title.value }}
-            <div
-              class="btn-angle"
-              v-if="title.key !== 'itemOption'"
-              @click="sortList(title.key)"
-            >
-              <i class="uil uil-angle-down" v-if="orderBy == 'desc'"></i>
-              <i class="uil uil-angle-up" v-else></i>
-            </div>
-          </th>
-        </tr>
+        <TableTitle
+          :titles="tableTitles"
+          :click-field="clickField"
+          :order-by="orderBy"
+          @sort-list="sortList"
+        />
       </thead>
       <tbody>
         <DeliveryItem
@@ -26,7 +15,7 @@
           :key="i"
           :item="item"
           :clickField="clickField"
-          :titles="itemTitles"
+          :titles="tableTitles"
         />
       </tbody>
     </table>
@@ -34,17 +23,18 @@
 </template>
 
 <script>
-import { sortDate, sortStr, sortItemId } from '@/utils/sortArr';
+import { sortOrderList } from '@/utils/sortArr';
+import TableTitle from '@/components/TableTitle.vue';
 import DeliveryItem from '@/components/DeliveryItem.vue';
 
 export default {
-  components: { DeliveryItem },
+  components: {
+    TableTitle,
+    DeliveryItem,
+  },
   props: {
     items: {
       type: Array,
-    },
-    month: {
-      type: Number,
     },
     search: {
       type: Boolean,
@@ -52,7 +42,7 @@ export default {
   },
   data() {
     return {
-      itemTitles: [
+      tableTitles: [
         { key: 'orderDate', value: '주문일' },
         { key: 'createdAt', value: '발송일' },
         { key: 'ordererId', value: '아이디' },
@@ -75,25 +65,21 @@ export default {
     },
   },
   computed: {
+    month() {
+      return this.$store.state.order.month;
+    },
     orderList: {
       get() {
         return this.items;
       },
-      set(sortList) {
-        return sortList;
-      },
+      set() {},
     },
   },
   methods: {
     sortList(title) {
       this.clickField = title;
       this.orderBy = this.orderBy == 'desc' ? 'asc' : 'desc';
-      this.orderList =
-        title == 'orderDate' || title == 'createdAt'
-          ? sortDate(this.orderList, title, this.orderBy)
-          : title == 'itemId'
-          ? sortItemId(this.orderList, title, this.orderBy)
-          : sortStr(this.orderList, title, this.orderBy);
+      this.orderList = sortOrderList(this.orderList, title, this.orderBy);
     },
   },
 };

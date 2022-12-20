@@ -6,42 +6,42 @@ import {
 
 const order = {
   state: {
-    month: new Date().getMonth(),
     year: new Date().getFullYear(),
-    clickedBtn: '',
+    month: new Date().getMonth(),
     orderList: [],
+    clickedBtn: '',
     loading: false,
   },
   getters: {
     orderListCount(state) {
       return state.orderList.length;
     },
-    getOrderList(state) {
+    monthlyOrderList(state) {
       return state.orderList.filter(
         item =>
           new Date(item.orderDate).getMonth() == state.month &&
           new Date(item.orderDate).getFullYear() == state.year,
       );
     },
+    monthText(state) {
+      let month;
+      state.month == new Date().getMonth()
+        ? (month = '이번달')
+        : state.month == new Date().getMonth() - 1
+        ? (month = '지난달')
+        : (month = `${state.month + 1}월`);
+      return month;
+    },
   },
   mutations: {
     searchOrderList(getters, searchInput) {
-      return getters.getOrderList.filter(item =>
+      return getters.monthlyOrderList.filter(item =>
         item.ordererName.includes(searchInput),
       );
     },
     initDate(state) {
       state.month = new Date().getMonth();
       state.year = new Date().getFullYear();
-    },
-    setMonth(state, month) {
-      state.month = month;
-    },
-    prevMonth(state) {
-      state.month -= 1;
-    },
-    nextMonth(state) {
-      state.month += 1;
     },
     setYear(state, year) {
       state.year = year;
@@ -51,6 +51,15 @@ const order = {
     },
     nextYear(state) {
       state.year += 1;
+    },
+    setMonth(state, month) {
+      state.month = month;
+    },
+    prevMonth(state) {
+      state.month -= 1;
+    },
+    nextMonth(state) {
+      state.month += 1;
     },
     setTitleInfo(state, titleInfo) {
       state.titleInfo = titleInfo;

@@ -2,23 +2,12 @@
   <div class="table-container sales">
     <table>
       <thead>
-        <tr>
-          <th
-            v-for="(title, i) in itemTitles"
-            :key="i"
-            :class="[clickField == title.key ? 'filter-tab' : '', title.key]"
-          >
-            {{ title.value }}
-            <div
-              class="btn-angle"
-              v-if="title.key !== 'itemOption'"
-              @click="sortList(title.key)"
-            >
-              <i class="uil uil-angle-down" v-if="orderBy == 'desc'"></i>
-              <i class="uil uil-angle-up" v-else></i>
-            </div>
-          </th>
-        </tr>
+        <TableTitle
+          :titles="tableTitles"
+          :click-field="clickField"
+          :order-by="orderBy"
+          @sort-list="sortList"
+        />
       </thead>
       <tbody>
         <SalesItem
@@ -26,7 +15,7 @@
           :key="i"
           :item="item"
           :clickField="clickField"
-          :titles="itemTitles"
+          :titles="tableTitles"
         />
       </tbody>
     </table>
@@ -35,30 +24,20 @@
 
 <script>
 import { getItemName } from '@/utils/getItemName';
-// import { sortDate, sortStr, sortItemId } from '@/utils/sortArr';
+import TableTitle from '@/components/TableTitle.vue';
 import SalesItem from '@/components/SalesItem.vue';
 
 export default {
-  components: { SalesItem },
-  props: {
-    items: {
-      type: Array,
-    },
-    month: {
-      type: Number,
-    },
+  components: {
+    TableTitle,
+    SalesItem,
   },
+
   data() {
     return {
-      itemTitles: [
-        // { key: 'orderDate', value: '주문일' },
-        // { key: 'createdAt', value: '발송일' },
-        // { key: 'ordererId', value: '아이디' },
-        // { key: 'ordererName', value: '이름' },
-        // { key: 'toEmail', value: ' 수신 이메일' },
+      tableTitles: [
         { key: 'item', value: '상품명(옵션)' },
         { key: 'count', value: '판매수' },
-        // { key: 'requireMemo', value: '주문메모' },
       ],
       orderBy: 'desc',
       clickField: '',
@@ -73,6 +52,12 @@ export default {
     },
   },
   computed: {
+    orderList() {
+      return this.$store.getters.monthlyOrderList;
+    },
+    month() {
+      return this.$store.state.order.month;
+    },
     orderListByCount: {
       get() {
         let originList = this.orderList;
@@ -96,39 +81,7 @@ export default {
         });
         return result;
       },
-      set(sortList) {
-        return sortList;
-      },
-    },
-    // orderListByCount() {
-    //   let originList = this.orderList;
-    //   let newList = {};
-    //   originList.forEach(item => {
-    //     let itemStr = item.itemOption
-    //       ? `${getItemName(item.itemId)} (${item.itemOption})`
-    //       : `${getItemName(item.itemId)}`;
-    //     newList[itemStr] = (newList[itemStr] || 0) + 1;
-    //   });
-    //   let sortedArr = Object.entries(newList).sort((a, b) => b[1] - a[1]);
-    //   let result = sortedArr.map(item => {
-    //     return { item: item[0], count: item[1] };
-    //   });
-    //   result.sort((a, b) => {
-    //     // 판매개수 내림차순 상품명 오름차순
-    //     if (a.count > b.count) return -1;
-    //     if (a.count < b.count) return 1;
-    //     if (a.item < b.item) return -1;
-    //     if (a.item > b.item) return 1;
-    //   });
-    //   return result;
-    // },
-    orderList: {
-      get() {
-        return this.items;
-      },
-      set(sortList) {
-        return sortList;
-      },
+      set() {},
     },
   },
   methods: {

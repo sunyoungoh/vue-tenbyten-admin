@@ -7,23 +7,20 @@
         <div>
           <h1 :class="highlighter">{{ title }}</h1>
         </div>
-        <div class="input-wrap search-wrap">
-          <i class="uil uil-search search-icon"></i>
-          <input
-            type="text"
-            class="input-search"
-            v-model="searchInput"
-            placeholder="이름을 입력하세요"
-            @keyup.enter="searchList"
-          />
-          <button class="btn-search" @click="searchList">검색하기</button>
-        </div>
-        <DeliveryList
-          v-if="orderListCount > 0"
-          :items="orderList"
-          :month="month"
-          :search="search"
-        />
+        <template v-if="orderListCount > 0">
+          <div class="input-wrap search-wrap">
+            <i class="uil uil-search search-icon"></i>
+            <input
+              type="text"
+              class="input-search"
+              v-model="searchInput"
+              placeholder="이름을 입력하세요"
+              @keyup.enter="searchList"
+            />
+            <button class="btn-search" @click="searchList">검색하기</button>
+          </div>
+          <DeliveryList :items="orderList" :search="search" />
+        </template>
       </div>
     </template>
   </section>
@@ -41,9 +38,7 @@ export default {
     LoadingSpinner,
   },
   async mounted() {
-    if (this.orderList !== '') {
-      await this.$store.dispatch('fetchOrderList');
-    }
+    await this.$store.dispatch('fetchOrderList');
     this.fetchData();
   },
   data() {
@@ -58,26 +53,20 @@ export default {
     loading() {
       return this.$store.state.order.loading;
     },
-    month() {
-      return this.$store.state.order.month;
-    },
     year() {
       return this.$store.state.order.year;
     },
-    orderListCount() {
-      return this.orderList.length;
+    month() {
+      return this.$store.state.order.month;
     },
     monthText() {
-      let month;
-      this.month == new Date().getMonth()
-        ? (month = '이번달')
-        : this.month == new Date().getMonth() - 1
-        ? (month = '지난달')
-        : (month = `${this.month + 1}월`);
-      return month;
+      return this.$store.getters.monthText;
     },
     originOrderList() {
-      return this.$store.getters.getOrderList;
+      return this.$store.getters.monthlyOrderList;
+    },
+    orderListCount() {
+      return this.orderList.length;
     },
     highlighter() {
       return this.orderList.length > 0

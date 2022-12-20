@@ -4,6 +4,7 @@
       ❤️ <b> {{ brandNameKor }}</b
       >님 환영합니다! ❤️
     </div>
+    <div>이번달엔 {{ salesCount }}건이 판매되었어요!</div>
     <LoginForm v-if="!isLogin" />
     <BarChart
       v-if="isLogin"
@@ -31,6 +32,9 @@ export default {
     },
     brandNameKor() {
       return this.$store.state.user.brandNameKor;
+    },
+    salesCount() {
+      return this.$store.getters.monthlyOrderList.length;
     },
   },
   data() {

@@ -1,41 +1,58 @@
 <template>
   <div class="top3-sales">
-    <div class="sales-item top1">
-      <div class="pop-num">1</div>
-      <p v-for="(item, i) in topOne.items" :key="i" class="item-name">
-        {{ topOne.items[i] | itemName }}
+    <div
+      class="sales-item"
+      v-for="(items, i) in topSales"
+      :key="i"
+      :class="i == 'topOne' ? 'top1' : ''"
+    >
+      <div class="pop-num">{{ items.index }}</div>
+      <p v-for="(product, j) in items.products" :key="j" class="item-name">
+        {{ product | itemName }}
       </p>
-      <div class="sales-count">{{ topOne.count }}개</div>
-    </div>
-    <div class="sales-item top2">
-      <div class="pop-num">2</div>
-      <p v-for="(item, i) in topTwo.items" :key="i" class="item-name">
-        {{ topTwo.items[i] | itemName }}
-      </p>
-      <div class="sales-count">{{ topTwo.count }}개</div>
-    </div>
-    <div class="sales-item top3">
-      <div class="pop-num">3</div>
-      <p v-for="(item, i) in topThree.items" :key="i" class="item-name">
-        {{ topThree.items[i] | itemName }}
-        <span v-if="topThree.items.length > 2">+1</span>
-      </p>
-      <div class="sales-count">{{ topThree.count }}개</div>
+      <div class="sales-count">{{ items.count }}개</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    topOne: {
-      type: Object,
+  computed: {
+    orderList() {
+      return this.$store.getters.monthlyOrderList;
     },
-    topTwo: {
-      type: Object,
-    },
-    topThree: {
-      type: Object,
+    topSales() {
+      let itemIdArr = this.orderList.map(item => item.itemId);
+      let countById = {};
+      itemIdArr.forEach(itemId => {
+        countById[itemId] = (countById[itemId] || 0) + 1;
+      });
+      let sortedArr = Object.entries(countById).sort((a, b) => b[1] - a[1]);
+      let countArr = [...new Set(sortedArr.map(item => item[1]))];
+      let list = {
+        topOne: {
+          index: 1,
+          products: sortedArr
+            .filter(item => countArr[0] == item[1])
+            .map(item => item[0]),
+          count: countArr[0],
+        },
+        topTwo: {
+          index: 2,
+          products: sortedArr
+            .filter(item => countArr[1] == item[1])
+            .map(item => item[0]),
+          count: countArr[1],
+        },
+        topThree: {
+          index: 3,
+          products: sortedArr
+            .filter(item => countArr[2] == item[1])
+            .map(item => item[0]),
+          count: countArr[2],
+        },
+      };
+      return list;
     },
   },
 };

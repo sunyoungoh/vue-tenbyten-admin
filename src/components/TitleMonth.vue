@@ -5,7 +5,7 @@
     </button>
     <span>{{ nowDate }}</span>
     <template>
-      <button v-if="month == todayMonth">
+      <button v-if="isTodayMonth">
         <i class="uil uil-angle-right-b disabled"></i>
       </button>
       <button v-else @click="afterMonth">
@@ -24,8 +24,11 @@ export default {
     year() {
       return this.$store.state.order.year;
     },
-    todayMonth() {
-      return new Date().getMonth();
+    isTodayMonth() {
+      return this.month == new Date().getMonth() &&
+        this.year == new Date().getFullYear()
+        ? true
+        : false;
     },
     nowDate() {
       return `${this.year}.${this.month + 1}`;
