@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <LoadingSpinner v-if="loading" />
     <div class="order-list-container">
       <h1 :class="title.css">{{ title.text }}</h1>
