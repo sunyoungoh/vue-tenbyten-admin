@@ -4,8 +4,7 @@
       ❤️ <b> {{ brandNameKor }}</b
       >님 환영합니다! ❤️
     </div>
-    <div>이번달엔 {{ salesCount }}건이 판매되었어요!</div>
-    {{ monthlySales }}
+    <div>🎉 이번달엔 {{ salesCount }}건이 판매되었어요!</div>
     <LoginForm v-if="!isLogin" />
     <BarChart
       v-if="isLogin"
@@ -51,6 +50,9 @@ export default {
         //그래프에 데이터 직접 표시 (마우스 올렸을때가 아니라 그래프 자체에 데이터표시)
         hoverBorderWidth: 20,
         maintainAspectRatio: false,
+        hover: {
+          mode: 'dataset',
+        },
         tooltips: {
           callbacks: {
             label: function (tooltipItem, data) {
@@ -71,7 +73,6 @@ export default {
               display: true, // x 축 show
               scaleLabel: {
                 display: false,
-                labelString: '날짜',
               },
               gridLines: {
                 display: false,
@@ -98,7 +99,17 @@ export default {
                 beginAtZero: true,
                 min: 0, // 최소범위
                 padding: 10, // 오른쪽 간격
-                fontSize: 14,
+                fontSize: 12,
+                userCallback: function (value, index, values) {
+                  console.log(index);
+                  console.log(values);
+                  value = value.toString();
+                  let endIndex = value.length - 4;
+                  value = value.slice(0, endIndex);
+                  // value = value.split(/(?=(?:...)*$)/);
+                  // value = value.join(',');
+                  return value ? `${value}만` : '';
+                },
               },
               gridLines: {
                 // display: false,
