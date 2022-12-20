@@ -116,7 +116,7 @@ export default {
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
           orderDate: new Date(this.item['orderDate']),
-          price: this.item['details'][0]['NotCouponPrice'],
+          price: Number(this.item['details'][0]['NotCouponPrice']),
         },
       };
     },

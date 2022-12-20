@@ -23,6 +23,27 @@ const order = {
           new Date(item.orderDate).getFullYear() == state.year,
       );
     },
+    monthlySales(state) {
+      let arr = [];
+      for (let i = 5; i >= 0; i--) {
+        let orderList;
+        orderList = state.orderList.filter(
+          item =>
+            new Date(item.orderDate).getMonth() == state.month - i &&
+            new Date(item.orderDate).getFullYear() == state.year,
+        );
+        if (orderList.length > 0) {
+          arr.push(
+            orderList
+              .map(item => item.price)
+              .reduce((prev, curr) => prev + curr),
+          );
+        } else {
+          arr.push('');
+        }
+      }
+      return arr;
+    },
     monthText(state) {
       let month;
       state.month == new Date().getMonth()

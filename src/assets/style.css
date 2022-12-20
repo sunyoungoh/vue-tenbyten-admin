@@ -24,6 +24,51 @@ body {
   vertical-align: baseline;
   font-family: 'Poppins', 'Noto Sans KR', sans-serif;
 }
+header,
+nav {
+  z-index: 999;
+  background-color: #fff;
+  position: fixed;
+}
+header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  top: 0;
+}
+header .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+nav {
+  width: 100%;
+  top: 60px;
+}
+.nav-list {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid #ededed;
+}
+.nav-list li {
+  display: flex;
+  align-items: center;
+  line-height: 46px;
+  cursor: pointer;
+}
+.nav-list a {
+  width: max-content;
+  margin: 0 1rem;
+  padding: 0 0.5rem;
+  height: 46px;
+  line-height: 46px;
+  color: #222222;
+  text-decoration: none;
+  justify-content: center;
+  font-size: var(--font-15);
+}
 h1 {
   text-align: center;
 }
@@ -52,11 +97,11 @@ h1 {
   color: #b2b2b2;
   cursor: default;
 }
-section {
+.container{
   position: relative;
   width: 100%;
   margin: 0 auto;
-  padding-top: 2rem;
+  padding-top: 1.75rem;
   text-align: center;
 }
 body {
@@ -73,16 +118,7 @@ li {
   padding: 0;
   list-style: none;
 }
-header {
-  height: 60px;
-  display: flex;
-  justify-content: center;
-}
-header .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .logo img {
   width: 165px;
 }
@@ -90,32 +126,11 @@ header .logo {
   height: calc(100vh - 100px);
 }
 #main {
+  padding-top: 110px;
   height: auto;
   min-height: calc(100vh - 2rem - 107px - 100px);
 }
-.nav-list {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  border-bottom: 1px solid #ededed;
-}
-.nav-list li {
-  display: flex;
-  align-items: center;
-  line-height: 46px;
-  cursor: pointer;
-}
-.nav-list a {
-  width: max-content;
-  margin: 0 1rem;
-  padding: 0 0.5rem;
-  height: 46px;
-  line-height: 46px;
-  color: #222222;
-  text-decoration: none;
-  justify-content: center;
-  font-size: var(--font-15);
-}
+
 .router-link-exact-active {
   font-weight: bold;
   position: relative;
@@ -218,7 +233,7 @@ td {
   box-shadow: 1px 1px 6px 0px #cccccc;
   padding: 1rem 1rem 0.5rem;
   text-align: center;
-  height: 110px;
+  height: 107px;
 }
 .sales-item.top1 {
   border: 2px solid #212121;
@@ -463,7 +478,7 @@ button:disabled {
 }
 
 @media screen and (max-width: 769px) {
-  section {
+  .container {
     padding-top: 1rem;
   }
   .table-container {
@@ -517,7 +532,7 @@ button:disabled {
   }
 
   .nav-list a {
-    margin: 0 0.5rem;
+    margin: 0 0.35rem;
   }
   footer {
     height: 70px;
@@ -528,7 +543,7 @@ button:disabled {
     margin: auto 0;
   }
 
-  section {
+  .container {
     min-width: 350px;
   }
   h2,
@@ -591,8 +606,17 @@ button:disabled {
     font-size: var(--font-15);
     /* height: 45px; */
   }
-  .order-list-container {
-    /* margin-top: 2rem; */
+  .btn-send-all {
+    position: fixed;
+    width: 100%;
+    height: 54px;
+    padding: 0;
+    margin: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
+    font-size: var(--font-16);
+    z-index: 999;
   }
   .btns_post button {
     width: 70px;
@@ -601,7 +625,6 @@ button:disabled {
     line-height: 20px;
     font-weight: 500;
   }
-
   .highlighter {
     padding: 0 0.75rem;
     letter-spacing: -0.03rem;
@@ -673,7 +696,7 @@ button:disabled {
 }
 
 @media screen and (max-width: 375px) {
-  section {
+ .container {
     padding-top: 1.5rem;
   }
   .nav-list a {

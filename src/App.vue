@@ -2,7 +2,9 @@
   <div id="app">
     <AppHeader v-if="isLogin" />
     <AppNav v-if="isLogin" />
-    <router-view id="main" />
+    <main id="main">
+      <router-view />
+    </main>
     <footer>© 2022 SunYoungOh. All right reserved.</footer>
   </div>
 </template>

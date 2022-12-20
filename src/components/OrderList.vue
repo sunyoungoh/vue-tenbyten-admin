@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- v-if="$route.path == '/ready'" -->
     <button class="btn-send-all" @click="clickSendAll">
-      모두 메일 발송하기
+      모두 메일 발송하기 💌
     </button>
     <div class="table-container" id="no-more-tables">
       <table>

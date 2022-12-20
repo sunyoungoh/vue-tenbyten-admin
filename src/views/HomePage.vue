@@ -1,10 +1,11 @@
 <template>
-  <section class="home">
+  <section class="home container">
     <div class="welcome" v-if="isLogin">
       ❤️ <b> {{ brandNameKor }}</b
       >님 환영합니다! ❤️
     </div>
     <div>이번달엔 {{ salesCount }}건이 판매되었어요!</div>
+    {{ monthlySales }}
     <LoginForm v-if="!isLogin" />
     <BarChart
       v-if="isLogin"
@@ -20,7 +21,8 @@ import LoginForm from '@/components/LoginForm.vue';
 import BarChart from '@/utils/BarChart';
 export default {
   async mounted() {
-    this.$store.dispatch('fetchOrderList');
+    await this.$store.dispatch('fetchOrderList');
+    this.fetchChartData();
   },
   components: {
     LoginForm,
@@ -36,24 +38,84 @@ export default {
     salesCount() {
       return this.$store.getters.monthlyOrderList.length;
     },
+    monthlySales() {
+      return this.$store.getters.monthlySales;
+    },
   },
   data() {
     return {
-      chartData: {
-        labels: [
-          // '22/01',
-          // '22/02',
-          // '22/03',
-          // '22/04',
-          // '22/05',
-          '22/06',
-          '22/07',
-          '22/08',
-          '22/09',
-          '22/10',
-          '22/11',
-          '22/12',
-        ],
+      chartData: {},
+      options: {
+        responsive: true,
+        legend: false,
+        //그래프에 데이터 직접 표시 (마우스 올렸을때가 아니라 그래프 자체에 데이터표시)
+        hoverBorderWidth: 20,
+        maintainAspectRatio: false,
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              console.log(data);
+              //그래프 콤마
+              return (
+                tooltipItem.yLabel
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'
+              );
+            },
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              stacked: false, // 쌓임
+              display: true, // x 축 show
+              scaleLabel: {
+                display: false,
+                labelString: '날짜',
+              },
+              gridLines: {
+                display: false,
+                // drawBorder: false,
+                // color: '#323232',
+                // lineWidth: 1,
+              },
+              ticks: {
+                beginAtZero: true, // 0부터 시작
+                maxRotation: 0,
+                minRotation: 0,
+                // autoSkip: true,
+                maxTicksLimit: 6,
+              },
+            },
+          ],
+          // y축 옵션
+          yAxes: [
+            {
+              stacked: false, // 쌓임
+              display: true, // y 축 show
+              ticks: {
+                stepSize: 50000, // 증가범위
+                beginAtZero: true,
+                min: 0, // 최소범위
+                padding: 10, // 오른쪽 간격
+                fontSize: 14,
+              },
+              gridLines: {
+                // display: false,
+                drawBorder: false,
+                color: '#eee',
+                lineWidth: 1,
+              },
+            },
+          ],
+        },
+      },
+    };
+  },
+  methods: {
+    fetchChartData() {
+      this.chartData = {
+        labels: ['22/07', '22/08', '22/09', '22/10', '22/11', '22/12'],
         datasets: [
           {
             borderWidth: 1, // 라인 넓이
@@ -70,60 +132,16 @@ export default {
             tension: 0.1,
             borderColor: '#ffb4c3',
             pointBorderColor: '#ffb4c3',
-            data: [
-              // 100000, 600000, 1100000, 700000,
-              // 800000, 200000,
-              100, 60, 20, 30, 40, 50, 60,
-            ],
+            data: this.$store.getters.monthlySales,
+            // 100000, 600000, 1100000, 700000,
+            // 800000, 200000,
+            // 1200, 60, 20, 30, 40, 50, 60,
+            // ,
+            // ],
           },
         ],
-      },
-      options: {
-        responsive: true,
-        legend: false,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [
-            {
-              stacked: false, // 쌓임
-              display: true, // x 축 show
-              scaleLabel: {
-                display: false,
-                labelString: '날짜',
-              },
-              grid: {
-                drawBorder: false,
-                color: '#323232',
-                lineWidth: 1,
-              },
-              ticks: {
-                beginAtZero: true, // 0부터 시작
-                padding: 0,
-              },
-            },
-          ],
-          // y축 옵션
-          yAxes: [
-            {
-              stacked: false, // 쌓임
-              display: true, // y 축 show
-              ticks: {
-                stepSize: 20, // 증가범위
-                beginAtZero: true,
-                max: 100, // 최대범위
-                min: 0, // 최소범위
-                padding: 10, // 오른쪽 간격
-              },
-              grid: {
-                drawBorder: false,
-                color: '#323232',
-                lineWidth: 1,
-              },
-            },
-          ],
-        },
-      },
-    };
+      };
+    },
   },
 };
 </script>

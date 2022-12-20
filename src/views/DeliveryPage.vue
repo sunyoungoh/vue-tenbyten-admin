@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="container">
     <LoadingSpinner v-if="loading" />
     <template v-else>
       <TitleMonth @fetch-data="fetchData" />
