@@ -24,37 +24,25 @@ const user = {
   },
   actions: {
     async login({ commit }, loginData) {
-      commit('setTitleInfo', {}, { root: true });
       commit('clearUserData');
-      commit('clearResultStatusCode', null, { root: true });
       commit('clearOrderList', null, { root: true });
       let { data } = await getBrandInfo(loginData.apiKey);
       if (loginData.brandId == data.brandid) {
-        commit('setResultStatusCode', 200, { root: true });
         commit('setUserData', {
           apiKey: loginData.apiKey,
           brandId: loginData.brandId,
           brandNameKor: data.BrandNameKor,
         });
         commit('setIsLogin', true);
+        return 'success';
       } else {
-        commit('setResultStatusCode', 401, { root: true });
-        commit(
-          'setTitleInfo',
-          {
-            css: 'highlighter highlighter__red',
-            msg: '🚨 권한이 없습니다.',
-          },
-          { root: true },
-        );
+        return 'fail';
       }
     },
     logout({ commit }) {
       commit('setIsLogin', false);
       commit('clearUserData');
-      commit('clearResultStatusCode', null, { root: true });
       commit('clearOrderList', null, { root: true });
-      commit('clearTitleInfo', null, { root: true });
     },
   },
 };

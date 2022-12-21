@@ -12,7 +12,6 @@
             <i class="uil uil-search search-icon"></i>
             <input
               type="text"
-              class="input-search"
               v-model="searchInput"
               placeholder="이름을 입력하세요"
               @keyup.enter="searchList"

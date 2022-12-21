@@ -1,11 +1,12 @@
 <template>
   <div class="login-container">
+    <img src="@/assets/logo.png" alt="logo" class="logo" />
     <div class="login-form">
       <div class="input-item">
         <div class="input-wrap">
-          <label for="brandId">brandId</label>
           <input
             id="brandId"
+            placeholder="brandId"
             type="text"
             v-model="brandId"
             @click="resetError($event)"
@@ -18,9 +19,9 @@
       </div>
       <div class="input-item">
         <div class="input-wrap">
-          <label for="apiKey">apiKey</label>
           <input
             id="apiKey"
+            placeholder="apiKey"
             v-model="apiKey"
             type="password"
             clearable
@@ -31,13 +32,12 @@
           <p class="error">{{ apiKeyError }}</p>
         </div>
       </div>
-      <div class="btns_order">
-        <button :disabled="loading" @click="login" class="btn-login">
-          <span v-if="!loading">로그인</span>
-          <span v-else class="spinner"></span>
-        </button>
-      </div>
+      <button :disabled="loading" @click="login" class="btn-login">
+        <span v-if="!loading">로그인</span>
+        <span v-else class="spinner"></span>
+      </button>
     </div>
+    <p class="error">{{ loginError }}</p>
   </div>
 </template>
 
@@ -49,6 +49,7 @@ export default {
       apiKey: this.$store.state.user.apiKey,
       apiKeyError: '',
       brandIdError: '',
+      loginError: '',
       loading: false,
     };
   },
@@ -80,10 +81,11 @@ export default {
       this.inputEmptyCheck();
       if (this.apiKey !== '' && this.brandId !== '') {
         this.loading = true;
-        await this.$store.dispatch('login', {
+        const result = await this.$store.dispatch('login', {
           brandId: this.brandId,
           apiKey: this.apiKey,
         });
+        if (result == 'fail') this.loginError = '로그인을 실패하였습니다.';
       }
       this.loading = false;
     },
