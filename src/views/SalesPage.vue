@@ -17,21 +17,21 @@
 </template>
 
 <script>
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import TitleMonth from '@/components/TitleMonth.vue';
 import TopSales from '@/components/TopSales.vue';
 import SalesList from '@/components/SalesList.vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { comma } from '@/utils/filters';
 
 export default {
   components: {
+    LoadingSpinner,
     TitleMonth,
     TopSales,
     SalesList,
-    LoadingSpinner,
   },
   async mounted() {
-    await this.$store.dispatch('fetchOrderList');
+    await this.$store.dispatch('fetchOrderList', 'sales');
   },
   computed: {
     loading() {

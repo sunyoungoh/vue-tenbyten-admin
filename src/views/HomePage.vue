@@ -1,36 +1,44 @@
 <template>
   <section class="home container">
-    <div class="welcome" v-if="isLogin">
-      ❤️ <b> {{ brandNameKor }}</b
-      >님 환영합니다! ❤️
-    </div>
-    <h1 class="sales-info highlighter highlighter__yellow">
-      이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
-    </h1>
-    <LoginForm v-if="!isLogin" />
-    <LineChart
-      v-if="isLogin"
-      class="chart"
-      :options="options"
-      :chartData="chartData"
-    />
+    <LoadingSpinner v-if="loading" />
+    <template v-else>
+      <div class="welcome" v-if="isLogin">
+        ❤️ <b> {{ brandNameKor }}</b
+        >님 환영합니다! ❤️
+      </div>
+      <h1 class="sales-info highlighter highlighter__yellow">
+        이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+      </h1>
+      <LoginForm v-if="!isLogin" />
+      <LineChart
+        v-if="isLogin"
+        class="chart"
+        :options="options"
+        :chartData="chartData"
+      />
+    </template>
   </section>
 </template>
 
 <script>
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import LoginForm from '@/components/LoginForm.vue';
 import LineChart from '@/utils/LineChart';
 
 export default {
   async mounted() {
-    await this.$store.dispatch('fetchOrderList');
+    await this.$store.dispatch('fetchOrderList', 'home');
     this.fetchChartData();
   },
   components: {
+    LoadingSpinner,
     LoginForm,
     LineChart,
   },
   computed: {
+    loading() {
+      return this.$store.state.order.loading;
+    },
     isLogin() {
       return this.$store.state.user.isLogin;
     },
@@ -50,8 +58,6 @@ export default {
       options: {
         responsive: true,
         legend: false,
-        //그래프에 데이터 직접 표시 (마우스 올렸을때가 아니라 그래프 자체에 데이터표시)
-        hoverBorderWidth: 20,
         maintainAspectRatio: false,
         hover: {
           mode: 'dataset',

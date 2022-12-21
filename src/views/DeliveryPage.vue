@@ -27,18 +27,18 @@
 </template>
 
 <script>
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import TitleMonth from '@/components/TitleMonth.vue';
 import DeliveryList from '@/components/DeliveryList.vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   components: {
+    LoadingSpinner,
     TitleMonth,
     DeliveryList,
-    LoadingSpinner,
   },
   async mounted() {
-    await this.$store.dispatch('fetchOrderList');
+    await this.$store.dispatch('fetchOrderList', 'delivery');
     this.fetchData();
   },
   data() {

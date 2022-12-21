@@ -10,12 +10,12 @@
         />
       </thead>
       <tbody>
-        <DeliveryItem
+        <OrderItem
           v-for="(item, i) in orderList"
           :key="i"
           :item="item"
-          :clickField="clickField"
           :titles="tableTitles"
+          :clickField="clickField"
         />
       </tbody>
     </table>
@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import { sortOrderList } from '@/utils/sortArr';
 import TableTitle from '@/components/TableTitle.vue';
-import DeliveryItem from '@/components/DeliveryItem.vue';
+import OrderItem from '@/components/OrderItem.vue';
+import { sortOrderList } from '@/utils/sortArr';
 
 export default {
   components: {
     TableTitle,
-    DeliveryItem,
+    OrderItem,
   },
   props: {
     items: {

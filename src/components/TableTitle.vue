@@ -11,10 +11,11 @@
         v-if="title.key !== 'itemOption'"
         @click="$emit('sort-list', title.key)"
       >
-        <i class="uil uil-angle-down" v-if="orderBy == 'desc'"></i>
-        <i class="uil uil-angle-up" v-else></i>
+        <i class="uil uil-angle-down" v-show="orderBy == 'desc'"></i>
+        <i class="uil uil-angle-up" v-show="orderBy == 'asc'"></i>
       </div>
     </th>
+    <th v-if="$route.path == '/ready'">발송상태</th>
   </tr>
 </template>
 

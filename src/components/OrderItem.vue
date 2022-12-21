@@ -1,38 +1,29 @@
 <template>
   <tr>
-    <td data-title="주문일" class="order-date">{{ orderDate }}</td>
-    <td data-title="아이디">{{ item['UserId'] | emptyValue }}</td>
-    <td data-title="이름">{{ item.ordererName }}</td>
-    <td data-title="휴대폰">{{ item.ordererCellPhone }}</td>
-    <td data-title="이메일">{{ item.ordererEmail }}</td>
-    <td data-title="상품명" class="item-name">
-      {{ this.item['details'][0]['itemId'] | itemName }}
+    <td
+      v-for="(title, i) in titles"
+      :key="i"
+      :data-title="title.value"
+      :class="clickField == title.key ? 'filter-tab' : ''"
+    >
+      <span v-if="title.key == 'orderDate' || title.key == 'createdAt'">
+        {{ item[title.key] | timeFormat }}
+      </span>
+      <span v-else-if="title.key == 'itemId'">
+        {{ item[title.key] | itemName }}
+      </span>
+      <span v-else>
+        {{ item[title.key] | emptyValue }}
+      </span>
     </td>
-    <td data-title="옵션" class="item-option">
-      {{ itemOptionName | emptyValue }}
-    </td>
-    <td data-title="주문메모">{{ itemRequireMemo | emptyValue }}</td>
     <td data-title="발송상태" class="btns_post" v-if="$route.path == '/ready'">
-      <template>
-        <button
-          @click="sendMailAndPostOrder"
-          v-if="postResult == 'none' && loading == false"
-          class="btn_post-default"
-        >
-          발송하기
-        </button>
-        <button v-if="loading == true" class="btn_post-loading">
-          발송 중..
-        </button>
-        <template v-else>
-          <button v-if="postResult == 'complete'" class="btn_post-complete">
-            발송완료
-          </button>
-          <button v-else-if="postResult == 'fail'" class="btn_post-fail">
-            발송실패
-          </button>
-        </template>
-      </template>
+      <button
+        @click="sendMailAndPostOrder"
+        :class="postResult.css"
+        :disabled="postResult.status !== 'none'"
+      >
+        {{ postResult.text }}
+      </button>
     </td>
   </tr>
 </template>
@@ -42,8 +33,14 @@ import { sendMail, dispatchOrder } from '@/api/order';
 
 export default {
   props: {
+    titles: {
+      type: Array,
+    },
     item: {
       type: Object,
+    },
+    clickField: {
+      type: String,
     },
     sendAll: {
       type: Boolean,
@@ -51,7 +48,11 @@ export default {
   },
   data() {
     return {
-      postResult: 'none',
+      postResult: {
+        status: 'none',
+        text: '발송하기',
+        css: 'btn_post-default',
+      },
       loading: false,
     };
   },
@@ -65,38 +66,18 @@ export default {
   computed: {
     validateEmail() {
       const reg = /.+@.+\..+/;
-      return reg.test(this.item['details'][0]['RequireMemo']);
-    },
-    orderDate() {
-      let splitDate = this.item['orderDate'].split('-');
-      return splitDate[0].substr(2) + '/' + splitDate[1] + '/' + splitDate[2];
-    },
-    itemOptionName() {
-      let str = this.item['details'][0]['itemOptionName'];
-      if (str !== '') {
-        let endIndex = this.item['details'][0]['itemOptionName'].indexOf('꼭');
-        if (endIndex !== -1) {
-          str = this.item['details'][0]['itemOptionName'].substring(
-            0,
-            endIndex - 1,
-          );
-        }
-      }
-      return str;
-    },
-    itemRequireMemo() {
-      return this.item['details'][0]['RequireMemo'].trim();
+      return reg.test(this.item.itemRequireMemo);
     },
     mailData() {
       let email = this.validateEmail
-        ? this.item['details'][0]['RequireMemo']
+        ? this.item.itemRequireMemo
         : this.item.ordererEmail;
       return {
         store: '텐바이텐/영로그',
         items: [
           {
-            itemId: this.item['details'][0]['itemId'],
-            itemOptionName: this.itemOptionName,
+            itemId: this.item.itemId,
+            itemOption: this.item.itemOption,
           },
         ],
         toEmail: email,
@@ -104,19 +85,19 @@ export default {
     },
     dispatchData() {
       return {
-        orderSerial: this.item['OrderSerial'],
-        detailIdx: this.item['details'][0]['DetailIdx'],
+        orderSerial: this.item.orderSerial,
+        detailIdx: this.item.detailIdx,
         details: {
-          ordererId: this.item['UserId'],
+          ordererId: this.item.userId,
           ordererName: this.item.ordererName,
           toEmail: this.mailData.toEmail,
-          itemId: this.item['details'][0]['itemId'],
-          itemOption: this.itemOptionName,
+          itemId: this.item.itemId,
+          itemOption: this.itemOption,
           requireMemo: this.itemRequireMemo,
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
-          orderDate: new Date(this.item['orderDate']),
-          price: Number(this.item['details'][0]['NotCouponPrice']),
+          orderDate: this.item.orderDate,
+          price: this.item.price,
         },
       };
     },
@@ -126,21 +107,39 @@ export default {
       const { data } = await dispatchOrder(this.dispatchData);
       if (data.code == 'SUCCESS') {
         this.loading = false;
-        this.postResult = 'complete';
+        this.postResult = {
+          status: 'success',
+          text: '발송완료',
+          css: 'btn_post-success',
+        };
       } else {
-        this.postResult = 'fail';
+        this.postResult = {
+          status: 'fail',
+          text: '발송실패',
+          css: 'btn_post-fail',
+        };
       }
     },
     async sendMailAndPostOrder() {
       let sendResult = {};
       this.loading = true;
+      this.postResult = {
+        status: 'wait',
+        text: '발송중...',
+        css: 'btn_post-loading',
+      };
       try {
         sendResult = await sendMail(this.mailData);
         console.log('메일 전송 완료');
       } catch (error) {
         console.log(error);
         this.loading = false;
-        if (error.response.status == 400) this.postResult = 'fail';
+        if (error.response.status == 400)
+          this.postResult = {
+            status: 'fail',
+            text: '발송실패',
+            css: 'btn_post-fail',
+          };
       }
       if (sendResult?.status == 200) {
         this.postOrder();

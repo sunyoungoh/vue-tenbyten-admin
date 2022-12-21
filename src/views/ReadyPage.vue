@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <LoadingSpinner v-if="loading" />
-    <div class="order-list-container">
+    <div class="order-list-container" v-else>
       <h1 :class="title.css">{{ title.text }}</h1>
       <OrderList v-if="orderListCount > 0" :items="orderList" />
     </div>
@@ -9,19 +9,16 @@
 </template>
 
 <script>
-import OrderList from '@/components/OrderList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import { getReadyOrders } from '@/api/order';
+import OrderList from '@/components/OrderList.vue';
 
 export default {
   components: {
-    OrderList,
     LoadingSpinner,
+    OrderList,
   },
   async mounted() {
-    const { data } = await getReadyOrders();
-    this.loading = false;
-    this.orderList = data.outPutValue;
+    await this.$store.dispatch('fetchOrderList', 'ready');
     this.title =
       this.orderListCount > 0
         ? {
@@ -35,12 +32,16 @@ export default {
   },
   data() {
     return {
-      loading: true,
-      orderList: [],
       title: [],
     };
   },
   computed: {
+    loading() {
+      return this.$store.state.order.loading;
+    },
+    orderList() {
+      return this.$store.getters.monthlyOrderList;
+    },
     orderListCount() {
       return this.orderList.length;
     },

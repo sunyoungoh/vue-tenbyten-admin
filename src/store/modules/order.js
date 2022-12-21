@@ -9,7 +9,6 @@ const order = {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     orderList: [],
-    clickedBtn: '',
     loading: false,
   },
   getters: {
@@ -91,15 +90,6 @@ const order = {
     nextMonth(state) {
       state.month += 1;
     },
-    setTitleInfo(state, titleInfo) {
-      state.titleInfo = titleInfo;
-    },
-    clearTitleInfo(state) {
-      state.titleInfo = [];
-    },
-    setClickedBtn(state, clickedBtn) {
-      state.clickedBtn = clickedBtn;
-    },
     setOrderList(state, orderList) {
       state.orderList = orderList;
     },
@@ -109,71 +99,47 @@ const order = {
     clearOrderList(state) {
       state.orderList = [];
     },
-    setResultStatusCode(state, statusCode) {
-      state.resultStatusCode = statusCode;
-    },
-    clearResultStatusCode(state) {
-      state.resultStatusCode == '';
-    },
     setLoading(state, value) {
       state.loading = value;
     },
   },
   actions: {
-    async fetchOrderList({ commit }) {
+    async fetchOrderList({ commit }, path) {
       commit('setLoading', true);
-      const { data } = await getDispatchOrderHistory();
-      commit('setOrderList', data);
-      commit('setLoading', false);
-    },
-    async getOrdersData({ state, commit, dispatch }) {
-      commit('setLoading', true);
-      commit('clearResultStatusCode');
       commit('clearOrderList');
-      let response = [];
-      if (state.clickedBtn == 'new-orders') {
-        response = await getNewOrders();
-      } else if (state.clickedBtn == 'ready') {
-        response = await getReadyOrders();
+      let orderList;
+      if (path == 'order' || path == 'ready') {
+        const { data } =
+          path == 'order' ? await getNewOrders() : await getReadyOrders();
+        orderList = data.outPutValue.map(item => {
+          let itemOption = item.details[0].itemOptionName;
+          if (itemOption !== '') {
+            let endIndex = itemOption.indexOf('꼭');
+            if (endIndex !== -1) {
+              itemOption = itemOption.substring(0, endIndex - 1);
+            }
+          }
+          return {
+            orderSerial: item.OrderSerial,
+            detailIdx: item.details[0].DetailIdx,
+            orderDate: new Date(item.orderDate),
+            userId: item.UserId,
+            ordererName: item.ordererName,
+            ordererCellPhone: item.ordererCellPhone,
+            ordererEmail: item.ordererEmail,
+            itemId: item.details[0].itemId,
+            itemOption: itemOption,
+            itemRequireMemo: item.details[0].RequireMemo.trim(),
+            price: item.details[0].NotCouponPrice,
+          };
+        });
       }
-      console.log(response.data.outPutValue);
-      if (response.data.code == 'SUCCESS') {
-        commit('setResultStatusCode', 200);
-        if (response.data.totalCount !== 0) {
-          commit('setOrderList', response.data.outPutValue);
-        }
-      } else {
-        console.log('error');
-        commit('clearOrderList');
-        commit('setResultStatusCode', response.status);
+      if (path == 'home' || path == 'delivery' || path == 'sales') {
+        const { data } = await getDispatchOrderHistory();
+        orderList = data;
       }
-      dispatch('fetchTitleInfo');
+      commit('setOrderList', orderList);
       commit('setLoading', false);
-    },
-    fetchTitleInfo({ commit, state, getters }) {
-      commit('clearTitleInfo');
-      let titleInfo = {};
-      if (state.resultStatusCode == 200) {
-        titleInfo =
-          state.clickedBtn == 'new-orders'
-            ? { clickedBtn: '신규 주문', emoji: '🥳' }
-            : { clickedBtn: '배송 준비 중인 주문', emoji: '📦' };
-        if (getters.orderListCount !== 0) {
-          titleInfo.msg = `${titleInfo.clickedBtn}이 ${getters.orderListCount}건 있습니다! ${titleInfo.emoji}`;
-          titleInfo.css = 'highlighter highlighter__yellow';
-        } else {
-          titleInfo.msg = `${titleInfo.clickedBtn}이 없습니다 🥲 `;
-          titleInfo.css = 'highlighter highlighter__grey';
-        }
-      } else {
-        titleInfo.css = 'highlighter highlighter__red';
-        if (state.statusCode == 404) {
-          titleInfo.msg = '🚨 요청이 잘못되었습니다.';
-        } else {
-          titleInfo.msg = `${state.resultStatusCode} 에러가 발생하였습니다.`;
-        }
-      }
-      commit('setTitleInfo', titleInfo);
     },
   },
 };

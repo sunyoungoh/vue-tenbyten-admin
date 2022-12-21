@@ -432,12 +432,12 @@ button:disabled {
   top: 0;
   padding: 0.5rem 0.7rem;
 }
-.btn_post-complete,
+.btn_post-success,
 .btn_post-fail {
   cursor: default;
   color: #fff;
 }
-.btn_post-complete {
+.btn_post-success {
   background-color: #19a259;
 }
 .btn_post-fail {

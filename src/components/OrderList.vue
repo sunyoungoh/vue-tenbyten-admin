@@ -10,23 +10,20 @@
     <div class="table-container" id="no-more-tables">
       <table>
         <thead>
-          <tr>
-            <th>주문일</th>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>휴대폰</th>
-            <th>이메일</th>
-            <th class="item-name">상품명</th>
-            <th class="item-option">옵션</th>
-            <th>주문메모</th>
-            <th v-if="$route.path == '/ready'">발송상태</th>
-          </tr>
+          <TableTitle
+            :titles="tableTitles"
+            :click-field="clickField"
+            :order-by="orderBy"
+            @sort-list="sortList"
+          />
         </thead>
         <tbody>
           <OrderItem
-            v-for="(item, i) in items"
+            v-for="(item, i) in orderList"
             :key="i"
             :item="item"
+            :titles="tableTitles"
+            :clickField="clickField"
             :send-all="sendAll"
           />
         </tbody>
@@ -36,11 +33,16 @@
 </template>
 
 <script>
+import TableTitle from '@/components/TableTitle.vue';
 import OrderItem from '@/components/OrderItem.vue';
+import { sortOrderList } from '@/utils/sortArr';
+
 export default {
   components: {
+    TableTitle,
     OrderItem,
   },
+
   props: {
     items: {
       type: Array,
@@ -49,12 +51,37 @@ export default {
   data() {
     return {
       sendAll: false,
+      tableTitles: [
+        { key: 'orderDate', value: '주문일' },
+        { key: 'userId', value: '아이디' },
+        { key: 'ordererName', value: '이름' },
+        { key: 'ordererCellPhone', value: '휴대폰' },
+        { key: 'ordererEmail', value: '이메일' },
+        { key: 'itemId', value: '상품명' },
+        { key: 'itemOption', value: '옵션' },
+        { key: 'itemRequireMemo', value: '주문메모' },
+      ],
+      orderBy: 'desc',
+      clickField: '',
     };
+  },
+  computed: {
+    orderList: {
+      get() {
+        return this.items;
+      },
+      set() {},
+    },
   },
   methods: {
     clickSendAll() {
       console.log('sendAll');
       this.sendAll = true;
+    },
+    sortList(title) {
+      this.clickField = title;
+      this.orderBy = this.orderBy == 'desc' ? 'asc' : 'desc';
+      this.orderList = sortOrderList(this.orderList, title, this.orderBy);
     },
   },
 };
