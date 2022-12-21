@@ -33,7 +33,6 @@ const order = {
             new Date(item.orderDate).getFullYear() == state.year,
         );
         if (orderList.length > 0) {
-          console.log(new Date(orderList[0].orderDate) - 1);
           let year = new Date(orderList[0].orderDate).getFullYear();
           let month = new Date(orderList[0].orderDate).getMonth() + 1;
           let date = `${year.toString().substring(2)}/${month}`;

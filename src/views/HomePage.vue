@@ -98,9 +98,7 @@ export default {
                 min: 0, // 최소범위
                 padding: 10, // 오른쪽 간격
                 fontSize: 10,
-                userCallback: function (value, index, values) {
-                  console.log(index);
-                  console.log(values);
+                userCallback: function (value) {
                   value = value.toString();
                   let endIndex = value.length - 4;
                   value = value.slice(0, endIndex);
