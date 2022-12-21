@@ -1,32 +1,38 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store/index';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'HomePage',
     component: () => import('@/views/HomePage.vue'),
   },
   {
+    path: '/login',
+    name: 'LoginPage',
+    component: () => import('@/views/LoginPage.vue'),
+  },
+  {
     path: '/order',
-    name: 'Order',
+    name: 'OrderPage',
     component: () => import('@/views/OrderPage.vue'),
   },
   {
     path: '/ready',
-    name: 'Ready',
+    name: 'ReadyPage',
     component: () => import('@/views/ReadyPage.vue'),
   },
   {
     path: '/delivery',
-    name: 'Delivery',
+    name: 'DeliveryPage',
     component: () => import('@/views/DeliveryPage.vue'),
   },
   {
     path: '/sales',
-    name: 'Sales',
+    name: 'SalesPage',
     component: () => import('@/views/SalesPage.vue'),
   },
 ];
@@ -37,4 +43,9 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (!store.state.user.isLogin && to.path !== '/login') {
+    next('/login');
+  } else next();
+});
 export default router;

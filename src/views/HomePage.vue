@@ -1,25 +1,21 @@
 <template>
   <section class="home container">
     <LoadingSpinner v-if="loading" />
-    <template v-else>
-      <LoginForm v-if="!isLogin" />
-      <div class="welcome" v-if="isLogin">
-        ❤️ <b> {{ brandNameKor }}</b
-        >님 환영합니다! ❤️
-      </div>
-      <div v-if="isLogin" class="sales-info">
-        <h1 class="highlighter highlighter__yellow">
-          이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
-        </h1>
-        <LineChart class="chart" :options="options" :chartData="chartData" />
-      </div>
-    </template>
+    <div class="welcome" v-if="isLogin">
+      ❤️ <b> {{ brandNameKor }}</b
+      >님 환영합니다! ❤️
+    </div>
+    <div v-if="isLogin" class="sales-info">
+      <h1 class="highlighter highlighter__yellow">
+        이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+      </h1>
+      <LineChart class="chart" :options="options" :chartData="chartData" />
+    </div>
   </section>
 </template>
 
 <script>
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import LoginForm from '@/components/LoginForm.vue';
 import LineChart from '@/utils/LineChart';
 
 export default {
@@ -29,7 +25,6 @@ export default {
   },
   components: {
     LoadingSpinner,
-    LoginForm,
     LineChart,
   },
   computed: {

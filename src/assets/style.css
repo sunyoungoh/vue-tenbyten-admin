@@ -210,10 +210,13 @@ td {
   width: 350px;
   margin: 5rem auto;
   padding: 0 0.5rem;
+  justify-content: center;
+  text-align: center;
+ 
 }
 .login-container .logo {
   width: 300px;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
 }
 .login-container input {
   width: 100%;
