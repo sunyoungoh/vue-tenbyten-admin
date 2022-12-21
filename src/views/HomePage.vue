@@ -79,15 +79,11 @@ export default {
               },
               gridLines: {
                 display: false,
-                // drawBorder: false,
-                // color: '#323232',
-                // lineWidth: 1,
               },
               ticks: {
-                beginAtZero: true, // 0부터 시작
                 maxRotation: 0,
                 minRotation: 0,
-                // autoSkip: true,
+                fontSize: 10,
               },
             },
           ],
@@ -108,8 +104,6 @@ export default {
                   value = value.toString();
                   let endIndex = value.length - 4;
                   value = value.slice(0, endIndex);
-                  // value = value.split(/(?=(?:...)*$)/);
-                  // value = value.join(',');
                   return value ? `${value}만` : '';
                 },
               },
