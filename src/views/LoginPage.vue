@@ -85,9 +85,12 @@ export default {
           brandId: this.brandId,
           apiKey: this.apiKey,
         });
-        result == 'success'
-          ? await this.$store.dispatch('fetchOrderList', 'home')
-          : (this.loginError = '로그인을 실패하였습니다.');
+        if (result == 'success') {
+          this.$router.push('/');
+          await this.$store.dispatch('fetchOrderList', 'home');
+        } else {
+          this.loginError = '로그인을 실패하였습니다.';
+        }
       }
       this.loading = false;
     },
@@ -95,6 +98,7 @@ export default {
       this.brandId = '';
       this.apiKey = '';
       this.$store.dispatch('logout');
+      this.$router.push('/login');
     },
   },
 };
