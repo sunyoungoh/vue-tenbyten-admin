@@ -33,13 +33,23 @@ const order = {
             new Date(item.orderDate).getFullYear() == state.year,
         );
         if (orderList.length > 0) {
-          arr.push(
-            orderList
+          console.log(new Date(orderList[0].orderDate) - 1);
+          let year = new Date(orderList[0].orderDate).getFullYear();
+          let month = new Date(orderList[0].orderDate).getMonth() + 1;
+          let date = `${year.toString().substring(2)}/${month}`;
+          arr.push({
+            date: date,
+            amount: orderList
               .map(item => item.price)
               .reduce((prev, curr) => prev + curr),
-          );
+          });
         } else {
-          arr.push('');
+          let now = new Date();
+          let date = new Date(now.setMonth(now.getMonth() - i));
+          let year = date.getFullYear();
+          let month = date.getMonth() + 1;
+          date = `${year.toString().substring(2)}/${month}`;
+          arr.push({ date: date, amount: '' });
         }
       }
       return arr;

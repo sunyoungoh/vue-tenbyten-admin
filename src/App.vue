@@ -5,7 +5,7 @@
     <main id="main">
       <router-view />
     </main>
-    <footer>© 2022 SunYoungOh. All right reserved.</footer>
+    <!-- <footer>© 2022 SunYoungOh. All right reserved.</footer> -->
   </div>
 </template>
 

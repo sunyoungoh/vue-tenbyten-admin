@@ -4,9 +4,11 @@
       ❤️ <b> {{ brandNameKor }}</b
       >님 환영합니다! ❤️
     </div>
-    <div>🎉 이번달엔 {{ salesCount }}건이 판매되었어요!</div>
+    <h1 class="sales-info highlighter highlighter__yellow">
+      이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+    </h1>
     <LoginForm v-if="!isLogin" />
-    <BarChart
+    <LineChart
       v-if="isLogin"
       class="chart"
       :options="options"
@@ -17,7 +19,8 @@
 
 <script>
 import LoginForm from '@/components/LoginForm.vue';
-import BarChart from '@/utils/BarChart';
+import LineChart from '@/utils/LineChart';
+
 export default {
   async mounted() {
     await this.$store.dispatch('fetchOrderList');
@@ -25,7 +28,7 @@ export default {
   },
   components: {
     LoginForm,
-    BarChart,
+    LineChart,
   },
   computed: {
     isLogin() {
@@ -85,7 +88,6 @@ export default {
                 maxRotation: 0,
                 minRotation: 0,
                 // autoSkip: true,
-                maxTicksLimit: 6,
               },
             },
           ],
@@ -99,7 +101,7 @@ export default {
                 beginAtZero: true,
                 min: 0, // 최소범위
                 padding: 10, // 오른쪽 간격
-                fontSize: 12,
+                fontSize: 10,
                 userCallback: function (value, index, values) {
                   console.log(index);
                   console.log(values);
@@ -112,7 +114,6 @@ export default {
                 },
               },
               gridLines: {
-                // display: false,
                 drawBorder: false,
                 color: '#eee',
                 lineWidth: 1,
@@ -126,29 +127,22 @@ export default {
   methods: {
     fetchChartData() {
       this.chartData = {
-        labels: ['22/07', '22/08', '22/09', '22/10', '22/11', '22/12'],
+        labels: this.monthlySales.map(item => item.date),
         datasets: [
           {
-            borderWidth: 1, // 라인 넓이
-            label: '월별 매출', // 데이터 라벨
-            backgroundColor: '#ffb4c3',
-            pointBackgroundColor: '#ffb4c3',
+            borderWidth: 2, // 라인 넓이
+            hoverBorderWidth: 2,
             fill: true, // 채우기
-            // barPercentage: 1, 바 안쪽 넓이
-            // categoryPercentage: 0.5, 바 외부 넓이
-            barPercentage: 0.7,
-            // barThickness: 6,
-            // maxBarThickness: 8,
-            // minBarLength: 2,
             tension: 0.1,
-            borderColor: '#ffb4c3',
-            pointBorderColor: '#ffb4c3',
-            data: this.$store.getters.monthlySales,
-            // 100000, 600000, 1100000, 700000,
-            // 800000, 200000,
-            // 1200, 60, 20, 30, 40, 50, 60,
-            // ,
-            // ],
+            backgroundColor: '#fff7d8',
+            pointBackgroundColor: '#ffcd1a',
+            hoverBackgroundColor: '#fff7d8',
+            pointHoverBackgroundColor: 'ffcd1a',
+            pointHoverBorderWidth: 3,
+            borderColor: '#ffcd1a',
+            hoverBorderColor: '#ffcd1a',
+            pointBorderColor: '#ffcd1a',
+            data: this.monthlySales.map(item => item.amount),
           },
         ],
       };

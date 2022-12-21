@@ -7,8 +7,8 @@
       :class="i == 'topOne' ? 'top1' : ''"
     >
       <div class="pop-num">{{ items.index }}</div>
-      <p v-for="(product, j) in items.products" :key="j" class="item-name">
-        {{ product | itemName }}
+      <p v-for="(n, i) in 2" :key="i" class="item-name">
+        {{ items.products[i] | itemName }}
       </p>
       <div class="sales-count">{{ items.count }}개</div>
     </div>
