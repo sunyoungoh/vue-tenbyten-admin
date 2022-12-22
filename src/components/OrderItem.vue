@@ -69,8 +69,9 @@ export default {
       return reg.test(this.item.itemRequireMemo);
     },
     mailData() {
+      const reg = /\S+@+\S+\.+\S+/;
       let email = this.validateEmail
-        ? this.item.itemRequireMemo
+        ? this.item.itemRequireMemo.match(reg)
         : this.item.ordererEmail;
       return {
         store: '텐바이텐/영로그',

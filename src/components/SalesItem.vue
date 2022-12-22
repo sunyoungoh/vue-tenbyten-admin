@@ -5,7 +5,15 @@
       :key="i"
       :class="clickField == title.key ? 'filter-tab' : ''"
     >
-      {{ item[title.key] | emptyValue }}
+      <span v-if="title.key == 'orderDate' || title.key == 'createdAt'">
+        {{ item[title.key] | timeFormat }}
+      </span>
+      <span v-else-if="title.key == 'itemId'">
+        {{ item[title.key] | itemName }}
+      </span>
+      <span v-else>
+        {{ item[title.key] | emptyValue }}
+      </span>
     </td>
   </tr>
 </template>

@@ -1,16 +1,18 @@
 <template>
   <section class="home container">
     <LoadingSpinner v-if="loading" />
-    <div class="welcome" v-if="isLogin">
-      ❤️ <b> {{ brandNameKor }}</b
-      >님 환영합니다! ❤️
-    </div>
-    <div v-if="isLogin" class="sales-info">
-      <h1 class="highlighter highlighter__yellow">
-        이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
-      </h1>
-      <LineChart class="chart" :options="options" :chartData="chartData" />
-    </div>
+    <template v-else>
+      <div class="welcome">
+        ❤️ <b> {{ brandNameKor }}</b
+        >님 환영합니다! ❤️
+      </div>
+      <div class="sales-info">
+        <h1 class="highlighter highlighter__yellow">
+          이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+        </h1>
+        <LineChart class="chart" :options="options" :chartData="chartData" />
+      </div>
+    </template>
   </section>
 </template>
 
@@ -19,13 +21,13 @@ import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import LineChart from '@/utils/LineChart';
 
 export default {
-  async mounted() {
-    await this.$store.dispatch('fetchOrderList', 'home');
-    this.fetchChartData();
-  },
   components: {
     LoadingSpinner,
     LineChart,
+  },
+  async mounted() {
+    await this.$store.dispatch('fetchOrderList', 'home');
+    this.fetchChartData();
   },
   computed: {
     loading() {
@@ -42,6 +44,9 @@ export default {
     },
     monthlySales() {
       return this.$store.getters.monthlySales;
+    },
+    orderList() {
+      return this.$store.state.order.orderList;
     },
   },
   data() {
