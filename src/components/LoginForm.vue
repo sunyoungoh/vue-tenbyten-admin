@@ -95,6 +95,7 @@ export default {
       this.brandId = '';
       this.apiKey = '';
       this.$store.dispatch('logout');
+      this.$router.push('/');
     },
   },
 };

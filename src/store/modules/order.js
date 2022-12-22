@@ -105,8 +105,8 @@ const order = {
   },
   actions: {
     async fetchOrderList({ commit }, path) {
-      commit('setLoading', true);
       commit('clearOrderList');
+      commit('setLoading', true);
       let orderList;
       if (path == 'order' || path == 'ready') {
         const { data } =

@@ -106,6 +106,7 @@ export default {
   methods: {
     async postOrder() {
       const { data } = await dispatchOrder(this.dispatchData);
+      console.log(data);
       if (data.code == 'SUCCESS') {
         this.loading = false;
         this.postResult = {

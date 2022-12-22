@@ -212,7 +212,7 @@ td {
 }
 .login-container {
   width: 350px;
-  margin: 5rem auto;
+  margin: 7rem auto;
   padding: 0 0.5rem;
   justify-content: center;
   text-align: center;
@@ -580,7 +580,7 @@ button:disabled {
   }
   .login-container {
     width: 320px;
-    margin-top: 3rem;
+    margin-top: 5rem;
   }
   .nav-list a {
     margin: 0 0.5rem;
