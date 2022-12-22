@@ -26,16 +26,18 @@ const user = {
     async login({ commit }, loginData) {
       commit('clearUserData');
       commit('clearOrderList', null, { root: true });
-      let { data } = await getBrandInfo(loginData.apiKey);
-      if (loginData.brandId == data.brandid) {
-        commit('setUserData', {
-          apiKey: loginData.apiKey,
-          brandId: loginData.brandId,
-          brandNameKor: data.BrandNameKor,
-        });
+      try {
+        let { data } = await getBrandInfo(loginData.apiKey);
+        if (loginData.brandId == data.brandid) {
+          commit('setUserData', {
+            apiKey: loginData.apiKey,
+            brandId: loginData.brandId,
+            brandNameKor: data.BrandNameKor,
+          });
+        }
         commit('setIsLogin', true);
         return 'success';
-      } else {
+      } catch (error) {
         return 'fail';
       }
     },
