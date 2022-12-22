@@ -26,8 +26,10 @@ export default {
     LineChart,
   },
   async mounted() {
-    await this.$store.dispatch('fetchOrderList', 'home');
-    this.fetchChartData();
+    if (this.isLogin) {
+      await this.$store.dispatch('fetchOrderList', 'home');
+      this.fetchChartData();
+    }
   },
   computed: {
     loading() {
