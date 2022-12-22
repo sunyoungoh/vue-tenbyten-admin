@@ -1,7 +1,7 @@
 <template>
   <section class="home container">
     <LoginForm v-if="!isLogin" @fetch-home="fetchOrderList" />
-    <template v-else>
+    <template v-if="isLogin">
       <LoadingSpinner v-if="loading" />
       <template v-else>
         <div class="welcome">

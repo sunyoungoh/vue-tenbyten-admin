@@ -104,13 +104,13 @@ const order = {
     },
   },
   actions: {
-    async fetchOrderList({ commit }, path) {
+    async fetchOrderList({ commit }, tab) {
       commit('clearOrderList');
       commit('setLoading', true);
       let orderList;
-      if (path == 'order' || path == 'ready') {
+      if (tab == 'order' || tab == 'ready') {
         const { data } =
-          path == 'order' ? await getNewOrders() : await getReadyOrders();
+          tab == 'order' ? await getNewOrders() : await getReadyOrders();
         orderList = data.outPutValue.map(item => {
           let itemOption = item.details[0].itemOptionName;
           if (itemOption !== '') {
@@ -134,7 +134,7 @@ const order = {
           };
         });
       }
-      if (path == 'home' || path == 'delivery' || path == 'sales') {
+      if (tab == 'home' || tab == 'delivery' || tab == 'sales') {
         const { data } = await getDispatchOrderHistory();
         orderList = data;
       }

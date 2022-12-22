@@ -22,7 +22,7 @@ export default {
     this.title =
       this.orderListCount > 0
         ? {
-            text: `신규 주문이 ${this.orderListCount}건 있습니다! '🥳`,
+            text: `신규 주문이 ${this.orderListCount}건 있습니다! 🥳`,
             css: 'highlighter highlighter__yellow',
           }
         : {

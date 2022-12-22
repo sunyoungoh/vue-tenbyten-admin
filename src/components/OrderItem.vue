@@ -1,5 +1,9 @@
 <template>
   <tr>
+    {{
+      dispatchData
+    }}
+
     <td
       v-for="(title, i) in titles"
       :key="i"
@@ -71,7 +75,7 @@ export default {
     mailData() {
       const reg = /\S+@+\S+\.+\S+/;
       let email = this.validateEmail
-        ? this.item.itemRequireMemo.match(reg)
+        ? this.item.itemRequireMemo.match(reg)[0]
         : this.item.ordererEmail;
       return {
         store: '텐바이텐/영로그',
@@ -93,7 +97,7 @@ export default {
           ordererName: this.item.ordererName,
           toEmail: this.mailData.toEmail,
           itemId: this.item.itemId,
-          itemOption: this.itemOption,
+          itemOption: this.item.itemOption,
           requireMemo: this.itemRequireMemo,
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
