@@ -1,6 +1,6 @@
 <template>
   <section class="home container">
-    <LoginForm v-if="!isLogin" />
+    <LoginForm v-if="!isLogin" @fetch-home="fetchOrderList" />
     <template v-else>
       <LoadingSpinner v-if="loading" />
       <template v-else>
@@ -32,8 +32,7 @@ export default {
   },
   async mounted() {
     if (this.isLogin) {
-      await this.$store.dispatch('fetchOrderList', 'home');
-      this.fetchChartData();
+      await this.fetchOrderList();
     }
   },
   computed: {
@@ -127,6 +126,10 @@ export default {
     };
   },
   methods: {
+    async fetchOrderList() {
+      await this.$store.dispatch('fetchOrderList', 'home');
+      this.fetchChartData();
+    },
     fetchChartData() {
       this.chartData = {
         labels: this.monthlySales.map(item => item.date),
