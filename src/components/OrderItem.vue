@@ -1,9 +1,5 @@
 <template>
   <tr>
-    {{
-      dispatchData
-    }}
-
     <td
       v-for="(title, i) in titles"
       :key="i"

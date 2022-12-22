@@ -86,7 +86,7 @@ export default {
           apiKey: this.apiKey,
         });
         result == 'success'
-          ? this.$emit('fetch-home')
+          ? await this.$store.dispatch('fetchOrderList', 'home')
           : (this.loginError = '로그인을 실패하였습니다.');
       }
       this.loading = false;

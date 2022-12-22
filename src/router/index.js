@@ -9,6 +9,7 @@ const routes = [
     name: 'HomePage',
     component: () => import('@/views/HomePage.vue'),
   },
+
   {
     path: '/order',
     name: 'OrderPage',
@@ -28,6 +29,10 @@ const routes = [
     path: '/sales',
     name: 'SalesPage',
     component: () => import('@/views/SalesPage.vue'),
+  },
+  {
+    path: '*',
+    component: () => import('@/views/HomePage.vue'),
   },
 ];
 
