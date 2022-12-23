@@ -1,42 +1,40 @@
 <template>
-  <div class="login-container">
+  <div class="login-form">
     <img src="@/assets/logo.png" alt="logo" class="logo" />
-    <div class="login-form">
-      <div class="input-item">
-        <div class="input-wrap">
-          <input
-            id="brandId"
-            placeholder="brandId"
-            type="text"
-            v-model="brandId"
-            @click="resetError($event)"
-            autocomplete="off"
-          />
-        </div>
-        <div>
-          <p class="error">{{ brandIdError }}</p>
-        </div>
+    <div class="input-item">
+      <div class="input-wrap">
+        <input
+          id="brandId"
+          placeholder="brandId"
+          type="text"
+          v-model="brandId"
+          @click="resetError($event)"
+          autocomplete="off"
+        />
       </div>
-      <div class="input-item">
-        <div class="input-wrap">
-          <input
-            id="apiKey"
-            placeholder="apiKey"
-            v-model="apiKey"
-            type="password"
-            clearable
-            @click="resetError($event)"
-          />
-        </div>
-        <div>
-          <p class="error">{{ apiKeyError }}</p>
-        </div>
+      <div>
+        <p class="error">{{ brandIdError }}</p>
       </div>
-      <button :disabled="loading" @click="login" class="btn-login">
-        <span v-if="!loading">로그인</span>
-        <span v-else class="spinner"></span>
-      </button>
     </div>
+    <div class="input-item">
+      <div class="input-wrap">
+        <input
+          id="apiKey"
+          placeholder="apiKey"
+          v-model="apiKey"
+          type="password"
+          clearable
+          @click="resetError($event)"
+        />
+      </div>
+      <div>
+        <p class="error">{{ apiKeyError }}</p>
+      </div>
+    </div>
+    <button :disabled="loading" @click="login" class="btn-login">
+      <span v-if="!loading">로그인</span>
+      <span v-else class="spinner"></span>
+    </button>
     <p class="error">{{ loginError }}</p>
   </div>
 </template>
@@ -85,17 +83,14 @@ export default {
           brandId: this.brandId,
           apiKey: this.apiKey,
         });
-        result == 'success'
-          ? await this.$store.dispatch('fetchOrderList', 'home')
-          : (this.loginError = '로그인을 실패하였습니다.');
+        if (result == 'success') {
+          await this.$store.dispatch('fetchOrderList', 'home');
+          this.$router.push('/');
+        } else {
+          this.loginError = '로그인을 실패하였습니다.';
+        }
+        this.loading = false;
       }
-      this.loading = false;
-    },
-    logout() {
-      this.brandId = '';
-      this.apiKey = '';
-      this.$store.dispatch('logout');
-      this.$router.push('/');
     },
   },
 };

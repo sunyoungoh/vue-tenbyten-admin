@@ -1,32 +1,27 @@
 <template>
   <section class="home container">
-    <LoginForm v-if="!isLogin" />
-    <template v-if="isLogin">
-      <LoadingSpinner v-if="loading" />
-      <template v-else>
-        <div class="welcome">
-          ❤️ <b> {{ brandNameKor }}</b
-          >님 환영합니다! ❤️
-        </div>
-        <div class="sales-info">
-          <h1 class="highlighter highlighter__yellow">
-            이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
-          </h1>
-          <LineChart class="chart" :options="options" :chartData="chartData" />
-        </div>
-      </template>
+    <LoadingSpinner v-if="loading" />
+    <template v-else>
+      <div class="welcome">
+        ❤️ <b> {{ brandNameKor }}</b
+        >님 환영합니다! ❤️
+      </div>
+      <div class="sales-info">
+        <h1 class="highlighter highlighter__yellow">
+          이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+        </h1>
+        <LineChart class="chart" :options="options" :chartData="chartData" />
+      </div>
     </template>
   </section>
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import LineChart from '@/utils/LineChart';
 
 export default {
   components: {
-    LoginForm,
     LoadingSpinner,
     LineChart,
   },
@@ -141,10 +136,10 @@ export default {
             hoverBorderWidth: 2,
             fill: true, // 채우기
             tension: 0.1,
-            backgroundColor: '#fff7d8',
+            backgroundColor: 'rgba(255, 211, 34, 0.25)',
             pointBackgroundColor: '#ffcd1a',
-            hoverBackgroundColor: '#fff7d8',
-            pointHoverBackgroundColor: 'ffcd1a',
+            hoverBackgroundColor: 'rgba(255, 211, 34, 0.25)',
+            pointHoverBackgroundColor: '#ffcd1a',
             pointHoverBorderWidth: 3,
             borderColor: '#ffcd1a',
             hoverBorderColor: '#ffcd1a',

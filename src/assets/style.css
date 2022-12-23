@@ -262,19 +262,6 @@ td {
   background-color: #f4f4f4;
 }
 
-/* .login-container {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
-.login-form {
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, -50%);
-} */
 /* =========== CHART =========== */
 
 .chart {
@@ -452,8 +439,17 @@ button:disabled {
   transition: all 0.25s;
   font-weight: normal;
 }
+.btn-post {
+  width: 80px;
+  height: 40px;
+  padding: 0.3rem;
+  font-size: var(--font-14);
+  transition: all 0.25s;
+  font-weight: 400;
+}
 .btn-send-all {
   margin-top: 1.5rem;
+  font-weight: 500;
 }
 .btn-search {
   margin-left: 0.75rem;
@@ -666,9 +662,11 @@ button:disabled {
     font-size: var(--font-16);
     z-index: 999;
   }
-  .btns_post button {
-    width: 70px;
+
+  .btn-post {
+    width: 72px;
     height: 32px;
+    padding: 0.3rem;
     font-size: var(--font-12);
     line-height: 20px;
     font-weight: 500;

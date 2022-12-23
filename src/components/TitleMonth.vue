@@ -1,5 +1,5 @@
 <template>
-  <h1 class="sales-title">
+  <h1 class="month-title">
     <button @click="beforeMonth">
       <i class="uil uil-angle-left-b"></i>
     </button>

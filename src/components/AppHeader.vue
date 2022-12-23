@@ -13,15 +13,10 @@
 
 <script>
 export default {
-  computed: {
-    isLogin() {
-      return this.$store.state.user.isLogin;
-    },
-  },
   methods: {
     logout() {
       this.$store.dispatch('logout');
-      this.$router.push('/');
+      this.$router.push('/login');
     },
   },
 };

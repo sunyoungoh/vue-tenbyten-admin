@@ -3,15 +3,11 @@
     <LoadingSpinner v-if="loading" />
     <template v-else>
       <TitleMonth />
-      <div class="sales-list-container">
-        <div>
-          <h1 :class="highlighter">{{ title }}</h1>
-        </div>
-        <template v-if="orderListCount > 0">
-          <TopSales />
-          <SalesList />
-        </template>
-      </div>
+      <h1 :class="highlighter">{{ title }}</h1>
+      <template v-if="orderListCount > 0">
+        <TopSales />
+        <SalesList />
+      </template>
     </template>
   </section>
 </template>

@@ -16,13 +16,15 @@
         {{ item[title.key] | emptyValue }}
       </span>
     </td>
-    <td data-title="발송상태" class="btns_post" v-if="$route.path == '/ready'">
+    <td data-title="발송상태" v-if="$route.path == '/ready'">
       <button
         @click="sendMailAndPostOrder"
+        class="btn-post"
         :class="postResult.css"
         :disabled="postResult.status !== 'none'"
       >
-        {{ postResult.text }}
+        <span v-if="!loading"> {{ postResult.text }} </span>
+        <span v-else class="spinner"></span>
       </button>
     </td>
   </tr>
@@ -51,7 +53,7 @@ export default {
       postResult: {
         status: 'none',
         text: '발송하기',
-        css: 'btn_post-default',
+        css: '',
       },
       loading: false,
     };
@@ -94,7 +96,7 @@ export default {
           toEmail: this.mailData.toEmail,
           itemId: this.item.itemId,
           itemOption: this.item.itemOption,
-          requireMemo: this.itemRequireMemo,
+          requireMemo: this.item.itemRequireMemo,
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
           orderDate: this.item.orderDate,
@@ -125,11 +127,6 @@ export default {
     async sendMailAndPostOrder() {
       let sendResult = {};
       this.loading = true;
-      this.postResult = {
-        status: 'wait',
-        text: '발송중...',
-        css: 'btn_post-loading',
-      };
       try {
         sendResult = await sendMail(this.mailData);
         console.log('메일 전송 완료');
@@ -151,4 +148,31 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.spinner {
+  position: relative;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  border-width: 2px;
+  border-color: #5e5e5e;
+  border-top-color: #ffffff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 576px) {
+  .spinner {
+    position: relative;
+    top: 3px;
+    width: 13px;
+    height: 13px;
+  }
+}
+</style>

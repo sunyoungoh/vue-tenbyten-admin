@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <AppHeader v-if="isLogin" />
-    <AppNav v-if="isLogin" />
+    <template v-if="$route.path !== '/login'">
+      <AppHeader />
+      <AppNav />
+    </template>
     <main id="main">
       <router-view />
     </main>
@@ -17,11 +19,6 @@ export default {
   components: {
     AppHeader,
     AppNav,
-  },
-  computed: {
-    isLogin() {
-      return this.$store.state.user.isLogin;
-    },
   },
 };
 </script>

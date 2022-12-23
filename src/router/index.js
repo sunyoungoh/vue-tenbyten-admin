@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '@/store/index';
 
 Vue.use(VueRouter);
 
@@ -8,6 +9,11 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: () => import('@/views/HomePage.vue'),
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: () => import('@/views/LoginPage.vue'),
   },
 
   {
@@ -40,5 +46,11 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (!store.state.user.isLogin && to.path !== '/login') {
+    next({ name: 'LoginPage' });
+  } else next();
 });
 export default router;

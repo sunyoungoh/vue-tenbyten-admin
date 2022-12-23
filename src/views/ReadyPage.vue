@@ -40,7 +40,7 @@ export default {
       return this.$store.state.order.loading;
     },
     orderList() {
-      return this.$store.getters.monthlyOrderList;
+      return this.$store.state.order.orderList;
     },
     orderListCount() {
       return this.orderList.length;
