@@ -1,13 +1,13 @@
 <template>
-  <section class="container">
+  <section class="container sales">
     <LoadingSpinner v-if="loading" />
     <template v-else>
       <TitleMonth />
       <h1 :class="highlighter">{{ title }}</h1>
-      <template v-if="orderListCount > 0">
+      <div class="content" v-if="orderListCount > 0">
         <TopSales />
         <SalesList />
-      </template>
+      </div>
     </template>
   </section>
 </template>

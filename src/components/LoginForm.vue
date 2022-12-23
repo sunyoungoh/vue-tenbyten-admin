@@ -100,8 +100,8 @@ export default {
 .spinner {
   position: relative;
   top: 2px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   display: inline-block;
   border-width: 2px;
   border-color: #5e5e5e;

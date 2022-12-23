@@ -1,10 +1,10 @@
 <template>
-  <section class="container">
+  <section class="container ready">
     <LoadingSpinner v-if="loading" />
-    <div class="order-list-container" v-else>
+    <template v-else>
       <h1 :class="title.css">{{ title.text }}</h1>
-      <OrderList v-if="orderListCount > 0" :items="orderList" />
-    </div>
+      <OrderList class="content" v-if="orderListCount > 0" :items="orderList" />
+    </template>
   </section>
 </template>
 

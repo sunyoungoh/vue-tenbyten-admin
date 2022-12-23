@@ -3,23 +3,19 @@
     <LoadingSpinner v-if="loading" />
     <template v-else>
       <TitleMonth @fetch-data="fetchData" />
-      <div class="order-list-container">
-        <div>
-          <h1 :class="highlighter">{{ title }}</h1>
+      <h1 :class="highlighter">{{ title }}</h1>
+      <div class="content" v-if="orderListCount > 0">
+        <div class="input-wrap search-wrap">
+          <i class="uil uil-search search-icon"></i>
+          <input
+            type="text"
+            v-model="searchInput"
+            placeholder="이름을 입력하세요"
+            @keyup.enter="searchList"
+          />
+          <button class="btn-search" @click="searchList">검색하기</button>
         </div>
-        <template v-if="orderListCount > 0">
-          <div class="input-wrap search-wrap">
-            <i class="uil uil-search search-icon"></i>
-            <input
-              type="text"
-              v-model="searchInput"
-              placeholder="이름을 입력하세요"
-              @keyup.enter="searchList"
-            />
-            <button class="btn-search" @click="searchList">검색하기</button>
-          </div>
-          <DeliveryList :items="orderList" :search="search" />
-        </template>
+        <DeliveryList :items="orderList" :search="search" />
       </div>
     </template>
   </section>
