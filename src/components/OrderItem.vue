@@ -21,10 +21,10 @@
         @click="sendMailAndPostOrder"
         class="btn-post"
         :class="postResult.css"
-        :disabled="postResult.status !== 'none'"
+        :disabled="postResult.status !== '' || loading"
       >
-        <span v-if="!loading"> {{ postResult.text }} </span>
-        <span v-else class="spinner"></span>
+        <span v-if="loading" class="spinner"></span>
+        <span v-else> {{ postResult.text }} </span>
       </button>
     </td>
   </tr>
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       postResult: {
-        status: 'none',
+        status: '',
         text: '발송하기',
         css: '',
       },
