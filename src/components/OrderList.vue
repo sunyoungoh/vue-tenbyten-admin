@@ -53,7 +53,7 @@ export default {
       sendAll: false,
       tableTitles: [
         { key: 'orderDate', value: '주문일' },
-        { key: 'userId', value: '아이디' },
+        { key: 'ordererId', value: '아이디' },
         { key: 'ordererName', value: '이름' },
         { key: 'ordererCellPhone', value: '휴대폰' },
         { key: 'ordererEmail', value: '이메일' },

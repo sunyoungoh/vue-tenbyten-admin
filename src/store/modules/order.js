@@ -123,7 +123,7 @@ const order = {
             orderSerial: item.OrderSerial,
             detailIdx: item.details[0].DetailIdx,
             orderDate: new Date(item.orderDate),
-            userId: item.UserId,
+            ordererId: item.UserId,
             ordererName: item.ordererName,
             ordererCellPhone: item.ordererCellPhone,
             ordererEmail: item.ordererEmail,

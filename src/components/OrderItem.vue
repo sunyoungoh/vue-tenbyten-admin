@@ -9,6 +9,9 @@
       <span v-if="title.key == 'orderDate' || title.key == 'createdAt'">
         {{ item[title.key] | timeFormat }}
       </span>
+      <span v-else-if="title.key == 'ordererId'">
+        {{ secretUserId | emptyValue }}
+      </span>
       <span v-else-if="title.key == 'itemId'">
         {{ item[title.key] | itemName }}
       </span>
@@ -66,6 +69,19 @@ export default {
     },
   },
   computed: {
+    secretUserId() {
+      const ordererId = this.item.ordererId;
+      let secretId =
+        ordererId.length == 0
+          ? ''
+          : ordererId.length > 9
+          ? `${ordererId.slice(0, 5)}*****`
+          : ordererId.length > 6
+          ? `${ordererId.slice(0, 3)}*****`
+          : `${ordererId.slice(0, 2)}****`;
+
+      return secretId;
+    },
     validateEmail() {
       const reg = /.+@.+\..+/;
       return reg.test(this.item.itemRequireMemo);
@@ -91,7 +107,7 @@ export default {
         orderSerial: this.item.orderSerial,
         detailIdx: this.item.detailIdx,
         details: {
-          ordererId: this.item.userId,
+          ordererId: this.item.ordererId,
           ordererName: this.item.ordererName,
           toEmail: this.mailData.toEmail,
           itemId: this.item.itemId,
@@ -147,7 +163,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .spinner {
   position: relative;
@@ -170,9 +185,8 @@ export default {
 @media screen and (max-width: 576px) {
   .spinner {
     position: relative;
-    top: 3px;
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
   }
 }
 </style>

@@ -8,7 +8,7 @@
       </div>
       <div class="sales-info">
         <h1 class="highlighter highlighter__yellow">
-          이번달엔 {{ salesCount }}건이 판매되었어요! 🎉
+          이번달엔 {{ salesCount }}건이 판매되었습니다! 🎉
         </h1>
         <LineChart class="chart" :options="options" :chartData="chartData" />
       </div>
@@ -59,7 +59,35 @@ export default {
   data() {
     return {
       chartData: {},
-      options: {
+      options: {},
+    };
+  },
+  methods: {
+    fetchChartData() {
+      this.chartData = {
+        labels: this.monthlySales.map(item => item.date),
+        datasets: [
+          {
+            borderWidth: 2, // 라인 넓이
+            hoverBorderWidth: 2,
+            fill: true, // 채우기
+            tension: 0.1,
+            backgroundColor: 'rgba(255, 211, 34, 0.25)',
+            pointBackgroundColor: '#ffcd1a',
+            hoverBackgroundColor: 'rgba(255, 211, 34, 0.25)',
+            pointHoverBackgroundColor: '#ffcd1a',
+            pointHoverBorderWidth: 3,
+            borderColor: '#ffcd1a',
+            hoverBorderColor: '#ffcd1a',
+            pointBorderColor: '#ffcd1a',
+            data: this.monthlySales.map(item => item.amount),
+          },
+        ],
+      };
+      const rawStepSize =
+        Math.max(...this.monthlySales.map(item => item.amount)) / 6;
+      const stepSize = Math.ceil(rawStepSize / 10000) * 10000;
+      this.options = {
         responsive: true,
         legend: false,
         maintainAspectRatio: false,
@@ -103,7 +131,7 @@ export default {
               stacked: false, // 쌓임
               display: true, // y 축 show
               ticks: {
-                stepSize: 50000, // 증가범위
+                stepSize: stepSize, // 증가범위
                 beginAtZero: true,
                 min: 0, // 최소범위
                 padding: 10, // 오른쪽 간격
@@ -123,30 +151,6 @@ export default {
             },
           ],
         },
-      },
-    };
-  },
-  methods: {
-    fetchChartData() {
-      this.chartData = {
-        labels: this.monthlySales.map(item => item.date),
-        datasets: [
-          {
-            borderWidth: 2, // 라인 넓이
-            hoverBorderWidth: 2,
-            fill: true, // 채우기
-            tension: 0.1,
-            backgroundColor: 'rgba(255, 211, 34, 0.25)',
-            pointBackgroundColor: '#ffcd1a',
-            hoverBackgroundColor: 'rgba(255, 211, 34, 0.25)',
-            pointHoverBackgroundColor: '#ffcd1a',
-            pointHoverBorderWidth: 3,
-            borderColor: '#ffcd1a',
-            hoverBorderColor: '#ffcd1a',
-            pointBorderColor: '#ffcd1a',
-            data: this.monthlySales.map(item => item.amount),
-          },
-        ],
       };
     },
   },
