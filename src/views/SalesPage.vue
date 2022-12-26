@@ -55,14 +55,14 @@ export default {
       return amount;
     },
     highlighter() {
-      return this.orderList.length > 0
+      return this.orderListCount > 0
         ? 'highlighter highlighter__yellow'
         : 'highlighter highlighter__grey';
     },
     title() {
       return this.orderListCount > 0
-        ? `${this.monthText} 매출은 ${comma(this.orderAmount)}원입니다! 💰`
-        : `${this.monthText} 매출은 0원입니다. 🥲 `;
+        ? `${this.monthText} 판매금액은 ${comma(this.orderAmount)}원입니다! 💰`
+        : `${this.monthText} 판매금액은 0원입니다. 🥲 `;
     },
   },
 };

@@ -79,7 +79,6 @@ export default {
           : ordererId.length > 6
           ? `${ordererId.slice(0, 3)}*****`
           : `${ordererId.slice(0, 2)}****`;
-
       return secretId;
     },
     validateEmail() {

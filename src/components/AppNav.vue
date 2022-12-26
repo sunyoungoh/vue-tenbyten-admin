@@ -10,6 +10,9 @@
       <li @click="$store.commit('initDate')">
         <router-link to="/sales">판매내역</router-link>
       </li>
+      <li>
+        <router-link to="/qna">고객문의</router-link>
+      </li>
     </ul>
   </nav>
 </template>

@@ -37,6 +37,11 @@ const routes = [
     component: () => import('@/views/SalesPage.vue'),
   },
   {
+    path: '/qna',
+    name: 'QnaPage',
+    component: () => import('@/views/QnaPage.vue'),
+  },
+  {
     path: '*',
     component: () => import('@/views/HomePage.vue'),
   },
