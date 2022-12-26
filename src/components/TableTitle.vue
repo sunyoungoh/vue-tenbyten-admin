@@ -6,21 +6,23 @@
       :class="[clickField == title.key ? 'filter-tab' : '', title.key]"
     >
       {{ title.value }}
-      <div
-        class="btn-angle"
+      <BtnAngle
         v-if="title.key !== 'itemOption'"
-        @click="$emit('sort-list', title.key)"
-      >
-        <i class="uil uil-angle-down" v-show="orderBy == 'desc'"></i>
-        <i class="uil uil-angle-up" v-show="orderBy == 'asc'"></i>
-      </div>
+        :toggle="orderBy == 'desc' ? false : true"
+        @click.native="$emit('sort-list', title.key)"
+      />
     </th>
     <th v-if="$route.path == '/ready'">발송상태</th>
   </tr>
 </template>
 
 <script>
+import BtnAngle from '@/components/BtnAngle.vue';
+
 export default {
+  components: {
+    BtnAngle,
+  },
   props: {
     titles: {
       type: Array,
