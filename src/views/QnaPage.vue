@@ -4,23 +4,21 @@
     <template v-else>
       <h1 :class="highlighter">{{ title }}</h1>
       <div v-if="qnaListCount > 0" class="content">
-        <QnaTab @click-tab="clickTab" :activeTab="activeTab" />
-        <QnaList :items="filteredQnaList" />
+        <QnaList :items="qnaList" />
       </div>
     </template>
   </section>
 </template>
 
 <script>
-import { getQna } from '@/api/order';
-import QnaTab from '@/components/qna/QnaTab.vue';
-import QnaList from '@/components/qna/QnaList.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import QnaList from '@/components/qna/QnaList.vue';
+import { getQna } from '@/api/order';
+import { sortDate } from '@/utils/sortArr';
 
 export default {
   components: {
     LoadingSpinner,
-    QnaTab,
     QnaList,
   },
   async mounted() {
@@ -44,8 +42,7 @@ export default {
       };
     });
     if (qnaList.length > 0) {
-      this.qnaList = qnaList.reverse();
-      this.clickTab('noAnwser');
+      this.qnaList = sortDate(qnaList, 'qnaDate', 'desc');
     }
     this.loading = false;
   },
@@ -53,45 +50,29 @@ export default {
     return {
       loading: false,
       qnaList: [],
-      filteredQnaList: [],
-      activeTab: 'noAnwser',
     };
   },
   computed: {
     qnaListCount() {
       return this.qnaList.length;
     },
-    filteredQnaListCount() {
-      return this.filteredQnaList.length;
+    noAnwserList() {
+      return this.qnaList.filter(item => !item.isAnwser);
     },
     title() {
       let str;
       str =
-        this.filteredQnaListCount == 0
+        this.qnaListCount == 0
           ? `최근 일주일간 문의가 없었습니다. 😊 `
-          : this.activeTab == 'noAnwser'
-          ? `미답변 문의가 ${this.filteredQnaListCount}건 있습니다! 🤔`
-          : this.activeTab == 'yesAnwser'
-          ? (str = `답변완료 문의가 ${this.filteredQnaListCount}건 있습니다! 😊`)
+          : this.noAnwserList.length
+          ? `미답변 문의가 ${this.noAnwserList.length}건 있습니다! 🤔`
           : `일주일간 총 ${this.qnaListCount}건의 문의가 있었습니다! 😊`;
       return str;
     },
     highlighter() {
-      return this.filteredQnaListCount > 0
+      return this.qnaListCount > 0
         ? 'highlighter highlighter__yellow'
         : 'highlighter highlighter__grey';
-    },
-  },
-  methods: {
-    clickTab(tab) {
-      this.activeTab = tab;
-      this.filteredQnaList = this.qnaList.filter(item => {
-        return this.activeTab == 'noAnwser'
-          ? !item.isAnwser
-          : this.activeTab == 'yesAnwser'
-          ? item.isAnwser
-          : item;
-      });
     },
   },
 };

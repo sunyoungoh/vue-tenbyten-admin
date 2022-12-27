@@ -1,12 +1,12 @@
 import { getItemName } from '@/utils/getItemName';
 
-const sortDate = (arr, title, orderby) => {
+export const sortDate = (arr, title, orderby) => {
   return orderby == 'asc'
     ? arr.sort((a, b) => new Date(a[title]) - new Date(b[title]))
     : arr.sort((a, b) => new Date(b[title]) - new Date(a[title]));
 };
 
-const sortStr = (arr, title, orderby) => {
+export const sortStr = (arr, title, orderby) => {
   return orderby == 'asc'
     ? arr.sort((a, b) =>
         a[title] < b[title]
@@ -20,7 +20,7 @@ const sortStr = (arr, title, orderby) => {
       );
 };
 
-const sortItemId = (arr, title, orderby) => {
+export const sortItemId = (arr, title, orderby) => {
   return orderby == 'asc'
     ? arr.sort((a, b) =>
         getItemName(a[title]) < getItemName(b[title])

@@ -8,7 +8,7 @@
       <span v-if="item.username"> {{ item.username }} | </span>
       <span v-if="secretUserId"> {{ secretUserId }} | </span>
       <span> {{ item.orderId }}</span>
-      <span> {{ item.qnaDate }}</span>
+      <span> {{ item.qnaDate | timeFormat }}</span>
       <div v-html="contents" class="contents"></div>
     </div>
     <div>
@@ -28,51 +28,42 @@
       <div class="anwser-top">
         <div class="anwser-date">
           <span class="emoji">👩🏻‍💻</span> {{ replyUser }}
-          <span v-if="item.isAnwser"> | {{ item.replyDate }}</span>
+          <span v-if="isAnwser"> | {{ replyDate | timeFormat }}</span>
         </div>
-        <button
-          class="btn-outline"
-          v-if="item.isAnwser || anwserResult == 'success'"
-          @click="clickEdit"
-        >
-          <span v-if="!edit"> 수정하기 </span>
-          <span v-else>수정완료 </span>
-        </button>
-        <button
-          class="btn-outline"
+        <QnaSubmitBtn
           v-if="!item.isAnwser && anwserResult == ''"
-          @click="anwserQna"
+          :loading="loading"
+          @click.native="anwserQna"
         >
-          등록하기
-        </button>
+          <span v-if="anwserResult == 'succeess'">등록완료</span>
+          <span v-else>등록하기</span>
+        </QnaSubmitBtn>
       </div>
-      <div class="spinner" v-if="loading"></div>
       <textarea
-        v-model="replyContents"
+        v-model="inputReplyContents"
         @input="inputReplyContents = $event.target.value"
         class="reply-contents"
         ref="textarea"
-        rows="7"
+        :rows="textareaRow"
         :disabled="
-          (item.replyContents !== '' && !edit) ||
-          loading ||
-          (anwserResult == 'success' && !edit)
+          item.replyContents !== '' || loading || anwserResult == 'success'
         "
       ></textarea>
-      {{ inputReplyContents }}
     </div>
   </div>
 </template>
 
 <script>
-// import { anwserQna } from '@/api/order';
+import { anwserQna } from '@/api/order';
 import QnaLabel from '@/components/qna/QnaLabel.vue';
 import BtnAngle from '@/components/BtnAngle.vue';
+import QnaSubmitBtn from '@/components/qna/QnaSubmitBtn.vue';
 
 export default {
   components: {
     QnaLabel,
     BtnAngle,
+    QnaSubmitBtn,
   },
   props: {
     item: {
@@ -82,25 +73,24 @@ export default {
   data() {
     return {
       toggle: false,
-      edit: false,
       loading: false,
       anwserResult: '',
-      inputReplyContents: '',
+      inputReplyContents: this.item.replyContents || '',
     };
   },
   computed: {
-    isAnwser: {
+    textareaRow() {
+      return this.isAnwser ? this.inputReplyContents.split('\r\n').length : 4;
+    },
+    replyDate: {
       get() {
-        return this.anwserResult == '' ? this.item.isAnwser : true;
+        return this.anwserResult == '' ? this.item.replyDate : new Date();
       },
       set() {},
     },
-    replyContents: {
+    isAnwser: {
       get() {
-        let anwser;
-        if (this.item.replyContents !== '') anwser = this.item.replyContents;
-        if (this.inputReplyContents !== '') anwser = this.inputReplyContents;
-        return anwser;
+        return this.anwserResult == '' ? this.item.isAnwser : true;
       },
       set() {},
     },
@@ -137,51 +127,20 @@ export default {
       this.edit = !this.edit;
       if (!this.edit) this.anwserQna();
     },
-    // async anwserQna() {
-    anwserQna() {
-      // let anwserResult = {};
+    async anwserQna() {
       this.loading = true;
-      setTimeout(() => {
+      try {
+        const { data } = await anwserQna(this.anwserData);
+        console.log(data);
         this.anwserResult = 'success';
-        // this.loading = false;
         this.isAnwser = true;
-        console.log(this.isAnwser);
-      }, 10000);
-      //   try {
-      //     anwserResult = await anwserQna(this.anwserData);
-      //   } catch (error) {
-      //     console.log(error);
-      //     this.loading = false;
-      //   }
-      //   console.log(anwserResult);
+      } catch (error) {
+        this.anwserResult = 'error';
+        console.log(error);
+      }
+      this.loading = false;
     },
   },
 };
 </script>
-<style>
-.spinner {
-  position: relative;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  border-width: 2px;
-  border-color: #ebebeb;
-  border-top-color: #212121;
-  animation: spin 1s infinite linear;
-  border-radius: 100%;
-  border-style: solid;
-}
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@media screen and (max-width: 576px) {
-  .spinner {
-    position: relative;
-    width: 12px;
-    height: 12px;
-  }
-}
-</style>
+<style></style>

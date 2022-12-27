@@ -1,7 +1,7 @@
 <template>
   <div class="label" :class="color">
     <span v-if="isAnwser">답변완료</span>
-    <span v-else>답변대기</span>
+    <span v-else>미답변</span>
   </div>
 </template>
 
