@@ -9,7 +9,7 @@
       <span v-if="secretUserId"> {{ secretUserId }} | </span>
       <span> {{ item.orderId }}</span>
       <span> {{ item.qnaDate | timeFormat }}</span>
-      <div v-html="contents" class="contents"></div>
+      <div v-html="questionContents" class="question-contents"></div>
     </div>
     <div>
       <button
@@ -39,15 +39,18 @@
           <span v-else>등록하기</span>
         </QnaSubmitBtn>
       </div>
+      <div
+        v-if="item.replyContents !== ''"
+        v-html="replyContents"
+        class="reply-contents"
+      ></div>
       <textarea
+        v-else
         v-model="inputReplyContents"
-        @input="inputReplyContents = $event.target.value"
+        @input="input($event.target.value)"
         class="reply-contents"
         ref="textarea"
-        :rows="textareaRow"
-        :disabled="
-          item.replyContents !== '' || loading || anwserResult == 'success'
-        "
+        :disabled="loading || anwserResult == 'success'"
       ></textarea>
     </div>
   </div>
@@ -75,12 +78,15 @@ export default {
       toggle: false,
       loading: false,
       anwserResult: '',
-      inputReplyContents: this.item.replyContents || '',
+      inputReplyContents: '',
     };
   },
   computed: {
-    textareaRow() {
-      return this.isAnwser ? this.inputReplyContents.split('\r\n').length : 4;
+    replyContents() {
+      return this.item.replyContents.replaceAll('\r\n', '<br/>');
+    },
+    questionContents() {
+      return this.item.contents.replaceAll('\r\n', '<br/>');
     },
     replyDate: {
       get() {
@@ -111,9 +117,7 @@ export default {
           : `${userId.slice(0, 2)}****`;
       return secretId;
     },
-    contents() {
-      return this.item.contents.replaceAll('\r\n', '<br/>');
-    },
+
     anwserData() {
       return {
         qnaid: this.item.qnaId,
@@ -123,9 +127,11 @@ export default {
     },
   },
   methods: {
-    clickEdit() {
-      this.edit = !this.edit;
-      if (!this.edit) this.anwserQna();
+    input(value) {
+      this.inputReplyContents = value;
+      const { textarea } = this.$refs;
+      textarea.style.height = '20px';
+      textarea.style.height = textarea.scrollHeight - 16 + 'px';
     },
     async anwserQna() {
       this.loading = true;
