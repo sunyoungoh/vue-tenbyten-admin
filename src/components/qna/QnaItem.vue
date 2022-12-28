@@ -34,7 +34,7 @@
           v-if="!item.isAnwser"
           :loading="loading"
           class="btn-write"
-          :class="anwserResult == 'success' ? 'success' : 'error'"
+          :class="anwserResult"
           @click.native="anwserQna"
         >
           <span v-if="anwserResult == 'success'">등록완료</span>
