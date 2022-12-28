@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { secretId } from '@/utils/filters';
 import { anwserQna } from '@/api/order';
 import QnaLabel from '@/components/qna/QnaLabel.vue';
 import BtnAngle from '@/components/BtnAngle.vue';
@@ -110,15 +111,7 @@ export default {
     },
     secretUserId() {
       const userId = this.item.userId;
-      let secretId =
-        userId.length == 0
-          ? ''
-          : userId.length > 9
-          ? `${userId.slice(0, 5)}*****`
-          : userId.length > 6
-          ? `${userId.slice(0, 3)}*****`
-          : `${userId.slice(0, 2)}****`;
-      return secretId;
+      return secretId(userId);
     },
 
     anwserData() {

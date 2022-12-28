@@ -35,6 +35,7 @@
 
 <script>
 import { sendMail, dispatchOrder } from '@/api/order';
+import { secretId } from '@/utils/filters';
 
 export default {
   props: {
@@ -71,15 +72,7 @@ export default {
   computed: {
     secretUserId() {
       const ordererId = this.item.ordererId;
-      let secretId =
-        ordererId.length == 0
-          ? ''
-          : ordererId.length > 9
-          ? `${ordererId.slice(0, 5)}*****`
-          : ordererId.length > 6
-          ? `${ordererId.slice(0, 3)}*****`
-          : `${ordererId.slice(0, 2)}****`;
-      return secretId;
+      return secretId(ordererId);
     },
     validateEmail() {
       const reg = /.+@.+\..+/;

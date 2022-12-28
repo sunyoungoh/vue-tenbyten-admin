@@ -19,14 +19,19 @@
   --danger: #e53d3d;
   --danger-light: #fff4f4;
   --yellow: #ffdd61;
-  --grey: #ccc;
-  --grey-light-1: #ededed;
-  --grey-light-2: #f4f4f4;
+  --charcoal: #333;
+  --grey: #b2b2b2;
+  --grey-1: #ccc;
+  --grey-light-1: #ddd;
+  --grey-light-2: #ededed;
+  --grey-light-3: #eee;
+  --light: #f4f4f4;
+  --light-1: #f7f7f7;
+  --light-2: #f9f9f9;
   --text-light: #5e5e5e;
   --font-medium: 500;
   --font-bold: 700;
 }
-
 /* =========== COMMON =========== */
 * {
   font-family: 'Spoqa Han Sans Neo', 'Sans-serif';
@@ -50,20 +55,20 @@ body::-webkit-scrollbar {
 }
 footer {
   width: 100%;
-  height: 100px;
-  line-height: 100px;
+  height: 60px;
+  line-height: 60px;
   position: relative;
   font-size: var(--font-12);
   text-align: center;
   color: #878787;
 }
 #app {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
 }
 #main {
   padding-top: 107px;
   height: auto;
-  min-height: calc(100vh - 2rem - 107px - 100px);
+  min-height: calc(100vh - 107px - 60px);
 }
 h1,
 h2 {
@@ -100,7 +105,7 @@ input:focus {
 
 /* =========== TABLE =========== */
 .table-container {
-  padding: 2rem 0 6rem;
+  padding: 2rem 0;
 }
 .table-container table {
   margin: 0 auto;
@@ -109,7 +114,7 @@ input:focus {
   text-align: center;
 }
 tr {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--grey-light-1);
 }
 th,
 tr,
@@ -142,8 +147,9 @@ td {
   font-size: var(--font-20);
 }
 .filter-tab {
-  background: #f8f8fa;
+  background: var(--light-2);
 }
+
 /* =========== HIGHLIGHTER =========== */
 .highlighter {
   padding: 0 1rem;
@@ -164,7 +170,7 @@ td {
   background: var(--yellow);
 }
 .highlighter__grey::before {
-  background: var(--grey-light-1);
+  background: var(--grey-light-2);
 }
 
 /* =========== HEADER =========== */
@@ -216,7 +222,7 @@ nav {
   display: flex;
   justify-content: center;
   text-align: center;
-  border-bottom: 1px solid var(--grey-light-1);
+  border-bottom: 1px solid var(--grey-light-2);
 }
 .nav-list li {
   display: flex;
@@ -261,7 +267,6 @@ button {
   background: var(--primary);
   color: var(--white);
   border: none;
-  font-family: 'Noto Sans KR';
   font-weight: var(--font-medium);
   font-size: 1rem;
   border-radius: 0.2rem;
@@ -345,14 +350,14 @@ button:disabled {
   color: var(--primary);
 }
 .month-title button i.disabled {
-  color: #b2b2b2;
+  color: var(--grey);
   cursor: default;
 }
 /* =========== HOME =========== */
 .welcome {
   height: 100px;
   margin: 0 auto;
-  background-color: #f7f7f7;
+  background-color: var(--light-1);
   text-align: center;
   line-height: 100px;
   font-size: var(--font-20);
@@ -414,7 +419,7 @@ button:disabled {
   line-height: 40px;
   border-radius: 0.2rem;
   border: none;
-  background-color: var(--grey-light-2);
+  background-color: var(--light);
 }
 .search-icon {
   position: absolute;
@@ -429,6 +434,7 @@ button:disabled {
   padding: 0.3rem 1rem;
   font-weight: 400;
 }
+
 /* =========== SALES =========== */
 .table-container.sales table {
   width: 100%;
@@ -449,7 +455,7 @@ button:disabled {
   align-items: self-end;
   border-radius: 0.5rem;
   border: 2px solid var(--white);
-  box-shadow: 1px 1px 6px 0px var(--grey);
+  box-shadow: 1px 1px 6px 0px var(--grey-1);
   padding: 1rem 0.5rem 0.3rem;
   text-align: center;
 }
@@ -495,7 +501,7 @@ button:disabled {
   width: 100%;
   margin-top: 0.75rem;
   padding-top: 0.3rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--grey-light-3);
   line-height: 30px;
   left: 0;
   bottom: 0;
@@ -513,7 +519,7 @@ button:disabled {
 .qna-item {
   padding-top: 1rem;
   padding-bottom: 1.75rem;
-  box-shadow: 1px 1px 6px 0px var(--grey);
+  box-shadow: 1px 1px 6px 0px var(--grey-1);
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
@@ -583,7 +589,7 @@ button:disabled {
   margin-top: 1rem;
   padding: 0.8rem 0.3rem;
   border-radius: 0.3rem;
-  background-color: var(--grey-light-2);
+  background-color: var(--light);
 }
 .anwser-top {
   display: flex;
@@ -614,7 +620,7 @@ button:disabled {
   border: none;
   font-size: var(--font-14);
   line-height: var(--font-20);
-  color: #333;
+  color: var(--primary);
 }
 textarea.reply-contents {
   min-height: 40px;
@@ -623,10 +629,10 @@ textarea.reply-contents:focus {
   outline: none;
 }
 textarea.reply-contents:disabled {
-  -webkit-text-fill-color: #333;
+  -webkit-text-fill-color: var(--primary);
   opacity: 1; /* required on iOS */
-  color: #333;
-  background-color: var(--grey-light-2);
+  color: var(--primary);
+  background-color: var(--light);
 }
 /* =========== MEDIA QUERY =========== */
 @media screen and (max-width: 769px) {
@@ -634,7 +640,7 @@ textarea.reply-contents:disabled {
     padding-top: 1rem;
   }
   .table-container {
-    padding: 1rem 0 6rem;
+    padding: 1rem 0;
   }
   tr,
   th,
@@ -644,12 +650,6 @@ textarea.reply-contents:disabled {
 }
 
 @media screen and (max-width: 576px) {
-  #app {
-    height: calc(100vh - 70px);
-  }
-  #main {
-    min-height: calc(100vh - 2rem - 107px - 70px);
-  }
   h1,
   h2 {
     font-size: 1.25rem;
@@ -674,8 +674,6 @@ textarea.reply-contents:disabled {
     padding: 0.25rem;
   }
   footer {
-    height: 70px;
-    line-height: 70px;
     font-size: var(--font-10);
   }
   footer div {
@@ -796,12 +794,9 @@ textarea.reply-contents:disabled {
     width: 110px;
   }
   /* TABLE */
-  .table-container {
-    padding: 1rem 0 6rem;
-  }
   .table-container.sales tr,
   .reccent-salse .table-container tr {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--grey-light-3);
   }
   .table-container.sales th {
     padding: 0.25rem;
@@ -829,15 +824,15 @@ textarea.reply-contents:disabled {
     left: -9999px;
   }
   #no-more-tables tr {
-    border-top: 2px solid #333;
+    border-top: 2px solid var(--charcoal);
   }
   #no-more-tables tr:last-child {
-    border-bottom: 2px solid #333;
+    border-bottom: 2px solid var(--charcoal);
   }
   #no-more-tables td {
     /* Behave  like a "row" */
     border: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--grey-light-3);
     position: relative;
     padding-left: 30%;
     white-space: normal;
