@@ -2,10 +2,7 @@
   <button class="btn-outline">
     <span class="spinner" v-if="loading"></span>
     <template v-else>
-      <slot>
-        <span v-if="!edit"> 수정하기 </span>
-        <span v-else> 수정완료 </span>
-      </slot>
+      <slot />
     </template>
   </button>
 </template>

@@ -22,7 +22,6 @@
   --grey: #ccc;
   --grey-light-1: #ededed;
   --grey-light-2: #f4f4f4;
-  --text-color: #222;
   --text-light: #5e5e5e;
   --font-medium: 500;
   --font-bold: 700;
@@ -200,7 +199,7 @@ header .logo {
   cursor: pointer;
   text-decoration: underline;
 }
-.error {
+.login-form .error {
   margin: 0.5rem 0;
   font-size: var(--font-14);
   color: var(--danger);
@@ -276,6 +275,14 @@ button:disabled {
   color: var(--primary);
   outline: none;
   box-shadow: 0 0 0 1px var(--primary);
+}
+.btn-outline.success {
+  box-shadow: 0 0 0 1px var(--success);
+  color: var(--success);
+}
+.btn-outline.error {
+  box-shadow: 0 0 0 1px var(--danger);
+  color: var(--danger);
 }
 .btn-search {
   margin-left: 0.75rem;
@@ -587,7 +594,7 @@ button:disabled {
   font-size: var(--font-16);
   margin-right: 0.2rem;
 }
-.anwser-top button {
+.anwser-top .btn-write {
   position: relative;
   top: 1px;
   width: 60px;
@@ -612,7 +619,7 @@ button:disabled {
 textarea.reply-contents {
   min-height: 40px;
 }
-textarea.reply-contents:focus{
+textarea.reply-contents:focus {
   outline: none;
 }
 textarea.reply-contents:disabled {

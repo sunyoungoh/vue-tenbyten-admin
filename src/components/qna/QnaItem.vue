@@ -14,8 +14,8 @@
     <div>
       <button
         class="btn-anwser"
-        @click="toggle = !toggle"
         :class="item.isAnwser ? 'btn-outline' : ''"
+        @click="toggle = !toggle"
       >
         <span v-if="!item.isAnwser">답변하기</span>
         <span v-else>
@@ -31,11 +31,14 @@
           <span v-if="isAnwser"> | {{ replyDate | timeFormat }}</span>
         </div>
         <QnaSubmitBtn
-          v-if="!item.isAnwser && anwserResult == ''"
+          v-if="!item.isAnwser"
           :loading="loading"
+          class="btn-write"
+          :class="anwserResult == 'success' ? 'success' : 'error'"
           @click.native="anwserQna"
         >
-          <span v-if="anwserResult == 'succeess'">등록완료</span>
+          <span v-if="anwserResult == 'success'">등록완료</span>
+          <span v-else-if="anwserResult == 'error'">등록실패</span>
           <span v-else>등록하기</span>
         </QnaSubmitBtn>
       </div>
@@ -46,10 +49,10 @@
       ></div>
       <textarea
         v-else
+        ref="textarea"
         v-model="inputReplyContents"
         @input="input($event.target.value)"
         class="reply-contents"
-        ref="textarea"
         :disabled="loading || anwserResult == 'success'"
       ></textarea>
     </div>
