@@ -87,10 +87,13 @@ export default {
   },
   computed: {
     replyContents() {
-      return this.item.replyContents.replaceAll('\r\n', '<br/>');
+      return this.item.replyContents.replaceAll(
+        /(?:\\[rn]|[\r\n]+)+/g,
+        '<br/>',
+      );
     },
     questionContents() {
-      return this.item.contents.replaceAll('\r\n', '<br/>');
+      return this.item.contents.replaceAll(/(?:\\[rn]|[\r\n]+)+/g, '<br/>');
     },
     replyDate: {
       get() {

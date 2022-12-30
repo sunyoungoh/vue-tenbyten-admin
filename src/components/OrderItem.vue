@@ -4,7 +4,12 @@
       v-for="(title, i) in titles"
       :key="i"
       :data-title="title.value"
-      :class="clickField == title.key ? 'filter-tab' : ''"
+      :class="[
+        clickField == title.key ? 'filter-tab' : '',
+        title.key == 'itemRequireMemo' || title.key == 'requireMemo'
+          ? 'memo'
+          : '',
+      ]"
     >
       <span v-if="title.key == 'orderDate' || title.key == 'createdAt'">
         {{ item[title.key] | timeFormat }}

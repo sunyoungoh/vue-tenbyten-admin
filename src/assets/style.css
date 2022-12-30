@@ -87,7 +87,6 @@ li {
 input:focus {
   outline: none;
 }
-
 /* =========== ROUTER-LINK =========== */
 .router-link-exact-active {
   font-weight: bold;
@@ -838,6 +837,10 @@ textarea.reply-contents:disabled {
     white-space: normal;
     text-align: right;
     line-height: 40px;
+  }
+  #no-more-tables td.memo {
+    line-height: 28px;
+    height: auto;
   }
   #no-more-tables td:last-child {
     border-bottom: hidden;
