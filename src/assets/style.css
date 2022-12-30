@@ -350,7 +350,7 @@ button:disabled {
   color: var(--primary);
 }
 .month-title button i.disabled {
-  color: var(--grey);
+  color: var(--grey-1);
   cursor: default;
 }
 /* =========== HOME =========== */
@@ -424,7 +424,7 @@ button:disabled {
 .search-icon {
   position: absolute;
   left: 0px;
-  top: 0;
+  top: 1px;
   padding: 0.5rem 0.7rem 0.3rem;
 }
 .btn-search {

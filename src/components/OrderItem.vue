@@ -79,7 +79,7 @@ export default {
       return reg.test(this.item.itemRequireMemo);
     },
     mailData() {
-      const reg = /\S+@+\S+\.+\S+/;
+      const reg = /\S+@+\S+\.+[a-zA-Z]{2,3}/;
       let email = this.validateEmail
         ? this.item.itemRequireMemo.match(reg)[0]
         : this.item.ordererEmail;
