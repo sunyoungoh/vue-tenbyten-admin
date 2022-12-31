@@ -2,18 +2,18 @@
   <section class="container qna">
     <LoadingSpinner v-if="loading" />
     <template v-else>
-      <h1 :class="highlighter">{{ title }}</h1>
+      <h1 :class="highlighter" v-if="!loading">{{ title }}</h1>
+      <div class="chips">
+        <button
+          v-for="(chip, i) in chips"
+          :key="i"
+          :class="clickedVal !== chip.value ? ' btn-outline' : ''"
+          @click="fetchQanList(chip.value)"
+        >
+          {{ chip.text }}
+        </button>
+      </div>
       <div v-if="filteredQnaListCount > 0" class="content">
-        <div class="chips">
-          <button
-            v-for="(chip, i) in chips"
-            :key="i"
-            :class="clickedVal !== chip.value ? ' btn-outline' : ''"
-            @click="filterList(chip.value)"
-          >
-            {{ chip.text }}
-          </button>
-        </div>
         <QnaList :items="filteredQnaList" />
       </div>
     </template>
@@ -32,30 +32,7 @@ export default {
     QnaList,
   },
   async mounted() {
-    this.loading = true;
-    const { data } = await getQna();
-    const qnaList = data.outPutValue.map(item => {
-      let isAnwser = item.replycontents ? true : false;
-      return {
-        qnaId: item.qnaid,
-        qnaDate: item.regdate,
-        userId: item.userid,
-        username: item.고객명,
-        orderId: item.주문번호,
-        kind: item.kind,
-        contents: item.contents,
-        itemId: item.itemid,
-        isAnwser: isAnwser,
-        replyDate: item.replydate,
-        replyUser: item.replyuser,
-        replyContents: item.replycontents,
-      };
-    });
-    if (qnaList.length > 0) {
-      this.qnaList = sortDate(qnaList, 'qnaDate', 'desc');
-      this.filterList('noAnwser');
-    }
-    this.loading = false;
+    await this.fetchQanList();
   },
   data() {
     return {
@@ -106,11 +83,37 @@ export default {
     },
   },
   methods: {
-    filterList(val) {
-      this.clickedVal = val;
-      if (val == 'noAnwser') {
+    async fetchQanList(val) {
+      this.loading = true;
+      this.clickedVal = val ? val : 'noAnwser';
+      const { data } = await getQna();
+      const qnaList = data.outPutValue.map(item => {
+        let isAnwser = item.replycontents ? true : false;
+        return {
+          qnaId: item.qnaid,
+          qnaDate: item.regdate,
+          userId: item.userid,
+          username: item.고객명,
+          orderId: item.주문번호,
+          kind: item.kind,
+          contents: item.contents,
+          itemId: item.itemid,
+          isAnwser: isAnwser,
+          replyDate: item.replydate,
+          replyUser: item.replyuser,
+          replyContents: item.replycontents,
+        };
+      });
+      if (qnaList.length > 0) {
+        this.qnaList = sortDate(qnaList, 'qnaDate', 'desc');
+        this.filterList(val);
+      }
+      this.loading = false;
+    },
+    filterList() {
+      if (this.clickedVal == 'noAnwser') {
         this.filteredQnaList = this.noAnwserList;
-      } else if (val == 'yesAnwser') {
+      } else if (this.clickedVal == 'yesAnwser') {
         this.filteredQnaList = this.yesAnwserList;
       } else {
         this.filteredQnaList = this.qnaList;
