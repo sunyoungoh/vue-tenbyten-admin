@@ -26,10 +26,12 @@ const order = {
       let arr = [];
       for (let i = 5; i >= 0; i--) {
         let orderList;
+        const today = new Date();
+        const aMonthAgo = new Date(today.setMonth(today.getMonth() - i));
         orderList = state.orderList.filter(
           item =>
-            new Date(item.orderDate).getMonth() == state.month - i &&
-            new Date(item.orderDate).getFullYear() == state.year,
+            new Date(item.orderDate).getMonth() == aMonthAgo.getMonth() &&
+            new Date(item.orderDate).getFullYear() == aMonthAgo.getFullYear(),
         );
         if (orderList.length > 0) {
           let year = new Date(orderList[0].orderDate).getFullYear();
