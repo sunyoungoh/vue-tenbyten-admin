@@ -27,11 +27,12 @@ const order = {
       for (let i = 5; i >= 0; i--) {
         let orderList;
         const today = new Date();
-        const aMonthAgo = new Date(today.setMonth(today.getMonth() - i));
+        const aFewMonthAgo = new Date(today.setMonth(today.getMonth() - i));
         orderList = state.orderList.filter(
           item =>
-            new Date(item.orderDate).getMonth() == aMonthAgo.getMonth() &&
-            new Date(item.orderDate).getFullYear() == aMonthAgo.getFullYear(),
+            new Date(item.orderDate).getMonth() == aFewMonthAgo.getMonth() &&
+            new Date(item.orderDate).getFullYear() ==
+              aFewMonthAgo.getFullYear(),
         );
         if (orderList.length > 0) {
           let year = new Date(orderList[0].orderDate).getFullYear();
@@ -44,11 +45,9 @@ const order = {
               .reduce((prev, curr) => prev + curr),
           });
         } else {
-          let now = new Date();
-          let date = new Date(now.setMonth(now.getMonth() - i));
-          let year = date.getFullYear();
-          let month = date.getMonth() + 1;
-          date = `${year.toString().substring(2)}/${month}`;
+          let year = aFewMonthAgo.getFullYear();
+          let month = aFewMonthAgo.getMonth() + 1;
+          let date = `${year.toString().substring(2)}/${month}`;
           arr.push({ date: date, amount: '' });
         }
       }
