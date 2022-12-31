@@ -116,7 +116,6 @@ export default {
       const userId = this.item.userId;
       return secretId(userId);
     },
-
     anwserData() {
       return {
         qnaid: this.item.qnaId,

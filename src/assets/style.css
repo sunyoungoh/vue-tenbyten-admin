@@ -511,11 +511,23 @@ button:disabled {
 }
 
 /* =========== QNA =========== */
+.qna .chips {
+  margin-top: 1rem;
+}
+.qna .chips button {
+  width: max-content;
+  height: 30px;
+  padding: 0.3rem 1rem;
+  margin: 0 0.3rem;
+  font-weight: normal;
+  font-size: var(--font-13);
+  border-radius: 24px;
+}
 .qna-list {
   max-width: 600px;
   display: flex;
   flex-direction: column;
-  margin: 2rem auto 0;
+  margin: 1.5rem auto 0;
 }
 .qna-item {
   padding-top: 1rem;
@@ -784,9 +796,6 @@ textarea.reply-contents:disabled {
     font-size: var(--font-12);
   }
   /* Qna */
-  .qna-list {
-    margin-top: 1.5rem;
-  }
   .qna-tab {
     margin-top: 1rem;
     width: 330px;

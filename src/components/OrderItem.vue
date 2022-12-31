@@ -24,15 +24,14 @@
         {{ item[title.key] | emptyValue }}
       </span>
     </td>
-    <td data-title="발송상태">
-      <!-- <td data-title="발송상태" v-if="$route.path == '/ready'"> -->
+    <td data-title="발송상태" v-if="$route.path == '/ready'">
       <TableBtn
         class="btn-send"
         :result="sendResult"
         @click="sendMailAndPostOrder"
       />
     </td>
-    <td data-title="송장등록">
+    <td data-title="송장등록" v-if="$route.path == '/ready'">
       <TableBtn
         class="btn-post btn-outline"
         :result="postResult"
