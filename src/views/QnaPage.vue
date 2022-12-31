@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 import QnaList from '@/components/qna/QnaList.vue';
 import { getQna } from '@/api/order';
 import { sortDate } from '@/utils/sortArr';

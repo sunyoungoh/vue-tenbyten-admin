@@ -48,7 +48,7 @@
 <script>
 import { sendMail, dispatchOrder } from '@/api/order';
 import { secretId } from '@/utils/filters';
-import TableBtn from '@/components/TableBtn';
+import TableBtn from '@/components/common/table/TableBtn.vue';
 
 export default {
   components: {

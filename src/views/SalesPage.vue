@@ -13,10 +13,10 @@
 </template>
 
 <script>
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import TitleMonth from '@/components/TitleMonth.vue';
-import TopSales from '@/components/TopSales.vue';
-import SalesList from '@/components/SalesList.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
+import TitleMonth from '@/components/common/TitleMonth.vue';
+import TopSales from '@/components/sales/TopSales.vue';
+import SalesList from '@/components/sales/SalesList.vue';
 import { comma } from '@/utils/filters';
 
 export default {

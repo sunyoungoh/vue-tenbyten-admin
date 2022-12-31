@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 import LineChart from '@/utils/LineChart';
 
 export default {

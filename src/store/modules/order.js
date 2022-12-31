@@ -141,7 +141,6 @@ const order = {
         const { data } = await getDispatchOrderHistory();
         orderList = data;
       }
-      console.log(orderList);
       commit('setOrderList', orderList);
       commit('setLoading', false);
     },

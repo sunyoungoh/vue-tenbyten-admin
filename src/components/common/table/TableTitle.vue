@@ -13,11 +13,12 @@
       />
     </th>
     <th v-if="$route.path == '/ready'">발송상태</th>
+    <th v-if="$route.path == '/ready'">송장등록</th>
   </tr>
 </template>
 
 <script>
-import BtnAngle from '@/components/BtnAngle.vue';
+import BtnAngle from '@/components/common/BtnAngle.vue';
 
 export default {
   components: {

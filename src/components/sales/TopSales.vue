@@ -1,9 +1,9 @@
 <template>
   <div class="top3-sales">
     <div
-      class="sales-item"
       v-for="(item, i) in topSales"
       :key="i"
+      class="sales-item"
       :class="item.top == '1' ? 'top1' : ''"
     >
       <div class="pop-num">{{ item.top }}</div>
@@ -36,8 +36,8 @@ export default {
       });
       let sortedArr = Object.entries(countById).sort((a, b) => b[1] - a[1]);
       let countArr = [...new Set(sortedArr.map(item => item[1]))];
-      let topThree = [...new Array(3)].map(() => []);
-      topThree = topThree.map((item, i) => {
+      let topThree = [];
+      topThree = countArr.map((item, i) => {
         return {
           top: i + 1,
           products: sortedArr

@@ -24,8 +24,8 @@
 
 <script>
 import { getItemName } from '@/utils/getItemName';
-import TableTitle from '@/components/TableTitle.vue';
-import SalesItem from '@/components/SalesItem.vue';
+import TableTitle from '@/components/common/table/TableTitle.vue';
+import SalesItem from '@/components/sales/SalesItem.vue';
 
 export default {
   components: {

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
-import AppNav from '@/components/AppNav.vue';
+import AppHeader from '@/components/common/AppHeader.vue';
+import AppNav from '@/components/common/AppNav.vue';
 
 export default {
   components: {

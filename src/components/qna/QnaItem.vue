@@ -63,7 +63,7 @@
 import { secretId } from '@/utils/filters';
 import { anwserQna } from '@/api/order';
 import QnaLabel from '@/components/qna/QnaLabel.vue';
-import BtnAngle from '@/components/BtnAngle.vue';
+import BtnAngle from '@/components/common/BtnAngle.vue';
 import QnaSubmitBtn from '@/components/qna/QnaSubmitBtn.vue';
 
 export default {

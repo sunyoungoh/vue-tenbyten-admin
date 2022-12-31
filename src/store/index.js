@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import user from './modules/user';
 import order from './modules/order';
+import qna from './modules/qna';
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
   modules: {
     user,
     order,
+    qna,
   },
 });

@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import TitleMonth from '@/components/TitleMonth.vue';
-import DeliveryList from '@/components/DeliveryList.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
+import TitleMonth from '@/components/common/TitleMonth.vue';
+import DeliveryList from '@/components/delivery/DeliveryList.vue';
 
 export default {
   components: {

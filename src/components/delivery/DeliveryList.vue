@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import TableTitle from '@/components/TableTitle.vue';
-import OrderItem from '@/components/OrderItem.vue';
+import TableTitle from '@/components/common/table/TableTitle.vue';
+import OrderItem from '@/components/order/OrderItem.vue';
 import { sortOrderList } from '@/utils/sortArr';
 
 export default {

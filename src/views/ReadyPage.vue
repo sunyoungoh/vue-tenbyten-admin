@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
-import OrderList from '@/components/OrderList.vue';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
+import OrderList from '@/components/order/OrderList.vue';
 
 export default {
   components: {
