@@ -112,6 +112,7 @@ export default {
         detailIdx: this.item.detailIdx,
         details: {
           ordererId: this.item.ordererId,
+          detailIdx: this.item.detailIdx,
           ordererName: this.item.ordererName,
           toEmail: this.mailData.toEmail,
           itemId: this.item.itemId,
