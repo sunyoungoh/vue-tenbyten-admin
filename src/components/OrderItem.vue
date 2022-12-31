@@ -24,16 +24,24 @@
         {{ item[title.key] | emptyValue }}
       </span>
     </td>
-    <td data-title="발송상태" v-if="$route.path == '/ready'">
-      <button
+    <td data-title="발송상태">
+      <!-- <td data-title="발송상태" v-if="$route.path == '/ready'"> -->
+      <TableBtn
+        class="btn-send"
+        :result="sendResult"
         @click="sendMailAndPostOrder"
-        class="btn-post"
-        :class="postResult.css"
-        :disabled="postResult.status !== '' || loading"
+      />
+    </td>
+    <td data-title="송장등록">
+      <TableBtn
+        class="btn-post btn-outline"
+        :result="postResult"
+        @click="postOrder('onlyPost')"
       >
-        <span v-if="loading" class="spinner"></span>
-        <span v-else> {{ postResult.text }} </span>
-      </button>
+        <template #success>등록성공</template>
+        <template #error>등록실패</template>
+        <template #default>송장만 등록</template>
+      </TableBtn>
     </td>
   </tr>
 </template>
@@ -41,8 +49,12 @@
 <script>
 import { sendMail, dispatchOrder } from '@/api/order';
 import { secretId } from '@/utils/filters';
+import TableBtn from '@/components/TableBtn';
 
 export default {
+  components: {
+    TableBtn,
+  },
   props: {
     titles: {
       type: Array,
@@ -59,12 +71,8 @@ export default {
   },
   data() {
     return {
-      postResult: {
-        status: '',
-        text: '발송하기',
-        css: '',
-      },
-      loading: false,
+      sendResult: '',
+      postResult: '',
     };
   },
   watch: {
@@ -119,71 +127,26 @@ export default {
     },
   },
   methods: {
-    async postOrder() {
+    async postOrder(action) {
       const { data } = await dispatchOrder(this.dispatchData);
-      console.log(data);
       if (data.code == 'SUCCESS') {
-        this.loading = false;
-        this.postResult = {
-          status: 'success',
-          text: '발송완료',
-          css: 'btn_post-success',
-        };
+        action == 'onlyPost'
+          ? (this.postResult = 'success')
+          : (this.sendResult = 'success');
       } else {
-        this.postResult = {
-          status: 'fail',
-          text: '발송실패',
-          css: 'btn_post-fail',
-        };
+        this.postResult = 'error';
       }
     },
     async sendMailAndPostOrder() {
-      let sendResult = {};
-      this.loading = true;
       try {
-        sendResult = await sendMail(this.mailData);
-        console.log('메일 전송 완료');
+        const { status } = await sendMail(this.mailData);
+        if (status == 200) {
+          this.postOrder();
+        }
       } catch (error) {
-        console.log(error);
-        this.loading = false;
-        if (error.response.status == 400)
-          this.postResult = {
-            status: 'fail',
-            text: '발송실패',
-            css: 'btn_post-fail',
-          };
-      }
-      if (sendResult?.status == 200) {
-        this.postOrder();
+        this.sendResult = 'error';
       }
     },
   },
 };
 </script>
-<style>
-.spinner {
-  position: relative;
-  top: 2px;
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  border-width: 2px;
-  border-color: #5e5e5e;
-  border-top-color: #ffffff;
-  animation: spin 1s infinite linear;
-  border-radius: 100%;
-  border-style: solid;
-}
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@media screen and (max-width: 576px) {
-  .spinner {
-    position: relative;
-    width: 12px;
-    height: 12px;
-  }
-}
-</style>

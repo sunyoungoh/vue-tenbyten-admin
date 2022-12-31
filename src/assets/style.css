@@ -278,14 +278,14 @@ button:disabled {
   background-color: var(--white);
   color: var(--primary);
   outline: none;
-  box-shadow: 0 0 0 1px var(--primary);
+  box-shadow: 0 0 0 1px var(--primary) inset;
 }
 .btn-outline.success {
-  box-shadow: 0 0 0 1px var(--success);
+  box-shadow: 0 0 0 1px var(--success) inset;
   color: var(--success);
 }
 .btn-outline.error {
-  box-shadow: 0 0 0 1px var(--danger);
+  box-shadow: 0 0 0 1px var(--danger) inset;
   color: var(--danger);
 }
 .btn-search {
@@ -372,20 +372,22 @@ button:disabled {
 }
 
 /* =========== READY =========== */
-.btn_post-success,
-.btn_post-fail {
+.btn-send.success,
+.btn-send.error {
   cursor: default;
   color: var(--white);
 }
-.btn_post-success {
+.btn-send.success {
   background-color: var(--success);
 }
-.btn_post-fail {
+.btn-send.error {
   background-color: var(--danger);
 }
+.btn-send,
 .btn-post {
   width: 80px;
   height: 40px;
+  max-width: 100%;
   font-size: var(--font-14);
   transition: all 0.25s;
   font-weight: 400;
@@ -726,6 +728,7 @@ textarea.reply-contents:disabled {
     font-size: var(--font-16);
     z-index: 999;
   }
+  .btn-send,
   .btn-post {
     width: 72px;
     height: 32px;
@@ -839,9 +842,17 @@ textarea.reply-contents:disabled {
     line-height: 40px;
   }
   #no-more-tables td.memo {
+    min-height: 40px;
     line-height: 28px;
+    display: flex;
     height: auto;
+    justify-content: right;
+    place-items: center;
   }
+  #no-more-tables td.memo span {
+    margin: auto 0;
+  }
+
   #no-more-tables td:last-child {
     border-bottom: hidden;
   }
