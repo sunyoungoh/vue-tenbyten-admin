@@ -458,7 +458,7 @@ button:disabled {
   height: 100%;
 }
 .sales-item {
-  width: 170px;
+  max-width: 170px;
   position: relative;
   display: grid;
   align-items: self-end;

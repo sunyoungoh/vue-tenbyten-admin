@@ -55,11 +55,22 @@ const order = {
     },
     monthText(state) {
       let month;
-      state.month == new Date().getMonth()
-        ? (month = '이번달')
-        : state.month == new Date().getMonth() - 1
-        ? (month = '지난달')
-        : (month = `${state.month + 1}월`);
+      const today = new Date();
+      const aMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
+
+      if (
+        state.month == today.getMonth() &&
+        state.year == today.getFullYear()
+      ) {
+        month = '이번달';
+      } else if (
+        state.month == aMonthAgo.getMonth() &&
+        state.year == aMonthAgo.getFullYear()
+      ) {
+        month = '지난달';
+      } else {
+        month = `${state.year}.${state.month + 1}월`;
+      }
       return month;
     },
   },
