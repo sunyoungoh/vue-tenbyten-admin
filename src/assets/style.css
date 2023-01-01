@@ -253,7 +253,7 @@ nav {
   position: relative;
   width: 100%;
   margin: 0 auto;
-  padding-top: 1.75rem;
+  padding-top: 1rem;
   text-align: center;
 }
 .container .content {
@@ -361,7 +361,7 @@ button:disabled {
   padding-top: 0;
 }
 .container.home .loading {
-  padding-top: 1.75rem;
+  padding-top: 1rem;
 }
 .welcome {
   height: 100px;
@@ -521,9 +521,15 @@ button:disabled {
 }
 
 /* =========== QNA =========== */
+.container.qna {
+  padding-top: 0;
+}
 .qna .chips {
-  margin-top: 1.1rem;
-  height: 35px;
+  display: flex;
+  padding: 0.75rem 0;
+  background: var(--light-2);
+  justify-content: center;
+  align-items: center;
 }
 .qna .chips button {
   width: max-content;
@@ -533,6 +539,9 @@ button:disabled {
   font-weight: normal;
   font-size: var(--font-13);
   border-radius: 24px;
+}
+.qna .chips button.btn-outline {
+  box-shadow: 0 0 0 1px var(--grey-1) inset;
 }
 .qna-list {
   max-width: 600px;
@@ -564,7 +573,6 @@ button:disabled {
   color: var(--black);
   font-size: var(--font-14);
 }
-
 .label {
   text-align: center;
   margin-left: 0.2rem;
@@ -660,10 +668,6 @@ textarea.reply-contents:disabled {
 }
 /* =========== MEDIA QUERY =========== */
 @media screen and (max-width: 769px) {
-  .container,
-  .container.home .loading {
-    padding-top: 1rem;
-  }
   .table-container {
     padding: 1rem 0;
   }
@@ -808,9 +812,9 @@ textarea.reply-contents:disabled {
     font-size: var(--font-12);
   }
   /* Qna */
-.qna-list{
-  margin-top: 1rem;
-}
+  .qna-list {
+    margin-top: 1rem;
+  }
   /* TABLE */
   .table-container.sales tr,
   .reccent-salse .table-container tr {
@@ -892,9 +896,6 @@ textarea.reply-contents:disabled {
   }
 }
 @media screen and (max-width: 375px) {
-  .container {
-    padding-top: 1.5rem;
-  }
   .nav-list a {
     margin: 0 0.2rem;
     padding: 0 0.2rem;
