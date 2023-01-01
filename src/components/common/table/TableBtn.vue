@@ -27,8 +27,8 @@ export default {
     };
   },
   watch: {
-    result() {
-      this.loading = false;
+    result(val) {
+      if (val !== '') this.loading = false;
     },
   },
   methods: {
@@ -61,6 +61,7 @@ export default {
 @media screen and (max-width: 576px) {
   .spinner {
     position: relative;
+    top: 3px;
     width: 12px;
     height: 12px;
   }

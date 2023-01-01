@@ -128,7 +128,6 @@ td {
 td {
   word-break: break-all;
 }
-
 .order-date,
 .item-name {
   word-break: keep-all;
@@ -240,7 +239,15 @@ nav {
   justify-content: center;
   font-size: var(--font-15);
 }
-
+.badge {
+  position: relative;
+  bottom: 36px;
+  left: 59px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--danger);
+}
 /* =========== CONTAINER =========== */
 .container {
   position: relative;
