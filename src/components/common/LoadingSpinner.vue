@@ -14,12 +14,12 @@ export default {};
 
 <style scoped>
 .loading {
+  position: absolute;
+  top: -107px;
   width: 100%;
-  height: 230px;
-  position: relative;
+  height: 100vh;
   z-index: 999;
 }
-
 .loading__inner {
   left: 0;
   top: 0;
@@ -30,8 +30,8 @@ export default {};
 
 .loading__content {
   left: 50%;
-  position: absolute;
   top: 50%;
+  position: absolute;
   transform: translate(-50%, -50%);
 }
 

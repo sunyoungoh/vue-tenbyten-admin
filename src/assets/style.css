@@ -360,9 +360,6 @@ button:disabled {
 .container.home {
   padding-top: 0;
 }
-.container.home .loading {
-  padding-top: 1rem;
-}
 .welcome {
   height: 100px;
   margin: 0 auto;
@@ -525,9 +522,13 @@ button:disabled {
   padding-top: 0;
 }
 .qna .chips {
+  z-index: 999;
+  width: 100%;
+  position: fixed;
   display: flex;
-  padding: 0.75rem 0;
+  height: 50px;
   background: var(--light-2);
+  border-bottom: 1px solid var(--grey-light-3);
   justify-content: center;
   align-items: center;
 }
@@ -539,9 +540,16 @@ button:disabled {
   font-weight: normal;
   font-size: var(--font-13);
   border-radius: 24px;
-}
-.qna .chips button.btn-outline {
+  color: var(--primary);
+  background-color: var(--white);
   box-shadow: 0 0 0 1px var(--grey-1) inset;
+}
+.qna .chips button.active {
+  font-weight: var(--font-bold);
+  box-shadow: 0 0 0 1px var(--primary) inset;
+}
+.qna h1 {
+  padding-top: 58px;
 }
 .qna-list {
   max-width: 600px;
@@ -671,6 +679,7 @@ textarea.reply-contents:disabled {
   .table-container {
     padding: 1rem 0;
   }
+
   tr,
   th,
   td {
@@ -718,7 +727,6 @@ textarea.reply-contents:disabled {
   .highlighter::before {
     height: 15px;
   }
-
   .container {
     min-width: 350px;
   }
@@ -768,6 +776,9 @@ textarea.reply-contents:disabled {
   /* DELIVERY */
   .search-wrap {
     margin-top: 1rem;
+  }
+  .month-title {
+    margin-top: 0.3rem;
   }
   /* SALES */
   .month-title {

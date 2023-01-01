@@ -1,20 +1,22 @@
 <template>
   <section class="container qna">
+    <div class="chips">
+      <button
+        v-for="(chip, i) in chips"
+        :key="i"
+        :class="clickedVal == chip.value ? 'active' : ''"
+        @click="fetchQnaList(chip.value)"
+      >
+        {{ chip.text }}
+      </button>
+    </div>
     <LoadingSpinner v-if="loading" />
     <template v-else>
-      <div class="chips">
-        <button
-          v-for="(chip, i) in chips"
-          :key="i"
-          :class="clickedVal !== chip.value ? ' btn-outline' : ''"
-          @click="fetchQnaList(chip.value)"
-        >
-          {{ chip.text }}
-        </button>
-      </div>
-      <h1 :class="highlighter">{{ title }}</h1>
-      <div v-if="filteredQnaListCount > 0" class="content">
-        <QnaList :items="filteredQnaList" />
+      <div>
+        <h1 :class="highlighter">{{ title }}</h1>
+        <div v-if="filteredQnaListCount > 0" class="content">
+          <QnaList :items="filteredQnaList" />
+        </div>
       </div>
     </template>
   </section>
