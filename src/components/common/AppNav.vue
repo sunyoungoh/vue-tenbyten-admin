@@ -23,6 +23,7 @@
 <script>
 export default {
   async mounted() {
+    await this.$store.dispatch('fetchQnaList');
     if (this.isLogin) {
       await this.$store.dispatch('fetchQnaList');
     }

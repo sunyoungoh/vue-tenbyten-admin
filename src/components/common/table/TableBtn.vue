@@ -43,8 +43,8 @@ export default {
 .spinner {
   position: relative;
   top: 2px;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   display: inline-block;
   border-width: 2px;
   border-color: #5e5e5e;
@@ -62,8 +62,8 @@ export default {
   .spinner {
     position: relative;
     top: 3px;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
   }
 }
 </style>

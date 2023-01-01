@@ -243,8 +243,8 @@ nav {
   position: relative;
   bottom: 36px;
   left: 59px;
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: var(--danger);
 }
@@ -395,6 +395,7 @@ button:disabled {
   width: 80px;
   height: 40px;
   max-width: 100%;
+  padding: 0;
   font-size: var(--font-14);
   transition: all 0.25s;
   font-weight: 400;
@@ -545,7 +546,8 @@ button:disabled {
   box-shadow: 0 0 0 1px var(--grey-1) inset;
 }
 .qna .chips button.active {
-  font-weight: var(--font-bold);
+  background-color: var(--primary);
+  color: var(--white);
   box-shadow: 0 0 0 1px var(--primary) inset;
 }
 .qna h1 {

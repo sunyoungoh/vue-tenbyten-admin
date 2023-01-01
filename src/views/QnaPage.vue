@@ -87,8 +87,8 @@ export default {
   },
   methods: {
     async fetchQnaList(val) {
-      await this.$store.dispatch('fetchQnaList');
       this.clickedVal = val;
+      await this.$store.dispatch('fetchQnaList');
       if (this.clickedVal == 'noAnwser') {
         this.filteredQnaList = this.noAnwserQnaList;
       } else if (this.clickedVal == 'yesAnwser') {
