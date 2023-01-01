@@ -2,7 +2,6 @@
   <section class="container qna">
     <LoadingSpinner v-if="loading" />
     <template v-else>
-      <h1 :class="highlighter">{{ title }}</h1>
       <div class="chips">
         <button
           v-for="(chip, i) in chips"
@@ -13,6 +12,7 @@
           {{ chip.text }}
         </button>
       </div>
+      <h1 :class="highlighter">{{ title }}</h1>
       <div v-if="filteredQnaListCount > 0" class="content">
         <QnaList :items="filteredQnaList" />
       </div>
