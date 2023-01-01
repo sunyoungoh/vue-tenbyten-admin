@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       clickedVal: 'noAnwser',
-      componentKey: 0,
+      loading: false,
       filteredQnaList: [],
       chips: [
         { text: '전체', value: 'all' },
@@ -47,9 +47,6 @@ export default {
     };
   },
   computed: {
-    loading() {
-      return this.$store.state.qna.loading;
-    },
     filteredQnaListCount() {
       return this.filteredQnaList.length;
     },
@@ -88,6 +85,7 @@ export default {
   methods: {
     async fetchQnaList(val) {
       this.clickedVal = val;
+      this.loading = true;
       await this.$store.dispatch('fetchQnaList');
       if (this.clickedVal == 'noAnwser') {
         this.filteredQnaList = this.noAnwserQnaList;
@@ -96,6 +94,7 @@ export default {
       } else {
         this.filteredQnaList = this.qnaList;
       }
+      this.loading = false;
     },
   },
 };

@@ -4,7 +4,6 @@ import { sortDate } from '@/utils/sortArr';
 const qna = {
   state: {
     qnaList: [],
-    loading: false,
   },
   getters: {
     noAnwserQnaList(state) {
@@ -21,14 +20,10 @@ const qna = {
     clearQnaList(state) {
       state.qnaList = [];
     },
-    setLoading(state, value) {
-      state.loading = value;
-    },
   },
   actions: {
     async fetchQnaList({ commit }) {
       commit('clearOrderList');
-      commit('setLoading', true);
       const { data } = await getQna();
       let qnaList = data.outPutValue.map(item => {
         let isAnwser = item.replycontents ? true : false;
@@ -51,7 +46,6 @@ const qna = {
         qnaList = sortDate(qnaList, 'qnaDate', 'desc');
       }
       commit('setQnaList', qnaList);
-      commit('setLoading', false);
     },
   },
 };
