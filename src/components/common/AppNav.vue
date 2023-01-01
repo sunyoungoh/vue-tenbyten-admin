@@ -1,7 +1,9 @@
 <template>
   <nav>
     <ul class="nav-list" @click="fetchBadge">
-      <li><router-link to="/">홈</router-link></li>
+      <li @click="$store.commit('initDate')">
+        <router-link to="/">홈</router-link>
+      </li>
       <li><router-link to="/order">신규주문</router-link></li>
       <li><router-link to="/ready">배송준비 </router-link></li>
       <li @click="$store.commit('initDate')">

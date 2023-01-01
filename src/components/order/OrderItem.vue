@@ -28,6 +28,7 @@
       <TableBtn
         class="btn-send"
         :result="sendResult"
+        :send-all="sendAll"
         @click="sendMailAndPostOrder"
       />
     </td>

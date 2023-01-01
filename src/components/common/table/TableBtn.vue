@@ -20,6 +20,10 @@ export default {
       type: String,
       default: '',
     },
+    sendAll: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -27,6 +31,9 @@ export default {
     };
   },
   watch: {
+    sendAll(val) {
+      if (val) this.loading = true;
+    },
     result(val) {
       if (val !== '') this.loading = false;
     },
