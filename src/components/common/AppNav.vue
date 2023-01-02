@@ -1,8 +1,8 @@
 <template>
   <nav>
     <ul class="nav-list">
-      <li v-for="item in navList" :key="item.to" @click="init(item.to)">
-        <router-link :to="item.to">
+      <li v-for="item in navList" :key="item.to">
+        <router-link :to="item.to" @click.native="init(item.to)">
           {{ item.text }}
           <div
             class="badge"
@@ -40,7 +40,6 @@ export default {
     async init(to) {
       if (this.$route.path !== to) {
         this.$store.commit('initDate');
-        await this.$store.dispatch('fetchQnaList');
       } else {
         window.location.reload();
       }
