@@ -77,8 +77,8 @@ const order = {
   },
   actions: {
     async fetchOrderList({ commit }, tab) {
-      commit('clearOrderList');
       commit('setLoading', true);
+      commit('clearOrderList');
       let orderList = [];
       if (tab == 'order' || tab == 'ready') {
         const { data } =
