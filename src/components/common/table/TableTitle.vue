@@ -4,12 +4,17 @@
       v-for="(title, i) in titles"
       :key="i"
       :class="[clickField == title.key ? 'filter-tab' : '', title.key]"
+      @click="$emit('sort-list', title.key)"
     >
       {{ title.value }}
       <BtnAngle
         v-if="title.key !== 'itemOption'"
-        :toggle="orderBy == 'desc' ? false : true"
-        @click.native="$emit('sort-list', title.key)"
+        :toggle="
+          (orderBy == 'desc' && clickField == title.key) ||
+          clickField !== title.key
+            ? false
+            : true
+        "
       />
     </th>
     <th v-if="$route.path == '/ready'">발송상태</th>
