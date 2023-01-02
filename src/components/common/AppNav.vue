@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul class="nav-list">
-      <li v-for="item in navList" :key="item.to" @click="fetch(item.to)">
+      <li v-for="item in navList" :key="item.to" @click="init(item)">
         <router-link :to="item.to">
           {{ item.text }}
           <div
@@ -37,8 +37,8 @@ export default {
     },
   },
   methods: {
-    async fetch(to) {
-      if (to == '/delivery' || to == '/sales') this.$store.commit('initDate');
+    async init() {
+      this.$store.commit('initDate');
       await this.$store.dispatch('fetchQnaList');
     },
   },
