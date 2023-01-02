@@ -12,9 +12,6 @@ const order = {
     loading: false,
   },
   getters: {
-    orderListCount(state) {
-      return state.orderList.length;
-    },
     monthlyOrderList(state) {
       return state.orderList.filter(
         item =>
@@ -22,42 +19,10 @@ const order = {
           new Date(item.orderDate).getFullYear() == state.year,
       );
     },
-    monthlySales(state) {
-      let arr = [];
-      for (let i = 5; i >= 0; i--) {
-        let orderList;
-        const today = new Date();
-        const aFewMonthAgo = new Date(today.setMonth(today.getMonth() - i));
-        orderList = state.orderList.filter(
-          item =>
-            new Date(item.orderDate).getMonth() == aFewMonthAgo.getMonth() &&
-            new Date(item.orderDate).getFullYear() ==
-              aFewMonthAgo.getFullYear(),
-        );
-        if (orderList.length > 0) {
-          let year = new Date(orderList[0].orderDate).getFullYear();
-          let month = new Date(orderList[0].orderDate).getMonth() + 1;
-          let date = `${year.toString().substring(2)}/${month}`;
-          arr.push({
-            date: date,
-            amount: orderList
-              .map(item => item.price)
-              .reduce((prev, curr) => prev + curr),
-          });
-        } else {
-          let year = aFewMonthAgo.getFullYear();
-          let month = aFewMonthAgo.getMonth() + 1;
-          let date = `${year.toString().substring(2)}/${month}`;
-          arr.push({ date: date, amount: '' });
-        }
-      }
-      return arr;
-    },
     monthText(state) {
       let month;
       const today = new Date();
       const aMonthAgo = new Date(new Date().setMonth(today.getMonth() - 1));
-
       if (
         state.month == today.getMonth() &&
         state.year == today.getFullYear()
@@ -84,28 +49,23 @@ const order = {
       state.month = new Date().getMonth();
       state.year = new Date().getFullYear();
     },
-    setYear(state, year) {
-      state.year = year;
+    setPrevMonth(state) {
+      if (state.month == 0) {
+        state.year = state.year - 1;
+        state.month = 11;
+      } else {
+        state.month -= 1;
+      }
     },
-    prevYear(state) {
-      state.year -= 1;
-    },
-    nextYear(state) {
-      state.year += 1;
-    },
-    setMonth(state, month) {
-      state.month = month;
-    },
-    prevMonth(state) {
-      state.month -= 1;
-    },
-    nextMonth(state) {
-      state.month += 1;
+    setNextMonth(state) {
+      if (state.month == 11) {
+        state.year = state.year + 1;
+        state.month = 0;
+      } else {
+        state.month += 1;
+      }
     },
     setOrderList(state, orderList) {
-      state.orderList = orderList;
-    },
-    setOrderListTest(state, orderList) {
       state.orderList = orderList;
     },
     clearOrderList(state) {

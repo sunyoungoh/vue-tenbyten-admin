@@ -127,6 +127,7 @@ export default {
   methods: {
     input(value) {
       this.inputReplyContents = value;
+      // 자동 높이 조절
       const { textarea } = this.$refs;
       textarea.style.height = '20px';
       textarea.style.height = textarea.scrollHeight - 16 + 'px';
@@ -134,13 +135,11 @@ export default {
     async anwserQna() {
       this.loading = true;
       try {
-        const { data } = await anwserQna(this.anwserData);
-        console.log(data);
+        await anwserQna(this.anwserData);
         this.anwserResult = 'success';
         this.isAnwser = true;
       } catch (error) {
         this.anwserResult = 'error';
-        console.log(error);
       }
       this.loading = false;
     },

@@ -37,11 +37,4 @@ export default {
     transform: rotate(360deg);
   }
 }
-@media screen and (max-width: 576px) {
-  .spinner {
-    position: relative;
-    width: 10px;
-    height: 10px;
-  }
-}
 </style>

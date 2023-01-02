@@ -75,7 +75,6 @@ export default {
   },
   methods: {
     clickSendAll() {
-      console.log('sendAll');
       this.sendAll = true;
     },
     sortList(title) {

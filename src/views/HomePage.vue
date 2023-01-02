@@ -31,6 +31,12 @@ export default {
       this.fetchChartData();
     }
   },
+  data() {
+    return {
+      chartData: {},
+      options: {},
+    };
+  },
   computed: {
     loading() {
       return this.$store.state.order.loading;
@@ -44,23 +50,45 @@ export default {
     salesCount() {
       return this.$store.getters.monthlyOrderList.length;
     },
-    monthlySales() {
-      return this.$store.getters.monthlySales;
-    },
     orderList() {
       return this.$store.state.order.orderList;
+    },
+    monthlySales() {
+      let arr = [];
+      for (let i = 5; i >= 0; i--) {
+        let orderList;
+        const today = new Date();
+        const aFewMonthAgo = new Date(today.setMonth(today.getMonth() - i));
+        orderList = this.orderList.filter(
+          item =>
+            new Date(item.orderDate).getMonth() == aFewMonthAgo.getMonth() &&
+            new Date(item.orderDate).getFullYear() ==
+              aFewMonthAgo.getFullYear(),
+        );
+        if (orderList.length > 0) {
+          let year = new Date(orderList[0].orderDate).getFullYear();
+          let month = new Date(orderList[0].orderDate).getMonth() + 1;
+          let date = `${year.toString().substring(2)}/${month}`;
+          arr.push({
+            date: date,
+            amount: orderList
+              .map(item => item.price)
+              .reduce((prev, curr) => prev + curr),
+          });
+        } else {
+          let year = aFewMonthAgo.getFullYear();
+          let month = aFewMonthAgo.getMonth() + 1;
+          let date = `${year.toString().substring(2)}/${month}`;
+          arr.push({ date: date, amount: '' });
+        }
+      }
+      return arr;
     },
   },
   watch: {
     orderList() {
       this.fetchChartData();
     },
-  },
-  data() {
-    return {
-      chartData: {},
-      options: {},
-    };
   },
   methods: {
     fetchChartData() {

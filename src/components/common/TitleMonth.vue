@@ -1,6 +1,6 @@
 <template>
   <h1 class="month-title">
-    <button @click="beforeMonth">
+    <button @click="prevMonth">
       <i class="uil uil-angle-left-b"></i>
     </button>
     <span>{{ nowDate }}</span>
@@ -8,7 +8,7 @@
       <button v-if="isTodayMonth">
         <i class="uil uil-angle-right-b disabled"></i>
       </button>
-      <button v-else @click="afterMonth">
+      <button v-else @click="nextMonth">
         <i class="uil uil-angle-right-b"></i>
       </button>
     </template>
@@ -35,22 +35,12 @@ export default {
     },
   },
   methods: {
-    beforeMonth() {
-      if (this.month == 0) {
-        this.$store.commit('prevYear');
-        this.$store.commit('setMonth', 11);
-      } else {
-        this.$store.commit('prevMonth');
-      }
+    prevMonth() {
+      this.$store.commit('setPrevMonth');
       this.$emit('fetch-data');
     },
-    afterMonth() {
-      if (this.month == 11) {
-        this.$store.commit('nextYear');
-        this.$store.commit('setMonth', 0);
-      } else {
-        this.$store.commit('nextMonth');
-      }
+    nextMonth() {
+      this.$store.commit('setNextMonth');
       this.$emit('fetch-data');
     },
   },
