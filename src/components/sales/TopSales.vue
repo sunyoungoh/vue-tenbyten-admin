@@ -36,7 +36,6 @@ export default {
         countById[itemId] = (countById[itemId] || 0) + 1;
       });
       let sortedArr = Object.entries(countById).sort((a, b) => b[1] - a[1]);
-      console.log(sortedArr);
       let countArr = [...new Set(sortedArr.map(item => item[1]))]; // 판매개수 Set 생성
       let topThree = [...new Array(3)].map(() => []);
       topThree = topThree.map((item, i) => {

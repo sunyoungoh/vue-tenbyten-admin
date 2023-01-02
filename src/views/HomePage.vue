@@ -124,8 +124,7 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              console.log(data);
+            label: function (tooltipItem) {
               //그래프 콤마
               return (
                 tooltipItem.yLabel
