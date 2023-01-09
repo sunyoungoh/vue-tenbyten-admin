@@ -83,31 +83,7 @@ const order = {
       if (tab == 'order' || tab == 'ready') {
         const { data } =
           tab == 'order' ? await getNewOrders() : await getReadyOrders();
-        data.outPutValue.map(item => {
-          item.details.map(detail => {
-            let itemOption = detail.itemOptionName;
-            // 이메일 기재옵션 삭제
-            if (itemOption !== '') {
-              let endIndex = itemOption.indexOf('꼭');
-              if (endIndex !== -1) {
-                itemOption = itemOption.substring(0, endIndex - 1);
-              }
-            }
-            orderList.push({
-              orderSerial: item.OrderSerial,
-              detailIdx: detail.DetailIdx,
-              orderDate: new Date(item.orderDate),
-              ordererId: item.UserId,
-              ordererName: item.ordererName,
-              ordererCellPhone: item.ordererCellPhone,
-              ordererEmail: item.ordererEmail,
-              itemId: detail.itemId,
-              itemOption: itemOption,
-              itemRequireMemo: detail.RequireMemo.trim(),
-              price: detail.NotCouponPrice,
-            });
-          });
-        });
+        orderList = data;
       }
       if (tab == 'home' || tab == 'delivery' || tab == 'sales') {
         const { data } = await getDispatchOrderHistory();

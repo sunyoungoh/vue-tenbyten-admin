@@ -28,4 +28,5 @@ const getSixdaysAgo = () => {
 
   return year + '-' + month + '-' + day;
 };
+
 export { getToday, getThreedaysAgo, getSixdaysAgo };
