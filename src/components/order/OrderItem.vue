@@ -121,7 +121,7 @@ export default {
           requireMemo: this.item.itemRequireMemo,
           ordererPhone: this.item.ordererCellPhone,
           ordererEmail: this.item.ordererEmail,
-          orderDate: this.item.orderDate,
+          orderDate: new Date(this.item.orderDate),
           price: this.item.price,
         },
       };
