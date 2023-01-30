@@ -12,7 +12,9 @@ export const getItemName = itemId => {
     case 5033566:
       return '2023 먼슬리&데일리 플래너';
     case 5033565:
-      return '31DAYS 플래너';
+      return '세로형 31DAYS 플래너';
+    case 5183538:
+      return '가로형 31DAYS 플래너';
     case 5033562:
       return '3년 5년 다이어리';
     case 5033564:
