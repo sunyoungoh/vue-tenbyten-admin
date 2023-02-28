@@ -24,7 +24,9 @@ export const getItemName = itemId => {
     case 5033560:
       return '독서노트';
     case 5033558:
-      return '드라마노트';
+      return '영화(드라마)노트';
+    case 5261964:
+      return '강의노트';
     case 5033557:
       return '먼슬리 트래커북';
     case 5033561:
