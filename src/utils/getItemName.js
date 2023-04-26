@@ -41,6 +41,8 @@ export const getItemName = itemId => {
       return '네컷 프레임 스티커';
     case 5234189:
       return '디데이,타임스탬프 스티커';
+    case 5413246:
+      return '5분 저널';
     default:
       return '';
   }
