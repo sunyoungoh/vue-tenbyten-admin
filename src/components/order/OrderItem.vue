@@ -20,6 +20,12 @@
       <span v-else-if="title.key == 'itemId'">
         {{ item[title.key] | itemName }}
       </span>
+      <a
+        v-else-if="title.key == 'ordererPhone'"
+        :href="`sms:${item[title.key]}`"
+      >
+        {{ item[title.key] | emptyValue }}
+      </a>
       <span v-else>
         {{ item[title.key] | emptyValue }}
       </span>
@@ -151,3 +157,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+a {
+  color: #000;
+}
+</style>

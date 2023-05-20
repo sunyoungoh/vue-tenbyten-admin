@@ -47,6 +47,7 @@ export default {
         { key: 'createdAt', value: '발송일' },
         { key: 'ordererId', value: '아이디' },
         { key: 'ordererName', value: '이름' },
+        { key: 'ordererPhone', value: '휴대폰' },
         { key: 'toEmail', value: ' 수신 이메일' },
         { key: 'itemId', value: '상품명' },
         { key: 'itemOption', value: '옵션' },
