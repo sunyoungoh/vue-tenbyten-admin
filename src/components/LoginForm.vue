@@ -45,8 +45,8 @@ import CryptoJS from 'crypto-js';
 export default {
   data() {
     return {
-      brandId: this.$store.state.user.brandId,
-      apiKey: this.$store.state.user.apiKey,
+      brandId: '',
+      apiKey: '',
       apiKeyError: '',
       brandIdError: '',
       loginError: '',
