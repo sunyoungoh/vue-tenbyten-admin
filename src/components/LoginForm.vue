@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js';
+
 export default {
   data() {
     return {
@@ -79,10 +81,24 @@ export default {
       this.inputEmptyCheck();
       if (this.apiKey !== '' && this.brandId !== '') {
         this.loading = true;
+
+        // apiKey 암호화
+        const encodeKey = CryptoJS.AES.encrypt(
+          this.apiKey,
+          CryptoJS.enc.Utf8.parse(process.env.VUE_APP_AES_SECRETKEY),
+          {
+            iv: CryptoJS.enc.Utf8.parse(process.env.VUE_APP_AES_IV),
+            padding: CryptoJS.pad.Pkcs7, // default setting(없어도 됨)
+            mode: CryptoJS.mode.CBC,
+          },
+        );
+
+        // 로그인 요청
         const result = await this.$store.dispatch('login', {
           brandId: this.brandId,
-          apiKey: this.apiKey,
+          apiKey: encodeKey.toString(),
         });
+
         if (result == 'success') {
           await this.$store.dispatch('fetchOrderList', 'home');
           this.$router.push('/');

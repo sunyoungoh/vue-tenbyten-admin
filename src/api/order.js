@@ -4,7 +4,7 @@ import { getToday, getThreedaysAgo, getSixdaysAgo } from '@/utils/getDays';
 
 const getBrandInfo = apiKey => {
   return instance.get('/tenbyten/brandinfo', {
-    headers: { Authorization: `bearer ${apiKey}` },
+    headers: { Authorization: apiKey },
   });
 };
 

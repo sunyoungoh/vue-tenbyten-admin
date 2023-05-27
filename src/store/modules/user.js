@@ -26,6 +26,7 @@ const user = {
     async login({ commit }, loginData) {
       commit('clearUserData');
       commit('clearOrderList', null, { root: true });
+
       try {
         let { data } = await getBrandInfo(loginData.apiKey);
         if (loginData.brandId == data.brandid) {
