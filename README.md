@@ -1,5 +1,5 @@
-#tenbyten admin
-> 텐바이텐 파트너 어드민 페이지 사용이 번거로워 오픈 API를 활용하여 개발한 어드민 사이트입니다.
+# tenbyten admin
+텐바이텐 파트너 어드민 페이지 사용이 번거로워 오픈 API를 활용하여 개발한 어드민 사이트입니다.
 
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/51437B3A-F0B5-44FC-8A07-4CEEA5925A6D_2/RBs2MWFA3vo4LpWznbTdMgM2EgGPWUzFCtHeha6gtiYz/00_.png)
@@ -22,13 +22,12 @@
 - MogoDB atlas
 - nodemailer
 - CryptoJS
+
 <br>
 
 ---
 
-## 기능 설명
-
-### 로그인 화면 🔐
+## 로그인 화면 🔐
 
 > 텐바이텐 업체 아이디와 API키값으로 로그인 할 수 있는 로그인 페이지입니다.
 
@@ -40,7 +39,7 @@
 
 <br>
 
-### 홈 화면 🏠
+## 홈 화면 🏠
 
 > 당월 판매 개수와 6개월치 판매 그래프를 보여주는 화면입니다.
 
@@ -48,7 +47,7 @@
 
 <br>
 
-### 신규 주문 🔖
+## 신규 주문 🔖
 > 신규 주문 정보를 확인하는 페이지입니다.
 
 - 신규 주문 필드별 오름차순, 내림차순 정렬
@@ -61,7 +60,7 @@
 
 <br>
 
-### 배송 준비 📦
+## 배송 준비 📦
 
 > 배송 준비 중인 주문 내역을 확인하고 메일 발송 및 운송장 등록을 할 수 있는 페이지입니다.
 
@@ -80,7 +79,7 @@
 
 <br>
 
-### 발송 내역 💌
+## 발송 내역 💌
 
 > 메일 발송을 성공한 내역을 월별로 보여주는 페이지입니다.
 
@@ -103,6 +102,7 @@
 - < >  버튼을 통한 월별 판매 내역 조회
 - 필드별 오름차순, 내림차순 정렬
 - 아이템 고유 `itemId` 기준으로 취합하여 탑3 통계
+
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/D6223A4C-9FB9-4C7C-9596-29137245CD92_2/6N6PZj4iD0U1vi5sH9ikbn8xPPpT8ZWpOTo3qn34C1gz/AnimatedImage.gif)
 
 <br>
