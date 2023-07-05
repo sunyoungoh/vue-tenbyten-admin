@@ -305,7 +305,7 @@ button:disabled {
   text-align: center;
 }
 .login-container .logo {
-  width: 300px;
+  width: 250px;
   margin: 0 auto 2rem;
 }
 .login-container input {
@@ -737,7 +737,7 @@ textarea.reply-contents:disabled {
     margin-top: 5rem;
   }
   .login-container .logo {
-    width: 250px;
+    width: 220px;
     margin-bottom: 1.5rem;
   }
   .order-list-container {
