@@ -25,9 +25,17 @@
 
 <br>
 
----
+## 📚 API
+[텐바이텐 API](https://api.10x10.co.kr/document/docs.html)
 
-## 로그인 화면 🔐
+<br>
+
+
+<br>
+
+## 기능 소개
+
+### 로그인 화면 🔐
 
 > 텐바이텐 업체 아이디와 API키값으로 로그인 할 수 있는 로그인 페이지입니다.
 
@@ -39,7 +47,7 @@
 
 <br>
 
-## 홈 화면 🏠
+### 홈 화면 🏠
 
 > 당월 판매 개수와 6개월치 판매 그래프를 보여주는 화면입니다.
  
@@ -48,7 +56,7 @@
 
 <br>
 
-## 신규 주문 🔖
+### 신규 주문 🔖
 > 신규 주문 정보를 확인하는 페이지입니다.
 
 - 신규 주문 필드별 오름차순, 내림차순 정렬
@@ -61,7 +69,7 @@
 
 <br>
 
-## 배송 준비 📦
+### 배송 준비 📦
 
 > 배송 준비 중인 주문 내역을 확인하고 메일 발송 및 운송장 등록을 할 수 있는 페이지입니다.
 
@@ -69,18 +77,19 @@
 
 - 메일 발송 (디지털 상품 발송)
   - 수신 이메일 기준 : 1. 주문메모에 이메일  2. 사용자 이메일
-    - 정규식을 활용하여 test() 이메일 여부를 검증하고 match()로 이메일만 추출하여 메일을 발송합니다. (백엔드에서 Nodemailer 모듈을 사용하여 발송)
-- 운송장 등록
+    - 정규식을 활용하여 test() 이메일 여부를 검증하고 match()로 이메일만 추출하여 메일을 발송합니다.
+    - 메일 발송은 백엔드에서 Nodemailer 모듈을 사용
+- 운송장 등록 (상품 발송처리)
 - 모든 주문 메일 발송 및 송장 한번에 등록하기
 - 발송 성공한 주문내역 정보 mongoDB에 데이터 저장 (발송내역 , 판매내역 페이지에서 활용)
 
 | 발송 성공 | 발송 실패 |
 | --- | --- |
-| ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/19D19FB2-2796-4995-88B0-B4973C08EB69_2/zqEmQfD15h9ag30jfEvaVaE8h9K7lB1UiyeQLSdZB7gz/AnimatedImage.gif) | ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/BF028274-1214-464B-9EC0-30F775CE031F_2/lmbQqflmTTnLzw1eIROgOn3IwFLVhAgyht0p8MUHYBgz/AnimatedImage.gif) |
+| <img src="https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/19D19FB2-2796-4995-88B0-B4973C08EB69_2/zqEmQfD15h9ag30jfEvaVaE8h9K7lB1UiyeQLSdZB7gz/AnimatedImage.gif" width="300px"/> |  <img src="https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/BF028274-1214-464B-9EC0-30F775CE031F_2/lmbQqflmTTnLzw1eIROgOn3IwFLVhAgyht0p8MUHYBgz/AnimatedImage.gif" width="300px"/> |
 
 <br>
 
-## 발송 내역 💌
+### 발송 내역 💌
 
 > 메일 발송을 성공한 내역을 월별로 보여주는 페이지입니다.
 
@@ -94,7 +103,7 @@
 
 <br>
 
-## 판매 내역 💰
+### 판매 내역 💰
 
 > 월별 판매내역과 매출, 판매 순위, 탑3를 보여주는 페이지입니다.
 
@@ -108,7 +117,7 @@
 
 <br>
 
-## 고객 문의 🤔
+### 고객 문의 🤔
 > 일주일간 등록된 고객 문의를 확인하고 답변을 달 수 있는 페이지입니다.
 
 **기능**
