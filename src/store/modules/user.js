@@ -29,8 +29,7 @@ const user = {
 
       try {
         let { data } = await getBrandInfo(loginData.apiKey);
-        console.log(loginData.brandId);
-        console.log(data.brandid);
+
         if (loginData.brandId == data.brandid) {
           commit('setUserData', {
             apiKey: loginData.apiKey,
