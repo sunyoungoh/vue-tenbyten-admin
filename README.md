@@ -42,8 +42,9 @@
 ## 홈 화면 🏠
 
 > 당월 판매 개수와 6개월치 판매 그래프를 보여주는 화면입니다.
+ 
+![IMB_hN4NJv](https://github.com/sunyoungoh/vue-tenbyten-admin/assets/52486921/5c58a4c1-737e-45c5-8506-697a4b393533)
 
-![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/2F50675F-8DB4-4BDC-BCC3-C54D5A9E3B99_2/4OeDEAxijcWqXu8lMPLJ5yrRJbM3d1oIjpn1UFoZneAz/Image.png)
 
 <br>
 
