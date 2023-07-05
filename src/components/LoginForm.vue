@@ -24,7 +24,7 @@
           v-model="apiKey"
           type="password"
           clearable
-          @click="resetError($event)"
+          @focus="resetError($event)"
         />
       </div>
       <div>

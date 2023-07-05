@@ -29,15 +29,17 @@ const user = {
 
       try {
         let { data } = await getBrandInfo(loginData.apiKey);
+        console.log(loginData.brandId);
+        console.log(data.brandid);
         if (loginData.brandId == data.brandid) {
           commit('setUserData', {
             apiKey: loginData.apiKey,
             brandId: loginData.brandId,
             brandNameKor: data.BrandNameKor,
           });
+          commit('setIsLogin', true);
+          return 'success';
         }
-        commit('setIsLogin', true);
-        return 'success';
       } catch (error) {
         return 'fail';
       }
