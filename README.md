@@ -4,9 +4,13 @@
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/51437B3A-F0B5-44FC-8A07-4CEEA5925A6D_2/RBs2MWFA3vo4LpWznbTdMgM2EgGPWUzFCtHeha6gtiYz/00_.png)
 
+## 배포 사이트
+
+https://sunyoungoh.github.io/vue-tenbyten-admin/
+
+<br>
 
 ## 주요 기술
-
 
 ####  Front End
 
