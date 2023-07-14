@@ -28,13 +28,15 @@ const user = {
       commit('clearOrderList', null, { root: true });
 
       try {
-        let { data } = await getBrandInfo(loginData.apiKey);
+        const {
+          data: { brandid, BrandNameKor },
+        } = await getBrandInfo(loginData.apiKey);
 
-        if (loginData.brandId == data.brandid) {
+        if (loginData.brandId == brandid) {
           commit('setUserData', {
             apiKey: loginData.apiKey,
             brandId: loginData.brandId,
-            brandNameKor: data.BrandNameKor,
+            brandNameKor: BrandNameKor,
           });
           commit('setIsLogin', true);
           return 'success';

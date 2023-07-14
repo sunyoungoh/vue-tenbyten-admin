@@ -34,7 +34,7 @@ const order = {
       ) {
         month = '지난달';
       } else {
-        let year = state.year.toString().slice(2, 4);
+        const year = state.year.toString().slice(2, 4);
         month = `${year}년 ${state.month + 1}월`;
       }
       return month;

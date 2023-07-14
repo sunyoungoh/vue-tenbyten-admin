@@ -26,7 +26,7 @@ const qna = {
       commit('clearOrderList');
       const { data } = await getQna();
       let qnaList = data.outPutValue.map(item => {
-        let isAnwser = item.replycontents ? true : false;
+        const isAnwser = item.replycontents ? true : false;
         return {
           qnaId: item.qnaid,
           qnaDate: item.regdate,

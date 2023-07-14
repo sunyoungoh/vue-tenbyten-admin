@@ -35,11 +35,9 @@ export const sortItemId = (arr, title, orderby) => {
 };
 
 export const sortOrderList = (arr, title, orderby) => {
-  let list;
-  title == 'orderDate' || title == 'createdAt'
+  return title == 'orderDate' || title == 'createdAt'
     ? sortDate(arr, title, orderby)
     : title == 'itemId'
     ? sortItemId(arr, title, orderby)
     : sortStr(arr, title, orderby);
-  return list;
 };

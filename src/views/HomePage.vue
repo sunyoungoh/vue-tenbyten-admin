@@ -64,9 +64,9 @@ export default {
               aFewMonthAgo.getFullYear(),
         );
         if (orderList.length > 0) {
-          let year = new Date(orderList[0].orderDate).getFullYear();
-          let month = new Date(orderList[0].orderDate).getMonth() + 1;
-          let date = `${year.toString().substring(2)}/${month}`;
+          const year = new Date(orderList[0].orderDate).getFullYear();
+          const month = new Date(orderList[0].orderDate).getMonth() + 1;
+          const date = `${year.toString().substring(2)}/${month}`;
           arr.push({
             date: date,
             amount: orderList
@@ -74,9 +74,9 @@ export default {
               .reduce((prev, curr) => prev + curr),
           });
         } else {
-          let year = aFewMonthAgo.getFullYear();
-          let month = aFewMonthAgo.getMonth() + 1;
-          let date = `${year.toString().substring(2)}/${month}`;
+          const year = aFewMonthAgo.getFullYear();
+          const month = aFewMonthAgo.getMonth() + 1;
+          const date = `${year.toString().substring(2)}/${month}`;
           arr.push({ date: date, amount: '' });
         }
       }
