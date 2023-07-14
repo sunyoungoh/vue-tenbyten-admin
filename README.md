@@ -4,9 +4,13 @@
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/51437B3A-F0B5-44FC-8A07-4CEEA5925A6D_2/RBs2MWFA3vo4LpWznbTdMgM2EgGPWUzFCtHeha6gtiYz/00_.png)
 
+## 배포 사이트
+
+https://sunyoungoh.github.io/vue-tenbyten-admin/
+
+<br>
 
 ## 주요 기술
-
 
 ####  Front End
 
@@ -98,9 +102,14 @@
 **기능**
 
 - < >  버튼을 통한 월별 메일 발송 내역 조회
+<<<<<<< HEAD
 - 지난달, 이번달은 한글로 표시
-- 필드별 오름차순, 내림차순 정렬
+- 필드별 오름차순, 내림차순 정렬 (선택된 필드 강조)
 - 주문자 이름으로 내역 검색 기능
+=======
+- 필드별 오름차순, 내림차순 정렬 (선택된 필드 강조)
+- 이름 검색 기능
+>>>>>>> 8f49c7ed20db3d2ec4522a35ae4184782357ab4e
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/51599BBD-2348-45D6-87A5-D9E04E592433_2/TxgBqLc0Vd8x58755FPi4uSLblQCi43JgLIBRIoRZVgz/AnimatedImage.gif)
 
@@ -113,8 +122,12 @@
 **기능**
 
 - < >  버튼을 통한 월별 판매 내역 조회
+<<<<<<< HEAD
 - 지난달, 이번달은 한글로 표시
-- 필드별 오름차순, 내림차순 정렬
+- 필드별 오름차순, 내림차순 정렬 (선택된 필드 강조)
+=======
+- 필드별 오름차순, 내림차순 정렬 (선택된 필드 강조)
+>>>>>>> 8f49c7ed20db3d2ec4522a35ae4184782357ab4e
 - 아이템 고유 `itemId` 기준으로 취합하여 탑3 통계
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/D6223A4C-9FB9-4C7C-9596-29137245CD92_2/6N6PZj4iD0U1vi5sH9ikbn8xPPpT8ZWpOTo3qn34C1gz/AnimatedImage.gif)
@@ -132,4 +145,4 @@
 
 | 시연 영상 | 답변 여러 개일 때 캡쳐 |
 | --- | --- |
-| ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/8942EB20-7621-4509-BD25-35B937DB2768_2/FLEPs7B5Z67pYExtvLjm5ZGwQsPkaU1NwEdSm6k0DS8z/AnimatedImage.gif) | ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/A5A63E6F-CBD7-4182-BCF6-28612FAA056A_2/NQDjHd5hsvIsQRkIOGCFxCmluoKdUT4vKzjxCuFBZS8z/06_.jpeg) | 
+| ![image](https://github.com/sunyoungoh/vue-tenbyten-admin/assets/52486921/c216a791-6594-47c6-98b7-f1101caf1241) | ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/A5A63E6F-CBD7-4182-BCF6-28612FAA056A_2/NQDjHd5hsvIsQRkIOGCFxCmluoKdUT4vKzjxCuFBZS8z/06_.jpeg) | 
