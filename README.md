@@ -105,6 +105,7 @@ https://sunyoungoh.github.io/vue-tenbyten-admin/
 - 지난달, 이번달은 한글로 표시
 - 필드별 오름차순, 내림차순 정렬 (선택된 필드 강조)
 - 주문자 이름으로 내역 검색 기능
+- 휴대폰 번호 클릭 시 문자앱으로 이동하여 문자 발송
 
 ![image](https://res.craft.do/user/full/d4e66ef7-7b8e-371b-14c6-b9740c2eb54b/doc/EA4011A5-F502-4A8D-9CFA-DDA56B675C3D/51599BBD-2348-45D6-87A5-D9E04E592433_2/TxgBqLc0Vd8x58755FPi4uSLblQCi43JgLIBRIoRZVgz/AnimatedImage.gif)
 
