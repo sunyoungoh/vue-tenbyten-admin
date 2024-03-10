@@ -43,6 +43,12 @@ export const getItemName = itemId => {
       return '디데이,타임스탬프 스티커';
     case 5413246:
       return '5분 저널';
+    case 5568716:
+      return 'TIL 노트';
+    case 5600165:
+      return '한 줄 일기';
+    case 6093224:
+      return '프로젝트 플래너';
     default:
       return '';
   }
